@@ -1,3 +1,4 @@
+import { cn } from '@/utils/cn';
 import { LabelHTMLAttributes } from 'react';
 
 export default function InputLabel({
@@ -9,10 +10,10 @@ export default function InputLabel({
     return (
         <label
             {...props}
-            className={
-                `block text-sm font-medium text-gray-700 ` +
-                className
-            }
+            className={cn(
+                'block text-xs leading-none font-bold text-gray-500',
+                className,
+            )}
         >
             {value ? value : children}
         </label>

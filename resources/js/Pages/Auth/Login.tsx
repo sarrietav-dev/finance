@@ -39,6 +39,9 @@ export default function Login({
             )}
 
             <form onSubmit={submit}>
+                <h1 className="mb-8 text-3xl leading-10 font-bold text-gray-900">
+                    Login
+                </h1>
                 <div>
                     <InputLabel htmlFor="email" value="Email" />
 
@@ -90,19 +93,39 @@ export default function Login({
                     </label>
                 </div>
 
-                <div className="mt-4 flex items-center justify-end">
+                <div className="mt-8 flex">
+                    <PrimaryButton
+                        className="w-full text-center"
+                        disabled={processing}
+                    >
+                        <span className="mx-auto">Log in</span>
+                    </PrimaryButton>
+                </div>
+
+                <div className="mt-8 flex justify-center">
                     {canResetPassword && (
                         <Link
                             href={route('password.request')}
-                            className="rounded-md text-sm text-gray-600 underline hover:text-gray-900 focus:outline-hidden focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                            className="rounded-md text-sm text-gray-600 underline hover:text-gray-900 focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:outline-hidden"
                         >
                             Forgot your password?
                         </Link>
                     )}
+                </div>
 
-                    <PrimaryButton className="ms-4" disabled={processing}>
-                        Log in
-                    </PrimaryButton>
+                <div className="mt-8 flex items-baseline justify-center gap-2">
+                    <span className="text-sm leading-tight font-normal text-gray-500">
+                        Need to create an account?
+                    </span>
+
+                    {canResetPassword && (
+                        <Link
+                            href={route('password.request')}
+                            className="text-sm leading-tight font-bold text-gray-900 underline"
+                        >
+                            Sign up
+                        </Link>
+                    )}
                 </div>
             </form>
         </GuestLayout>
