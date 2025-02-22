@@ -4,8 +4,23 @@
 
 @source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
 
+@font-face {
+    font-family: 'PublicSans';
+    font-style: normal;
+    font-display: swap;
+    src: url('/fonts/PublicSans-VariableFont_wght.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'PublicSans';
+    font-style: italic;
+    font-display: swap;
+    src: url('/fonts/PublicSans-Italic-VariableFont_wght.ttf')
+        format('truetype');
+}
+
 @theme {
-    --font-sans: Figtree, ui-sans-serif, system-ui, sans-serif,
+    --font-sans: 'PublicSans', ui-sans-serif, system-ui, sans-serif,
         'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol',
         'Noto Color Emoji';
 
