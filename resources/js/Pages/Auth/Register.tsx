@@ -118,14 +118,14 @@ export default function Register() {
 
                 <div className="mt-8 flex items-baseline justify-center gap-2">
                     <span className="text-sm leading-tight font-normal text-gray-500">
-                        Need to create an account?
+                        Already have an account?
                     </span>
 
                     <Link
-                        href={route('register')}
+                        href={route('login')}
                         className="text-sm leading-tight font-bold text-gray-900 underline"
                     >
-                        Sign up
+                        Login
                     </Link>
                 </div>
             </form>
