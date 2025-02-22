@@ -27,6 +27,10 @@ export default function Register() {
             <Head title="Register" />
 
             <form onSubmit={submit}>
+                <h1 className="mb-8 text-3xl leading-10 font-bold text-gray-900">
+                    Sign Up
+                </h1>
+
                 <div>
                     <InputLabel htmlFor="name" value="Name" />
 
@@ -103,17 +107,26 @@ export default function Register() {
                     />
                 </div>
 
-                <div className="mt-4 flex items-center justify-end">
-                    <Link
-                        href={route('login')}
-                        className="rounded-md text-sm text-gray-600 underline hover:text-gray-900 focus:outline-hidden focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                <div className="mt-8 flex">
+                    <PrimaryButton
+                        className="w-full text-center"
+                        disabled={processing}
                     >
-                        Already registered?
-                    </Link>
-
-                    <PrimaryButton className="ms-4" disabled={processing}>
-                        Register
+                        <span className="mx-auto">Create an account</span>
                     </PrimaryButton>
+                </div>
+
+                <div className="mt-8 flex items-baseline justify-center gap-2">
+                    <span className="text-sm leading-tight font-normal text-gray-500">
+                        Need to create an account?
+                    </span>
+
+                    <Link
+                        href={route('register')}
+                        className="text-sm leading-tight font-bold text-gray-900 underline"
+                    >
+                        Sign up
+                    </Link>
                 </div>
             </form>
         </GuestLayout>

@@ -118,14 +118,12 @@ export default function Login({
                         Need to create an account?
                     </span>
 
-                    {canResetPassword && (
-                        <Link
-                            href={route('password.request')}
-                            className="text-sm leading-tight font-bold text-gray-900 underline"
-                        >
-                            Sign up
-                        </Link>
-                    )}
+                    <Link
+                        href={route('register')}
+                        className="text-sm leading-tight font-bold text-gray-900 underline"
+                    >
+                        Sign up
+                    </Link>
                 </div>
             </form>
         </GuestLayout>
