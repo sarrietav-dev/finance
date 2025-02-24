@@ -1,10 +1,11 @@
+import useMenuCollapse from '@/hooks/useMenuCollapse';
 import { cn } from '@/utils/cn';
-import { PropsWithChildren, ReactNode, useState } from 'react';
+import { PropsWithChildren, ReactNode } from 'react';
 
 export default function Authenticated({
     children,
 }: PropsWithChildren<{ header?: ReactNode }>) {
-    const [collapsed, setCollapsed] = useState(true);
+    const { collapsed, toggleMenu } = useMenuCollapse();
 
     return (
         <div className="min-h-screen bg-gray-100 lg:flex lg:items-stretch">
@@ -43,7 +44,7 @@ export default function Authenticated({
                         label="Recurring Bills"
                     />
                     <li
-                        onClick={() => setCollapsed(!collapsed)}
+                        onClick={() => toggleMenu()}
                         className="mt-auto hidden cursor-pointer flex-row items-center justify-start gap-2 border-l-4 border-l-transparent px-8 py-4 lg:flex"
                     >
                         <img
