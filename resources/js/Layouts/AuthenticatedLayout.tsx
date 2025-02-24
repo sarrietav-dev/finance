@@ -48,7 +48,7 @@ export default function Authenticated({
                             className="size-6 transition group-[.collapsed]:rotate-180"
                             src="/images/icon-minimize-menu.svg"
                         />
-                        <span className="hidden text-right leading-none font-bold group-[.collapsed]:hidden md:block lg:text-left">
+                        <span className="hidden truncate text-right leading-none font-bold group-[.collapsed]:hidden md:block lg:text-left">
                             Minimize Menu
                         </span>
                     </li>
@@ -82,7 +82,7 @@ function NavItem({
             <img className="size-6" src={`/images/${icon}`} alt="" />
             <span
                 className={cn(
-                    'hidden text-right leading-none font-bold group-[.collapsed]:hidden md:block lg:text-left',
+                    'hidden truncate text-right leading-none font-bold group-[.collapsed]:hidden md:block lg:text-left',
                     active && 'text-gray-900',
                 )}
             >
