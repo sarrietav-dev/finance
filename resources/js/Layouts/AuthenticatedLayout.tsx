@@ -8,7 +8,7 @@ export default function Authenticated({
     const { collapsed, toggleMenu } = useMenuCollapse();
 
     return (
-        <div className="min-h-screen bg-gray-100 lg:flex lg:items-stretch">
+        <div className="min-h-screen lg:flex lg:items-stretch">
             <nav
                 className={cn(
                     'fixed bottom-0 left-0 w-full rounded-t-lg bg-gray-900 px-10 pt-2 transition-all duration-300 lg:relative lg:top-0 lg:bottom-auto lg:w-75 lg:rounded-t-none lg:rounded-r-lg lg:px-6 lg:py-10 lg:pl-0',
