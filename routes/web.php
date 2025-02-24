@@ -5,7 +5,7 @@ use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
-Route::get('/overview', function () {
+Route::get('/', function () {
     return Inertia::render('Overview');
 })->middleware(['auth', 'verified'])->name('overview');
 
