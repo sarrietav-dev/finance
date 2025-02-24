@@ -85,7 +85,7 @@ function NavItem({
             <img className="size-6" src={`/images/${icon}`} alt="" />
             <span
                 className={cn(
-                    'hidden truncate text-right leading-none font-bold group-[.collapsed]:hidden md:block lg:text-left',
+                    'hidden truncate text-right leading-none font-bold group-[.collapsed]:hidden md:!block lg:text-left',
                     active && 'text-gray-900',
                 )}
             >
