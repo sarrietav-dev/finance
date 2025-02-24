@@ -15,6 +15,16 @@ export default function Authenticated({
                 )}
             >
                 <ul className="flex justify-between text-gray-300 lg:h-full lg:flex-col">
+                    <div className="mb-16 hidden cursor-pointer flex-row items-center justify-start gap-2 border-l-4 border-l-transparent px-8 py-4 lg:flex">
+                        <img
+                            src={
+                                collapsed
+                                    ? '/images/logo-small.svg'
+                                    : '/images/logo-large.svg'
+                            }
+                            alt=""
+                        />
+                    </div>
                     <NavItem
                         icon="icon-nav-overview.svg"
                         label="Overview"
