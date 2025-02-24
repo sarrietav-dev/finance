@@ -10,9 +10,8 @@ export default function Authenticated({
         <div className="min-h-screen bg-gray-100 lg:flex lg:items-stretch">
             <nav
                 className={cn(
-                    'fixed bottom-0 left-0 w-full rounded-t-lg bg-gray-900 px-10 pt-2 transition lg:relative lg:top-0 lg:bottom-auto lg:w-75 lg:rounded-t-none lg:rounded-r-lg lg:px-6 lg:py-4 lg:pl-0',
-                    collapsed &&
-                        'collapsed group transition lg:w-auto lg:px-4 lg:pl-0',
+                    'fixed bottom-0 left-0 w-full rounded-t-lg bg-gray-900 px-10 pt-2 transition-all duration-300 lg:relative lg:top-0 lg:bottom-auto lg:w-75 lg:rounded-t-none lg:rounded-r-lg lg:px-6 lg:py-4 lg:pl-0',
+                    collapsed && 'collapsed group lg:w-27 lg:px-4 lg:pl-0',
                 )}
             >
                 <ul className="flex justify-between text-gray-300 lg:h-full lg:flex-col">
