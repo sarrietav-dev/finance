@@ -16,6 +16,10 @@ return new class extends Migration
             $table->id();
             $table->foreignIdFor(User::class);
             $table->timestamps();
+            $table->string('name');
+            $table->decimal('target', 10, 2);
+            $table->decimal('total', 10, 2);
+            $table->string('theme');
         });
     }
 
