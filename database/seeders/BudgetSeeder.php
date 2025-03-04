@@ -42,5 +42,6 @@ class BudgetSeeder extends Seeder
         ];
 
         DB::table('budgets')->insert($budgets);
+        DB::table('transactions')->update(['created_at' => now(), 'updated_at' => now()]);
     }
 }

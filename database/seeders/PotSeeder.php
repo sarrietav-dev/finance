@@ -51,5 +51,6 @@ class PotSeeder extends Seeder
         ];
 
         DB::table('pots')->insert($pots);
+        DB::table('transactions')->update(['created_at' => now(), 'updated_at' => now()]);
     }
 }

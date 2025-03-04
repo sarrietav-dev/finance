@@ -21,7 +21,8 @@ class TransactionSeeder extends Seeder
                 "category" => "General",
                 "date" => "2024-08-19T14:23:11Z",
                 "amount" => 75.5,
-                "recurring" => false
+                "recurring" => false,
+                "user_id" => 1
             ],
             [
                 "avatar" => "./assets/images/avatars/savory-bites-bistro.jpg",
@@ -29,7 +30,8 @@ class TransactionSeeder extends Seeder
                 "category" => "Dining Out",
                 "date" => "2024-08-19T20:23:11Z",
                 "amount" => -55.5,
-                "recurring" => false
+                "recurring" => false,
+                "user_id" => 1
             ],
             [
                 "avatar" => "./assets/images/avatars/daniel-carter.jpg",
@@ -37,7 +39,8 @@ class TransactionSeeder extends Seeder
                 "category" => "General",
                 "date" => "2024-08-18T09:45:32Z",
                 "amount" => -42.3,
-                "recurring" => false
+                "recurring" => false,
+                "user_id" => 1
             ],
             [
                 "avatar" => "./assets/images/avatars/sun-park.jpg",
@@ -45,7 +48,8 @@ class TransactionSeeder extends Seeder
                 "category" => "General",
                 "date" => "2024-08-17T16:12:05Z",
                 "amount" => 120,
-                "recurring" => false
+                "recurring" => false,
+                "user_id" => 1
             ],
             [
                 "avatar" => "./assets/images/avatars/urban-services-hub.jpg",
@@ -53,7 +57,8 @@ class TransactionSeeder extends Seeder
                 "category" => "General",
                 "date" => "2024-08-17T21:08:09Z",
                 "amount" => -65,
-                "recurring" => false
+                "recurring" => false,
+                "user_id" => 1
             ],
             [
                 "avatar" => "./assets/images/avatars/liam-hughes.jpg",
@@ -61,7 +66,8 @@ class TransactionSeeder extends Seeder
                 "category" => "Groceries",
                 "date" => "2024-08-15T18:20:33Z",
                 "amount" => 65.75,
-                "recurring" => false
+                "recurring" => false,
+                "user_id" => 1
             ],
             [
                 "avatar" => "./assets/images/avatars/lily-ramirez.jpg",
@@ -69,7 +75,8 @@ class TransactionSeeder extends Seeder
                 "category" => "General",
                 "date" => "2024-08-14T13:05:27Z",
                 "amount" => 50,
-                "recurring" => false
+                "recurring" => false,
+                "user_id" => 1
             ],
             [
                 "avatar" => "./assets/images/avatars/ethan-clark.jpg",
@@ -77,7 +84,8 @@ class TransactionSeeder extends Seeder
                 "category" => "Dining Out",
                 "date" => "2024-08-13T20:15:59Z",
                 "amount" => -32.5,
-                "recurring" => false
+                "recurring" => false,
+                "user_id" => 1
             ],
             [
                 "avatar" => "./assets/images/avatars/james-thompson.jpg",
@@ -85,7 +93,8 @@ class TransactionSeeder extends Seeder
                 "category" => "Entertainment",
                 "date" => "2024-08-11T15:45:38Z",
                 "amount" => -5,
-                "recurring" => false
+                "recurring" => false,
+                "user_id" => 1
             ],
             [
                 "avatar" => "./assets/images/avatars/pixel-playground.jpg",
@@ -93,7 +102,8 @@ class TransactionSeeder extends Seeder
                 "category" => "Entertainment",
                 "date" => "2024-08-11T18:45:38Z",
                 "amount" => -10,
-                "recurring" => true
+                "recurring" => true,
+                "user_id" => 1
             ],
             [
                 "avatar" => "./assets/images/avatars/ella-phillips.jpg",
@@ -101,7 +111,8 @@ class TransactionSeeder extends Seeder
                 "category" => "Dining Out",
                 "date" => "2024-08-10T19:22:51Z",
                 "amount" => -45,
-                "recurring" => false
+                "recurring" => false,
+                "user_id" => 1
             ],
             [
                 "avatar" => "./assets/images/avatars/sofia-peterson.jpg",
@@ -109,7 +120,8 @@ class TransactionSeeder extends Seeder
                 "category" => "Transportation",
                 "date" => "2024-08-08T08:55:17Z",
                 "amount" => -15,
-                "recurring" => false
+                "recurring" => false,
+                "user_id" => 1
             ],
             [
                 "avatar" => "./assets/images/avatars/mason-martinez.jpg",
@@ -117,7 +129,8 @@ class TransactionSeeder extends Seeder
                 "category" => "Lifestyle",
                 "date" => "2024-08-07T17:40:29Z",
                 "amount" => -35.25,
-                "recurring" => false
+                "recurring" => false,
+                "user_id" => 1
             ],
             [
                 "avatar" => "./assets/images/avatars/green-plate-eatery.jpg",
@@ -125,7 +138,8 @@ class TransactionSeeder extends Seeder
                 "category" => "Groceries",
                 "date" => "2024-08-06T08:25:44Z",
                 "amount" => -78.5,
-                "recurring" => false
+                "recurring" => false,
+                "user_id" => 1
             ],
             [
                 "avatar" => "./assets/images/avatars/sebastian-cook.jpg",
@@ -133,7 +147,8 @@ class TransactionSeeder extends Seeder
                 "category" => "Transportation",
                 "date" => "2024-08-06T10:05:44Z",
                 "amount" => -22.5,
-                "recurring" => false
+                "recurring" => false,
+                "user_id" => 1
             ],
             [
                 "avatar" => "./assets/images/avatars/william-harris.jpg",
@@ -141,7 +156,8 @@ class TransactionSeeder extends Seeder
                 "category" => "Personal Care",
                 "date" => "2024-08-05T14:30:56Z",
                 "amount" => -10,
-                "recurring" => false
+                "recurring" => false,
+                "user_id" => 1
             ],
             [
                 "avatar" => "./assets/images/avatars/elevate-education.jpg",
@@ -149,7 +165,8 @@ class TransactionSeeder extends Seeder
                 "category" => "Education",
                 "date" => "2024-08-04T11:15:22Z",
                 "amount" => -50,
-                "recurring" => true
+                "recurring" => true,
+                "user_id" => 1
             ],
             [
                 "avatar" => "./assets/images/avatars/serenity-spa-and-wellness.jpg",
@@ -157,7 +174,8 @@ class TransactionSeeder extends Seeder
                 "category" => "Personal Care",
                 "date" => "2024-08-03T14:00:37Z",
                 "amount" => -30,
-                "recurring" => true
+                "recurring" => true,
+                "user_id" => 1
             ],
             [
                 "avatar" => "./assets/images/avatars/spark-electric-solutions.jpg",
@@ -165,7 +183,8 @@ class TransactionSeeder extends Seeder
                 "category" => "Bills",
                 "date" => "2024-08-02T09:25:11Z",
                 "amount" => -100,
-                "recurring" => true
+                "recurring" => true,
+                "user_id" => 1
             ],
             [
                 "avatar" => "./assets/images/avatars/rina-sato.jpg",
@@ -173,7 +192,8 @@ class TransactionSeeder extends Seeder
                 "category" => "Bills",
                 "date" => "2024-08-02T13:31:11Z",
                 "amount" => -50,
-                "recurring" => false
+                "recurring" => false,
+                "user_id" => 1
             ],
             [
                 "avatar" => "./assets/images/avatars/swift-ride-share.jpg",
@@ -181,7 +201,8 @@ class TransactionSeeder extends Seeder
                 "category" => "Transportation",
                 "date" => "2024-08-01T18:40:33Z",
                 "amount" => -18.75,
-                "recurring" => false
+                "recurring" => false,
+                "user_id" => 1
             ],
             [
                 "avatar" => "./assets/images/avatars/aqua-flow-utilities.jpg",
@@ -189,7 +210,8 @@ class TransactionSeeder extends Seeder
                 "category" => "Bills",
                 "date" => "2024-07-30T13:20:14Z",
                 "amount" => -100,
-                "recurring" => true
+                "recurring" => true,
+                "user_id" => 1
             ],
             [
                 "avatar" => "./assets/images/avatars/ecofuel-energy.jpg",
@@ -197,7 +219,8 @@ class TransactionSeeder extends Seeder
                 "category" => "Bills",
                 "date" => "2024-07-29T11:55:29Z",
                 "amount" => -35,
-                "recurring" => true
+                "recurring" => true,
+                "user_id" => 1
             ],
             [
                 "avatar" => "./assets/images/avatars/yuna-kim.jpg",
@@ -205,7 +228,8 @@ class TransactionSeeder extends Seeder
                 "category" => "Dining Out",
                 "date" => "2024-07-29T13:51:29Z",
                 "amount" => -28.5,
-                "recurring" => false
+                "recurring" => false,
+                "user_id" => 1
             ],
             [
                 "avatar" => "./assets/images/avatars/flavor-fiesta.jpg",
@@ -213,7 +237,8 @@ class TransactionSeeder extends Seeder
                 "category" => "Dining Out",
                 "date" => "2024-07-27T20:15:06Z",
                 "amount" => -42.75,
-                "recurring" => false
+                "recurring" => false,
+                "user_id" => 1
             ],
             [
                 "avatar" => "./assets/images/avatars/harper-edwards.jpg",
@@ -221,7 +246,8 @@ class TransactionSeeder extends Seeder
                 "category" => "Shopping",
                 "date" => "2024-07-26T09:43:23Z",
                 "amount" => -89.99,
-                "recurring" => false
+                "recurring" => false,
+                "user_id" => 1
             ],
             [
                 "avatar" => "./assets/images/avatars/buzz-marketing-group.jpg",
@@ -229,7 +255,8 @@ class TransactionSeeder extends Seeder
                 "category" => "General",
                 "date" => "2024-07-26T14:40:23Z",
                 "amount" => 3358,
-                "recurring" => false
+                "recurring" => false,
+                "user_id" => 1
             ],
             [
                 "avatar" => "./assets/images/avatars/technova-innovations.jpg",
@@ -237,7 +264,8 @@ class TransactionSeeder extends Seeder
                 "category" => "Shopping",
                 "date" => "2024-07-25T16:25:37Z",
                 "amount" => -29.99,
-                "recurring" => false
+                "recurring" => false,
+                "user_id" => 1
             ],
             [
                 "avatar" => "./assets/images/avatars/bytewise.jpg",
@@ -245,7 +273,8 @@ class TransactionSeeder extends Seeder
                 "category" => "Lifestyle",
                 "date" => "2024-07-23T09:35:14Z",
                 "amount" => -49.99,
-                "recurring" => true
+                "recurring" => true,
+                "user_id" => 1
             ],
             [
                 "avatar" => "./assets/images/avatars/nimbus-data-storage.jpg",
@@ -253,7 +282,8 @@ class TransactionSeeder extends Seeder
                 "category" => "Bills",
                 "date" => "2024-07-21T10:05:42Z",
                 "amount" => -9.99,
-                "recurring" => true
+                "recurring" => true,
+                "user_id" => 1
             ],
             [
                 "avatar" => "./assets/images/avatars/emma-richardson.jpg",
@@ -261,7 +291,8 @@ class TransactionSeeder extends Seeder
                 "category" => "General",
                 "date" => "2024-07-20T17:30:55Z",
                 "amount" => -25,
-                "recurring" => false
+                "recurring" => false,
+                "user_id" => 1
             ],
             [
                 "avatar" => "./assets/images/avatars/daniel-carter.jpg",
@@ -269,7 +300,8 @@ class TransactionSeeder extends Seeder
                 "category" => "General",
                 "date" => "2024-07-19T12:45:09Z",
                 "amount" => 50,
-                "recurring" => false
+                "recurring" => false,
+                "user_id" => 1
             ],
             [
                 "avatar" => "./assets/images/avatars/sun-park.jpg",
@@ -277,7 +309,8 @@ class TransactionSeeder extends Seeder
                 "category" => "General",
                 "date" => "2024-07-18T19:20:23Z",
                 "amount" => -38.5,
-                "recurring" => false
+                "recurring" => false,
+                "user_id" => 1
             ],
             [
                 "avatar" => "./assets/images/avatars/harper-edwards.jpg",
@@ -285,7 +318,8 @@ class TransactionSeeder extends Seeder
                 "category" => "Shopping",
                 "date" => "2024-07-17T14:55:37Z",
                 "amount" => -29.99,
-                "recurring" => false
+                "recurring" => false,
+                "user_id" => 1
             ],
             [
                 "avatar" => "./assets/images/avatars/liam-hughes.jpg",
@@ -293,7 +327,8 @@ class TransactionSeeder extends Seeder
                 "category" => "Groceries",
                 "date" => "2024-07-16T10:10:51Z",
                 "amount" => -52.75,
-                "recurring" => false
+                "recurring" => false,
+                "user_id" => 1
             ],
             [
                 "avatar" => "./assets/images/avatars/lily-ramirez.jpg",
@@ -301,7 +336,8 @@ class TransactionSeeder extends Seeder
                 "category" => "General",
                 "date" => "2024-07-15T16:35:04Z",
                 "amount" => 75,
-                "recurring" => false
+                "recurring" => false,
+                "user_id" => 1
             ],
             [
                 "avatar" => "./assets/images/avatars/ethan-clark.jpg",
@@ -309,7 +345,8 @@ class TransactionSeeder extends Seeder
                 "category" => "Dining Out",
                 "date" => "2024-07-14T20:50:18Z",
                 "amount" => -41.25,
-                "recurring" => false
+                "recurring" => false,
+                "user_id" => 1
             ],
             [
                 "avatar" => "./assets/images/avatars/rina-sato.jpg",
@@ -317,7 +354,8 @@ class TransactionSeeder extends Seeder
                 "category" => "Entertainment",
                 "date" => "2024-07-13T09:15:32Z",
                 "amount" => -10,
-                "recurring" => false
+                "recurring" => false,
+                "user_id" => 1
             ],
             [
                 "avatar" => "./assets/images/avatars/james-thompson.jpg",
@@ -325,7 +363,8 @@ class TransactionSeeder extends Seeder
                 "category" => "Bills",
                 "date" => "2024-07-12T13:40:46Z",
                 "amount" => -95.5,
-                "recurring" => false
+                "recurring" => false,
+                "user_id" => 1
             ],
             [
                 "avatar" => "./assets/images/avatars/ella-phillips.jpg",
@@ -333,7 +372,8 @@ class TransactionSeeder extends Seeder
                 "category" => "Dining Out",
                 "date" => "2024-07-11T18:05:59Z",
                 "amount" => -33.75,
-                "recurring" => false
+                "recurring" => false,
+                "user_id" => 1
             ],
             [
                 "avatar" => "./assets/images/avatars/yuna-kim.jpg",
@@ -341,7 +381,8 @@ class TransactionSeeder extends Seeder
                 "category" => "Dining Out",
                 "date" => "2024-07-10T12:30:13Z",
                 "amount" => -27.5,
-                "recurring" => false
+                "recurring" => false,
+                "user_id" => 1
             ],
             [
                 "avatar" => "./assets/images/avatars/sofia-peterson.jpg",
@@ -349,7 +390,8 @@ class TransactionSeeder extends Seeder
                 "category" => "Transportation",
                 "date" => "2024-07-09T08:55:27Z",
                 "amount" => -12.5,
-                "recurring" => false
+                "recurring" => false,
+                "user_id" => 1
             ],
             [
                 "avatar" => "./assets/images/avatars/mason-martinez.jpg",
@@ -357,7 +399,8 @@ class TransactionSeeder extends Seeder
                 "category" => "Lifestyle",
                 "date" => "2024-07-08T15:20:41Z",
                 "amount" => -65,
-                "recurring" => false
+                "recurring" => false,
+                "user_id" => 1
             ],
             [
                 "avatar" => "./assets/images/avatars/sebastian-cook.jpg",
@@ -365,7 +408,8 @@ class TransactionSeeder extends Seeder
                 "category" => "Transportation",
                 "date" => "2024-07-07T11:45:55Z",
                 "amount" => -20,
-                "recurring" => false
+                "recurring" => false,
+                "user_id" => 1
             ],
             [
                 "avatar" => "./assets/images/avatars/william-harris.jpg",
@@ -373,7 +417,8 @@ class TransactionSeeder extends Seeder
                 "category" => "General",
                 "date" => "2024-07-06T17:10:09Z",
                 "amount" => 20,
-                "recurring" => false
+                "recurring" => false,
+                "user_id" => 1
             ],
             [
                 "avatar" => "./assets/images/avatars/elevate-education.jpg",
@@ -381,7 +426,8 @@ class TransactionSeeder extends Seeder
                 "category" => "Education",
                 "date" => "2024-07-05T11:15:22Z",
                 "amount" => -50,
-                "recurring" => true
+                "recurring" => true,
+                "user_id" => 1
             ],
             [
                 "avatar" => "./assets/images/avatars/serenity-spa-and-wellness.jpg",
@@ -389,7 +435,8 @@ class TransactionSeeder extends Seeder
                 "category" => "Personal Care",
                 "date" => "2024-07-03T14:00:37Z",
                 "amount" => -30,
-                "recurring" => true
+                "recurring" => true,
+                "user_id" => 1
             ],
             [
                 "avatar" => "./assets/images/avatars/spark-electric-solutions.jpg",
@@ -397,7 +444,8 @@ class TransactionSeeder extends Seeder
                 "category" => "Bills",
                 "date" => "2024-07-02T09:25:51Z",
                 "amount" => -100,
-                "recurring" => true
+                "recurring" => true,
+                "user_id" => 1
             ],
             [
                 "avatar" => "./assets/images/avatars/swift-ride-share.jpg",
@@ -405,10 +453,12 @@ class TransactionSeeder extends Seeder
                 "category" => "Transportation",
                 "date" => "2024-07-02T19:50:05Z",
                 "amount" => -16.5,
-                "recurring" => false
-            ]
+                "recurring" => false,
+                "user_id" => 1
+            ],
         ];
 
         DB::table('transactions')->insert($transactions);
+        DB::table('transactions')->update(['created_at' => now(), 'updated_at' => now()]);
     }
 }
