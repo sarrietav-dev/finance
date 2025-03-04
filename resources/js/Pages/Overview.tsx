@@ -7,7 +7,7 @@ export default function Overview() {
         <AuthenticatedLayout>
             <Head title="Overview" />
 
-            <div className="space-y-8 px-4 py-6 md:p-10">
+            <div className="container mx-auto space-y-8 px-4 py-6 md:p-10">
                 <h1 className="text-3xl font-bold text-gray-900">Overview</h1>
 
                 <div className="flex flex-col justify-between gap-3 lg:flex-row lg:gap-6">
@@ -185,7 +185,7 @@ export default function Overview() {
                         </div>
                     </div>
 
-                    <div className="flex grow flex-col gap-6 lg:max-w-lg">
+                    <div className="flex grow flex-col gap-6 lg:max-w-xl">
                         <div className="space-y-4 rounded-lg bg-white p-5 text-gray-900 md:p-8">
                             <div className="flex items-center justify-between">
                                 <h2 className="text-xl font-bold text-gray-900">
