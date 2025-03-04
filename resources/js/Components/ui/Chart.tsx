@@ -4,7 +4,7 @@ import { Cell, Pie, PieChart } from 'recharts';
 interface CircularProgressChartProps {
     current: number;
     limit: number;
-    data: { name: string; value: number; color: string }[];
+    data: { category: string; amount: number; theme: string }[];
     className?: string;
 }
 
@@ -14,6 +14,13 @@ const CircularProgressChart = ({
     data,
     className,
 }: CircularProgressChartProps) => {
+    const transformedData = data.map(({ category, amount, theme }) => ({
+        name: category,
+        value: Math.abs(amount),
+        color: theme,
+    }));
+
+    console.log(transformedData);
     return (
         <div
             className={cn(
@@ -23,14 +30,14 @@ const CircularProgressChart = ({
         >
             <PieChart width={300} height={250}>
                 <Pie
-                    data={data}
+                    data={transformedData}
                     innerRadius={80}
                     outerRadius={120}
                     paddingAngle={5}
                     dataKey="value"
                 >
-                    {data.map(({ color }, index) => (
-                        <Cell key={`cell-${index}`} fill={color} />
+                    {data.map(({ theme }, index) => (
+                        <Cell key={`cell-${index}`} fill={theme} />
                     ))}
                 </Pie>
             </PieChart>
