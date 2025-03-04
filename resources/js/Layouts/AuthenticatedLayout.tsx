@@ -1,5 +1,6 @@
 import useMenuCollapse from '@/hooks/useMenuCollapse';
 import { cn } from '@/utils/cn';
+import { Link } from '@inertiajs/react';
 import { PropsWithChildren, ReactNode } from 'react';
 
 export default function Authenticated({
@@ -31,17 +32,32 @@ export default function Authenticated({
                     <NavItem
                         icon="icon-nav-overview.svg"
                         label="Overview"
-                        active
+                        active={route().current() === 'overview'}
+                        href={route('overview')}
                     />
                     <NavItem
                         icon="icon-nav-transactions.svg"
                         label="Transaction"
+                        active={route().current() === 'transactions'}
+                        href={route('transactions')}
                     />
-                    <NavItem icon="icon-nav-budgets.svg" label="Budget" />
-                    <NavItem icon="icon-nav-pots.svg" label="Pots" />
+                    <NavItem
+                        icon="icon-nav-budgets.svg"
+                        label="Budgets"
+                        active={route().current() === 'budgets'}
+                        href={route('budgets')}
+                    />
+                    <NavItem
+                        icon="icon-nav-pots.svg"
+                        label="Pots"
+                        active={route().current() === 'pots'}
+                        href={route('pots')}
+                    />
                     <NavItem
                         icon="icon-nav-recurring-bills.svg"
                         label="Recurring Bills"
+                        active={route().current() === 'bills'}
+                        href={route('bills')}
                     />
                     <li
                         onClick={() => toggleMenu()}
@@ -74,14 +90,18 @@ function NavItem({
     label,
     className,
     active,
+    href,
 }: {
     icon: string;
     label: string;
     className?: string;
     active?: boolean;
+    href: string;
 }) {
     return (
-        <li
+        <Link
+            as="li"
+            href={href}
             className={cn(
                 'flex cursor-pointer flex-col items-center justify-center gap-2 rounded-t-lg border-b-4 border-b-transparent px-5 py-4 lg:flex-row lg:justify-start lg:rounded-t-none lg:rounded-r-lg lg:border-b-0 lg:border-l-4 lg:px-8 lg:py-4',
                 !active && 'border-b-transparent lg:border-l-transparent',
@@ -98,6 +118,6 @@ function NavItem({
             >
                 {label}
             </span>
-        </li>
+        </Link>
     );
 }
