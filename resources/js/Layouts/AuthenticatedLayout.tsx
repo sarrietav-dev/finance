@@ -11,7 +11,7 @@ export default function Authenticated({
         <div className="min-h-screen lg:flex lg:items-stretch">
             <nav
                 className={cn(
-                    'fixed bottom-0 left-0 w-full rounded-t-lg bg-gray-900 px-10 pt-2 transition-all duration-300 lg:relative lg:top-0 lg:bottom-auto lg:w-75 lg:rounded-t-none lg:rounded-r-lg lg:px-6 lg:py-10 lg:pl-0',
+                    'fixed bottom-0 left-0 z-10 w-full rounded-t-lg bg-gray-900 px-10 pt-2 transition-all duration-300 lg:top-0 lg:bottom-auto lg:h-screen lg:w-75 lg:rounded-t-none lg:rounded-r-lg lg:px-6 lg:py-10 lg:pl-0',
                     collapsed && 'collapsed group lg:w-27 lg:px-4 lg:pl-0',
                 )}
             >
@@ -57,7 +57,14 @@ export default function Authenticated({
                     </li>
                 </ul>
             </nav>
-            <main className="mb-16 lg:mb-0 lg:grow">{children}</main>
+            <main
+                className={cn(
+                    'mb-16 transition-all duration-300 lg:mb-0 lg:ml-75 lg:grow',
+                    collapsed && 'lg:ml-27',
+                )}
+            >
+                {children}
+            </main>
         </div>
     );
 }
