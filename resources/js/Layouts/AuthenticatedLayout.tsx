@@ -2,6 +2,7 @@ import useMenuCollapse from '@/hooks/useMenuCollapse';
 import { cn } from '@/utils/cn';
 import { Link } from '@inertiajs/react';
 import { PropsWithChildren, ReactNode } from 'react';
+import { ReactSVG } from 'react-svg';
 
 export default function Authenticated({
     children,
@@ -103,17 +104,25 @@ function NavItem({
             as="li"
             href={href}
             className={cn(
-                'flex cursor-pointer flex-col items-center justify-center gap-2 rounded-t-lg border-b-4 border-b-transparent px-5 py-4 lg:flex-row lg:justify-start lg:rounded-t-none lg:rounded-r-lg lg:border-b-0 lg:border-l-4 lg:px-8 lg:py-4',
+                'group flex cursor-pointer flex-col items-center justify-center gap-2 rounded-t-lg border-b-4 border-b-transparent fill-gray-300 px-5 py-4 lg:flex-row lg:justify-start lg:rounded-t-none lg:rounded-r-lg lg:border-b-0 lg:border-l-4 lg:px-8 lg:py-4',
                 !active && 'border-b-transparent lg:border-l-transparent',
                 active && 'border-b-green lg:border-l-green bg-white',
                 className,
             )}
         >
-            <img className="size-6" src={`/images/${icon}`} alt="" />
+            <ReactSVG
+                className={cn(
+                    'size-6 transition',
+                    active && 'fill-green',
+                    !active && 'group-hover:fill-white',
+                )}
+                src={`/images/${icon}`}
+            />
             <span
                 className={cn(
-                    'hidden truncate text-right leading-none font-bold group-[.collapsed]:hidden md:!block lg:text-left',
+                    'hidden truncate text-right leading-none font-bold transition group-[.collapsed]:hidden md:!block lg:text-left',
                     active && 'text-gray-900',
+                    !active && 'group-hover:text-white',
                 )}
             >
                 {label}
