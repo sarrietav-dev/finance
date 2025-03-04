@@ -57,7 +57,7 @@ export default function Authenticated({
                     </li>
                 </ul>
             </nav>
-            <main>{children}</main>
+            <main className="mb-16 lg:mb-0 lg:grow">{children}</main>
         </div>
     );
 }
