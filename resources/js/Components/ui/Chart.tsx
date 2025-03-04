@@ -1,44 +1,42 @@
+import { cn } from '@/utils/cn';
 import { Cell, Pie, PieChart } from 'recharts';
 
 interface CircularProgressChartProps {
     current: number;
     limit: number;
+    data: { name: string; value: number; color: string }[];
+    className?: string;
 }
 
 const CircularProgressChart = ({
     current,
     limit,
+    data,
+    className,
 }: CircularProgressChartProps) => {
-    const data: { name: string; value: number }[] = [
-        { name: 'Entertainment', value: 50 },
-        { name: 'Bills', value: 750 },
-        { name: 'Dining Out', value: 75 },
-        { name: 'Personal Care', value: 100 },
-        { name: 'Dollars', value: 0 },
-    ];
-
-    const colors = ['#7CC8DC', '#FFBB28', '#FF8042', '#00C49F', '#EAECEF']; // Colors for each category
-
     return (
-        <div className="flex h-60 w-60 flex-col items-center justify-center">
-            <PieChart width={200} height={200}>
+        <div
+            className={cn(
+                'flex flex-col items-center justify-center',
+                className,
+            )}
+        >
+            <PieChart width={300} height={250}>
                 <Pie
                     data={data}
-                    cx="50%"
-                    cy="50%"
-                    innerRadius={50}
-                    outerRadius={80}
+                    innerRadius={80}
+                    outerRadius={120}
                     paddingAngle={5}
                     dataKey="value"
                 >
-                    {data.map((entry, index) => (
-                        <Cell key={`cell-${index}`} fill={colors[index]} />
+                    {data.map(({ color }, index) => (
+                        <Cell key={`cell-${index}`} fill={color} />
                     ))}
                 </Pie>
             </PieChart>
             <div className="absolute text-center">
-                <p className="text-xl font-bold">${current}</p>
-                <p className="text-sm text-gray-500">of ${limit} limit</p>
+                <p className="text-2xl font-bold">${current}</p>
+                <p className="text-base text-gray-500">of ${limit} limit</p>
             </div>
         </div>
     );

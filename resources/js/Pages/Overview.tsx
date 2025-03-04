@@ -1,3 +1,4 @@
+import CircularProgressChart from '@/Components/ui/Chart';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Head, Link } from '@inertiajs/react';
 
@@ -112,7 +113,7 @@ export default function Overview() {
                                 </div>
                             </div>
                         </div>
-                        <div className="space-y-4 rounded-lg bg-white p-5 text-gray-900 md:p-8">
+                        <div className="space-y-4 rounded-lg bg-white p-5 text-gray-900 md:p-8 lg:grow">
                             <div className="flex items-center justify-between">
                                 <h2 className="text-xl font-bold text-gray-900">
                                     Transactions
@@ -184,7 +185,100 @@ export default function Overview() {
                         </div>
                     </div>
 
-                    <div className="flex grow flex-col gap-6">
+                    <div className="flex grow flex-col gap-6 lg:max-w-lg">
+                        <div className="space-y-4 rounded-lg bg-white p-5 text-gray-900 md:p-8">
+                            <div className="flex items-center justify-between">
+                                <h2 className="text-xl font-bold text-gray-900">
+                                    Pots
+                                </h2>
+                                <Link
+                                    href="/pots"
+                                    className="flex items-center gap-3 text-sm text-gray-500 hover:underline"
+                                >
+                                    <span>See details</span>
+                                    <IconPhCaretRightFill />
+                                </Link>
+                            </div>
+                            <div className="flex flex-col gap-4 md:flex-row lg:gap-6">
+                                <CircularProgressChart
+                                    className="md:grow"
+                                    data={[
+                                        {
+                                            name: 'Entertainment',
+                                            value: 50,
+                                            color: '#277C78',
+                                        },
+                                        {
+                                            name: 'Bills',
+                                            value: 750,
+                                            color: '#82C9D7',
+                                        },
+                                        {
+                                            name: 'Dining Out',
+                                            value: 75,
+                                            color: '#F2CDAC',
+                                        },
+                                        {
+                                            name: 'Personal Care',
+                                            value: 100,
+                                            color: '#626070',
+                                        },
+                                    ]}
+                                    current={338}
+                                    limit={975}
+                                />
+                                <div className="grid grid-cols-2 gap-4 md:grid-cols-1">
+                                    {/* <div className="flex items-center justify-start gap-4 self-stretch"> */}
+                                    <div className="flex shrink grow basis-0 items-center justify-start gap-4 lg:grow-0">
+                                        <div className="bg-green w-1 self-stretch rounded-lg"></div>
+                                        <div className="flex flex-col items-start justify-center gap-1">
+                                            <div className="text-xs leading-none font-normal text-stone-500">
+                                                Entertainment
+                                            </div>
+                                            <div className="text-sm leading-tight font-bold text-neutral-800">
+                                                $50
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div className="flex h-11 shrink grow basis-0 items-center justify-start gap-4 lg:grow-0">
+                                        <div className="bg-cyan w-1 self-stretch rounded-lg"></div>
+                                        <div className="flex flex-col items-start justify-center gap-1">
+                                            <div className="text-xs leading-none font-normal text-stone-500">
+                                                Bills
+                                            </div>
+                                            <div className="text-sm leading-tight font-bold text-neutral-800">
+                                                $750
+                                            </div>
+                                        </div>
+                                    </div>
+                                    {/* </div> */}
+                                    {/* <div className="flex items-center justify-start gap-4 self-stretch"> */}
+                                    <div className="flex h-11 shrink grow basis-0 items-center justify-start gap-4 lg:grow-0">
+                                        <div className="bg-yellow w-1 self-stretch rounded-lg"></div>
+                                        <div className="flex flex-col items-start justify-center gap-1">
+                                            <div className="text-xs leading-none font-normal text-stone-500">
+                                                Dining Out
+                                            </div>
+                                            <div className="text-sm leading-tight font-bold text-neutral-800">
+                                                $75
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div className="flex h-11 shrink grow basis-0 items-center justify-start gap-4 lg:grow-0">
+                                        <div className="bg-navy w-1 self-stretch rounded-lg"></div>
+                                        <div className="flex flex-col items-start justify-center gap-1">
+                                            <div className="text-xs leading-none font-normal text-stone-500">
+                                                Personal Care
+                                            </div>
+                                            <div className="text-sm leading-tight font-bold text-neutral-800">
+                                                $100
+                                            </div>
+                                        </div>
+                                    </div>
+                                    {/* </div> */}
+                                </div>
+                            </div>
+                        </div>
                         <div className="space-y-4 rounded-lg bg-white p-5 text-gray-900 md:p-8">
                             <div className="flex items-center justify-between">
                                 <h2 className="text-xl font-bold text-gray-900">
