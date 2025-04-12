@@ -1,0 +1,12 @@
+<%= link_to href, class: "group flex cursor-pointer flex-col items-center justify-center gap-2 rounded-t-lg border-b-4 border-b-transparent fill-gray-300 px-5 py-4 lg:flex-row lg:justify-start lg:rounded-t-none lg:rounded-r-lg lg:border-b-0 lg:border-l-4 lg:px-8 lg:py-4 #{'border-b-green lg:border-l-green bg-white' if active} #{'group-hover:fill-white group-hover:text-white' unless active}" do %>
+  <%= inline_svg_tag icon, class: "size-6 transition #{"fill-green" if active}" %>
+  <span
+    class="
+      hidden truncate text-right leading-none font-bold transition
+      group-[.collapsed]/nav:hidden md:!block lg:text-left
+      <%= active ? 'text-gray-900' : 'group-hover:text-white' %>
+    "
+  >
+    <%= label %>
+  </span>
+<% end %>
