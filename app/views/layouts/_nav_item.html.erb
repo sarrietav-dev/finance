@@ -1,5 +1,7 @@
-<%= link_to href, class: "group flex cursor-pointer flex-col items-center justify-center gap-2 rounded-t-lg border-b-4 border-b-transparent fill-gray-300 px-5 py-4 lg:flex-row lg:justify-start lg:rounded-t-none lg:rounded-r-lg lg:border-b-0 lg:border-l-4 lg:px-8 lg:py-4 #{'border-b-green lg:border-l-green bg-white' if active} #{'group-hover:fill-white group-hover:text-white' unless active}" do %>
-  <%= inline_svg_tag icon, class: "size-6 transition #{"fill-green" if active}" %>
+<%= link_to href, class: "#{active ? "border-b-green md:border-b-green lg:border-l-green bg-white" : "group-hover:fill-white group-hover:text-white border-l-transparent"} group flex cursor-pointer flex-col items-center justify-center gap-2 rounded-t-lg border-b-4 border-b-transparent fill-gray-300 px-5 py-4 lg:flex-row lg:justify-start lg:rounded-t-none lg:rounded-r-lg lg:border-b-0 lg:border-l-4 lg:px-8 lg:py-4" do %>
+  <%= inline_svg_tag icon,
+  class:
+    "size-6 min-w-6 transition #{active ? "fill-green" : "group-hover:fill-white"}" %>
   <span
     class="
       hidden truncate text-right leading-none font-bold transition

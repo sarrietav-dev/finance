@@ -25,105 +25,108 @@
   <body
     class="font-sans antialiased bg-beige-100"
     data-controller="menu"
-    data-menu-collapsed-class="collapsed group/nav lg:w-27 lg:px-4 lg:pl-0"
-    data-menu-collapsed-main-class="lg:ml-27"
-    data-menu-collapsed-value="false"
+    data-menu-collapsed-class="collapsed group/nav lg:!w-28 lg:!px-4 lg:!pl-0"
+    data-menu-collapsed-main-class="lg:!ml-27"
+    data-menu-collapsed-value="true"
   >
-    <!-- Sidebar / Navigation -->
-    <nav
-      class="
-        fixed bottom-0 left-0 z-10 w-full rounded-t-lg bg-gray-900 px-10 pt-2
-        transition-all duration-300 lg:top-0 lg:bottom-auto lg:h-screen lg:w-75
-        lg:rounded-t-none lg:rounded-r-lg lg:px-6 lg:py-10 lg:pl-0
-      "
-      data-menu-target="sidebar"
-    >
-      <ul class="flex justify-between text-gray-300 lg:h-full lg:flex-col">
-        <!-- Logo -->
-        <div
-          class="
-            relative mb-16 hidden w-40 cursor-pointer flex-row items-center justify-start
-            gap-2 border-l-4 border-l-transparent py-4 transition-all
-            group-[.collapsed]/nav:w-24 lg:flex
-          "
-        >
-          <%= inline_svg_tag(
-            "logo-large.svg",
-            class:
-              "absolute inset-0 left-8 h-full w-full opacity-100 transition-all duration-300 group-[.collapsed]/nav:translate-y-full group-[.collapsed]/nav:opacity-0",
-          ) %>
-          <%= inline_svg_tag(
-            "logo-small.svg",
-            class:
-              "absolute inset-0 h-full w-full opacity-0 transition-all duration-300 group-[.collapsed]/nav:translate-y-0 group-[.collapsed]/nav:opacity-100",
-          ) %>
-        </div>
-        <!-- Nav Items -->
-        <%= render partial: "layouts/nav_item",
-        locals: {
-          icon: "icon-nav-overview.svg",
-          label: "Overview",
-          href: overview_path,
-          active: current_page?(overview_path),
-        } %>
-        <%= render partial: "layouts/nav_item",
-        locals: {
-          icon: "icon-nav-transactions.svg",
-          label: "Transaction",
-          href: transactions_path,
-          active: current_page?(transactions_path),
-        } %>
-        <%= render partial: "layouts/nav_item",
-        locals: {
-          icon: "icon-nav-budgets.svg",
-          label: "Budgets",
-          href: budgets_path,
-          active: current_page?(budgets_path),
-        } %>
-        <%= render partial: "layouts/nav_item",
-        locals: {
-          icon: "icon-nav-pots.svg",
-          label: "Pots",
-          href: pots_path,
-          active: current_page?(pots_path),
-        } %>
-        <%= render partial: "layouts/nav_item",
-        locals: {
-          icon: "icon-nav-recurring-bills.svg",
-          label: "Recurring Bills",
-          href: bills_path,
-          active: current_page?(bills_path),
-        } %>
-        <!-- Toggle -->
-        <li
-          data-action="click->menu#toggle"
-          class="
-            group mt-auto hidden cursor-pointer flex-row items-center justify-start gap-2
-            border-l-4 border-l-transparent px-8 py-4 lg:flex
-          "
-        >
-          <%= inline_svg_tag(
-            "icon-minimize-menu.svg",
-            class:
-              "size-6 fill-gray-300 transition group-hover:fill-white group-[.collapsed]/nav:rotate-180",
-          ) %>
-          <span
+    <div class="min-h-screen lg:flex lg:items-stretch">
+      <!-- Sidebar / Navigation -->
+      <nav
+        class="
+          fixed bottom-0 left-0 z-10 w-full rounded-t-lg bg-gray-900 px-10 pt-2
+          transition-all duration-300 lg:top-0 lg:bottom-auto lg:h-screen lg:w-75
+          lg:rounded-t-none lg:rounded-r-lg lg:px-6 lg:py-10 lg:pl-0
+        "
+        data-menu-target="sidebar"
+      >
+        <ul class="flex justify-between text-gray-300 lg:h-full lg:flex-col">
+          <!-- Logo -->
+          <div
             class="
-              hidden truncate text-right leading-none font-bold transition
-              group-hover:text-white group-[.collapsed]/nav:hidden md:block lg:text-left
+              relative mb-16 hidden w-40 cursor-pointer flex-row items-center justify-start
+              gap-2 border-l-4 border-l-transparent py-4 transition-all
+              group-[.collapsed]/nav:w-24 lg:flex
             "
           >
-            Minimize Menu
-          </span>
-        </li>
-      </ul>
-    </nav>
-    <!-- Main Content -->
-    <main
-      class="mb-16 transition-all duration-300 lg:mb-0 lg:ml-75 lg:grow"
-      data-menu-target="main"
-    >
-      <%= yield %>
-    </main>
+            <%= inline_svg_tag(
+              "logo-large.svg",
+              class:
+                "absolute inset-0 left-8 h-full w-full opacity-100 transition-all duration-300 group-[.collapsed]/nav:translate-y-full group-[.collapsed]/nav:opacity-0",
+            ) %>
+            <%= inline_svg_tag(
+              "logo-small.svg",
+              class:
+                "absolute inset-0 h-full w-full opacity-0 transition-all duration-300 group-[.collapsed]/nav:translate-y-0 group-[.collapsed]/nav:opacity-100",
+            ) %>
+          </div>
+          <!-- Nav Items -->
+          <%= render partial: "layouts/nav_item",
+          locals: {
+            icon: "icon-nav-overview.svg",
+            label: "Overview",
+            href: overview_path,
+            active: current_page?(overview_path),
+          } %>
+          <%= render partial: "layouts/nav_item",
+          locals: {
+            icon: "icon-nav-transactions.svg",
+            label: "Transaction",
+            href: transactions_path,
+            active: current_page?(transactions_path),
+          } %>
+          <%= render partial: "layouts/nav_item",
+          locals: {
+            icon: "icon-nav-budgets.svg",
+            label: "Budgets",
+            href: budgets_path,
+            active: current_page?(budgets_path),
+          } %>
+          <%= render partial: "layouts/nav_item",
+          locals: {
+            icon: "icon-nav-pots.svg",
+            label: "Pots",
+            href: pots_path,
+            active: current_page?(pots_path),
+          } %>
+          <%= render partial: "layouts/nav_item",
+          locals: {
+            icon: "icon-nav-recurring-bills.svg",
+            label: "Recurring Bills",
+            href: bills_path,
+            active: current_page?(bills_path),
+          } %>
+          <!-- Toggle -->
+          <li
+            data-action="click->menu#toggle"
+            class="
+              group mt-auto hidden cursor-pointer flex-row items-center justify-start gap-2
+              border-l-4 border-l-transparent px-8 py-4 lg:flex
+            "
+          >
+            <%= inline_svg_tag(
+              "icon-minimize-menu.svg",
+              class:
+                "size-6 min-w-6 fill-gray-300 transition group-hover:fill-white group-[.collapsed]/nav:rotate-180",
+            ) %>
+            <span
+              class="
+                hidden truncate text-right leading-none font-bold transition
+                group-hover:text-white group-[.collapsed]/nav:hidden md:!block lg:text-left
+              "
+            >
+              Minimize Menu
+            </span>
+          </li>
+        </ul>
+      </nav>
+      <!-- Main Content -->
+      <main
+        class="mb-16 transition-all duration-300 lg:mb-0 lg:ml-75 lg:grow"
+        data-menu-target="main"
+      >
+        <%= yield %>
+      </main>
+
+    </div>
   </body>
 </html>
