@@ -1,1 +1,46 @@
 @import "tailwindcss";
+
+@font-face {
+  font-family: "PublicSans";
+  font-style: normal;
+  font-display: swap;
+  src: url("fonts/PublicSans-VariableFont_wght.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "PublicSans";
+  font-style: italic;
+  font-display: swap;
+  src: url("fonts/PublicSans-Italic-VariableFont_wght.ttf") format("truetype");
+}
+
+@theme {
+  --font-sans:
+    "PublicSans", ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji",
+    "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+
+  --color-beige-500: hsl(23, 6%, 57%);
+  --color-beige-100: hsl(30, 36%, 96%);
+
+  --color-gray-900: hsl(252, 7%, 13%);
+  --color-gray-500: hsl(0, 0%, 41%);
+  --color-gray-300: hsl(0, 0%, 70%);
+  --color-gray-100: hsl(0, 0%, 95%);
+
+  --color-green: hsl(177, 52%, 32%);
+  --color-yellow: hsl(28, 73%, 81%);
+  --color-cyan: hsl(190, 52%, 68%);
+  --color-navy: hsl(248, 8%, 41%);
+  --color-red: hsl(7, 58%, 50%);
+  --color-purple: hsl(259, 30%, 56%);
+
+  --color-light-purple: hsl(288, 29%, 62%);
+  --color-turquose: hsl(180, 16%, 42%);
+  --color-brown: hsl(21, 30%, 44%);
+  --color-magenta: hsl(332, 30%, 44%);
+  --color-blue: hsl(205, 48%, 47%);
+  --color-navy-gray: hsl(214, 11%, 63%);
+  --color-army-green: hsl(83, 20%, 47%);
+  --color-gold: hsl(47, 50%, 59%);
+  --color-orange: hsl(18, 47%, 52%);
+}
