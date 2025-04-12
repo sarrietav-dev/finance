@@ -1,0 +1,17 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  avatar: MyString
+  name: MyString
+  category: MyString
+  date: 2025-04-11 22:39:23
+  amount: 9.99
+  recurring: false
+
+two:
+  avatar: MyString
+  name: MyString
+  category: MyString
+  date: 2025-04-11 22:39:23
+  amount: 9.99
+  recurring: false
