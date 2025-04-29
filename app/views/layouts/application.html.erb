@@ -27,16 +27,14 @@
     data-controller="menu"
     data-menu-collapsed-class="collapsed group/nav lg:!w-28 lg:!px-4 lg:!pl-0"
     data-menu-collapsed-main-class="lg:!ml-27"
-    data-menu-collapsed-value="true"
-  >
+    data-menu-collapsed-value="true">
     <div class="min-h-screen lg:flex lg:items-stretch">
       <!-- Sidebar / Navigation -->
       <%= render partial: "layouts/menu" %>
       <!-- Main Content -->
       <main
         class="mb-16 transition-all duration-300 lg:mb-0 lg:ml-75 lg:grow"
-        data-menu-target="main"
-      >
+        data-menu-target="main">
         <%= yield %>
       </main>
 
