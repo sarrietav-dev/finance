@@ -6,7 +6,7 @@ class CreateTransactions < ActiveRecord::Migration[8.0]
       t.string :category
       t.datetime :date
       t.decimal :amount
-      t.boolean :recurring
+      t.boolean :recurring, null: false, default: false
 
       t.timestamps
     end
