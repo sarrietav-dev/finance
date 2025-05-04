@@ -1,5 +1,5 @@
 class PotsController < ApplicationController
-  before_action :set_pot, only: %i[ show edit update destroy ]
+  before_action :set_pot, only: %i[show edit update destroy]
 
   # GET /pots or /pots.json
   def index
@@ -57,14 +57,15 @@ class PotsController < ApplicationController
     end
   end
 
-  private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_pot
-      @pot = Pot.find(params.expect(:id))
-    end
+private
 
-    # Only allow a list of trusted parameters through.
-    def pot_params
-      params.expect(pot: [ :name, :target, :total, :theme ])
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_pot
+    @pot = Pot.find(params.expect(:id))
+  end
+
+  # Only allow a list of trusted parameters through.
+  def pot_params
+    params.expect(pot: [:name, :target, :total, :theme])
+  end
 end

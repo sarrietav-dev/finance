@@ -16,5 +16,5 @@ inherit_gem:
 AllCops:
   NewCops: enable
 
-Style/AccessModifierIndentation:
+Layout/AccessModifierIndentation:
   EnforcedStyle: outdent

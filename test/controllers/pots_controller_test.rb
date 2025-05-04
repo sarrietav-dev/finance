@@ -17,7 +17,7 @@ class PotsControllerTest < ActionDispatch::IntegrationTest
 
   test "should create pot" do
     assert_difference("Pot.count") do
-      post pots_url, params: { pot: { name: @pot.name, target: @pot.target, theme: @pot.theme, total: @pot.total } }
+      post pots_url, params: {pot: {name: @pot.name, target: @pot.target, theme: @pot.theme, total: @pot.total}}
     end
 
     assert_redirected_to pot_url(Pot.last)
@@ -34,7 +34,7 @@ class PotsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update pot" do
-    patch pot_url(@pot), params: { pot: { name: @pot.name, target: @pot.target, theme: @pot.theme, total: @pot.total } }
+    patch pot_url(@pot), params: {pot: {name: @pot.name, target: @pot.target, theme: @pot.theme, total: @pot.total}}
     assert_redirected_to pot_url(@pot)
   end
 
