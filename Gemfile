@@ -51,7 +51,15 @@ group :development, :test do
   # Static analysis for security vulnerabilities [https://brakemanscanner.org/]
   gem "brakeman", require: false
 
+  gem "rubocop", require: false
+
   gem "standard-rails", "~> 1.3", require: false
+
+  gem "standard-custom", require: false
+
+  gem "standard-performance", require: false
+
+  gem "rubocop-capybara", require: false
 
   gem "standard", require: false
 
@@ -61,6 +69,7 @@ end
 group :development do
   # Use console on exceptions pages [https://github.com/rails/web-console]
   gem "web-console"
+  gem "ruby-lsp"
 end
 
 group :test do

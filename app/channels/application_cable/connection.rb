@@ -6,7 +6,7 @@ module ApplicationCable
       set_current_user || reject_unauthorized_connection
     end
 
-    private
+  private
 
     def set_current_user
       if session = Session.find_by(id: cookies.signed[:session_id])

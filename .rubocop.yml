@@ -1,0 +1,20 @@
+require:
+  - standard
+
+plugins:
+  - standard-custom
+  - standard-performance
+  - standard-rails
+  - rubocop-capybara
+
+inherit_gem:
+  standard: config/base.yml
+  standard-custom: config/base.yml
+  standard-performance: config/base.yml
+  standard-rails: config/base.yml
+
+AllCops:
+  NewCops: enable
+
+Style/AccessModifierIndentation:
+  EnforcedStyle: outdent
