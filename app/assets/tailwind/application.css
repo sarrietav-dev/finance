@@ -5,15 +5,14 @@
     font-family: "PublicSans";
     font-style: normal;
     font-display: swap;
-    src: url("/fonts/PublicSans-VariableFont_wght.ttf") format("truetype");
+    src: url("/PublicSans-VariableFont_wght.ttf") format("truetype");
 }
 
 @font-face {
     font-family: "PublicSans";
     font-style: italic;
     font-display: swap;
-    src: url("/fonts/PublicSans-Italic-VariableFont_wght.ttf")
-        format("truetype");
+    src: url("/PublicSans-Italic-VariableFont_wght.ttf") format("truetype");
 }
 
 @theme {
