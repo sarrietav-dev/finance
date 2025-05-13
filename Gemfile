@@ -53,7 +53,7 @@ group :development, :test do
 
   gem "rubocop", require: false
 
-  gem "standard-rails", "~> 1.3", require: false
+  gem "standard-rails", "~> 1.4", require: false
 
   gem "standard-custom", require: false
 
