@@ -4,6 +4,36 @@ class TransactionsController < ApplicationController
   # GET /transactions or /transactions.json
   def index
     @transactions = Transaction.all
+
+    if params[:category].present? && params[:category] != "all"
+      @transactions = @transactions.where(category: params[:category])
+    end
+
+    if params[:search].present?
+      @transactions = @transactions.where("name LIKE ?", "%#{params[:search]}%")
+    end
+
+    case params[:sort]
+    when "desc"
+      @transactions = @transactions.order(created_at: :desc)
+    when "asc"
+      @transactions = @transactions.order(created_at: :asc)
+    when "amount_desc"
+      @transactions = @transactions.order(amount: :desc)
+    when "amount_asc"
+      @transactions = @transactions.order(amount: :asc)
+    end
+
+    respond_to do |format|
+      format.turbo_stream {
+        render turbo_stream: turbo_stream.update("transaction_table",
+          partial: "transactions/table",
+          locals: {
+            transactions: @transactions
+          })
+      }
+      format.html
+    end
   end
 
   # GET /transactions/1 or /transactions/1.json

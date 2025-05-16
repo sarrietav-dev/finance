@@ -79,3 +79,5 @@ group :test do
 end
 
 gem "view_component", "~> 3.21"
+
+gem "requestjs-rails", "~> 0.0.13"

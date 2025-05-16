@@ -1,4 +1,5 @@
 import { Controller } from "@hotwired/stimulus";
+import { get } from "@rails/request.js";
 
 export default class extends Controller {
   static targets = ["menu", "label"];
@@ -64,9 +65,9 @@ export default class extends Controller {
     const url = new URL(window.location.href);
     url.searchParams.set(this.paramNameValue, value);
 
-    Turbo.visit(url.toString(), {
-      action: "replace",
-      frame: this.turboFrameValue,
+    get(url.toString(), {
+      responseKind: "turbo-stream", // forces Turbo-Frame-style response (partial)
+      headers: { "Turbo-Frame": this.turboFrameValue }, // needed for Turbo compatibility
     });
 
     this.menuTarget.classList.add("opacity-0", "pointer-events-none");
