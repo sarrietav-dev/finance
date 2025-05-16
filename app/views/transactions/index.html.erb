@@ -27,109 +27,32 @@
       </div>
 
       <div class="flex justify-end gap-4">
-        <div class="hidden md:flex items-center gap-2">
-          <label for="sort" class="text-nowrap">Sort by</label>
-          <select id="sort" class="border rounded-md p-2 w-full" aria-label="Sort by">
-            <option value="latest">Latest</option>
-            <option value="oldest">Oldest</option>
-          </select>
-        </div>
+        <%= render DropdownComponent.new(
+          options: [%w[Latest desc], %w[Oldest asc]],
+          selected: params[:sort],
+          param: "sort",
+          turbo_frame: "transactions_table",
+          label: "Sort",
+          icon: "icon-sort-mobile.svg",
+        ) %>
 
-        <div class="hidden md:flex items-center gap-2">
-          <label for="category">
-            Category
-          </label>
-          <select
-            id="category"
-            class="border rounded-md p-2 w-full"
-            aria-label="Filter by category"
-          >
-            <option value="all">All Transactions</option>
-            <option value="general">General</option>
-            <option value="personal-care">Personal Care</option>
-            <option value="lifestyle">Lifestyle</option>
-            <option value="transportation">Transportation</option>
-          </select>
-        </div>
+        <%= render DropdownComponent.new(
+          options: [
+            ["All Transactions", "all"],
+            %w[Entertainment entertainment],
+            %w[Bills bills],
+            %w[Groceries groceries],
+            ["Dining Out", "dining_out"],
+            %w[Transportation transportation],
+            ["Personal Care", "personal_care"],
+          ],
+          selected: params[:category],
+          param: "category",
+          turbo_frame: "transactions_table",
+          label: "All Categories",
+          icon: "icon-filter-mobile.svg",
+        ) %>
 
-        <div
-          data-controller="dropdown"
-          class="relative inline-block text-left md:hidden"
-        >
-          <!-- Trigger Icon -->
-          <button
-            type="button"
-            data-action="click->dropdown#toggle"
-            class="
-              flex items-center justify-center w-10 h-10 rounded-full hover:bg-gray-100
-              focus:outline-none focus:ring-2 focus:ring-indigo-500 transition
-            "
-          >
-            <span>
-              <%= inline_svg_tag "icon-sort-mobile.svg" %>
-            </span>
-          </button>
-          <!-- Dropdown Menu -->
-          <div
-            data-dropdown-target="menu"
-            class="
-              hidden absolute right-0 mt-2 w-48 origin-top-right rounded-xl shadow-lg bg-white
-              ring-1 ring-black ring-opacity-5 z-50 transition ease-out duration-100
-            "
-          >
-            <div class="py-2" role="menu">
-              <%= link_to "Editar",
-              "#",
-              role: "menuitem",
-              class:
-                "block px-4 py-2 text-sm text-gray-700 hover:bg-indigo-100 hover:text-indigo-700 transition" %>
-              <%= link_to "Eliminar",
-              "#",
-              role: "menuitem",
-              class:
-                "block px-4 py-2 text-sm text-red-600 hover:bg-red-100 hover:text-red-700 transition" %>
-            </div>
-          </div>
-        </div>
-        <div
-          data-controller="dropdown"
-          class="relative inline-block text-left md:hidden"
-        >
-          <!-- Trigger Icon -->
-          <button
-            type="button"
-            data-action="click->dropdown#toggle"
-            class="
-              flex items-center justify-center w-10 h-10 rounded-full hover:bg-gray-100
-              focus:outline-none focus:ring-2 focus:ring-indigo-500 transition
-            "
-          >
-            <span>
-              <%= inline_svg_tag "icon-filter-mobile.svg" %>
-            </span>
-          </button>
-          <!-- Dropdown Menu -->
-          <div
-            data-dropdown-target="menu"
-            class="
-              hidden absolute right-0 mt-2 w-48 origin-top-right rounded-xl shadow-lg bg-white
-              ring-1 ring-black ring-opacity-5 z-50 transition ease-out duration-100
-            "
-          >
-            <div class="py-2" role="menu">
-              <%= link_to "Editar",
-              "#",
-              role: "menuitem",
-              class:
-                "block px-4 py-2 text-sm text-gray-700 hover:bg-indigo-100 hover:text-indigo-700 transition" %>
-              <%= link_to "Eliminar",
-              "#",
-              role: "menuitem",
-              class:
-                "block px-4 py-2 text-sm text-red-600 hover:bg-red-100 hover:text-red-700 transition" %>
-            </div>
-          </div>
-        </div>
       </div>
     </div>
     <!-- Transactions Table (Desktop) -->

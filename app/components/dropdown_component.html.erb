@@ -1,0 +1,67 @@
+<div
+  data-controller="dropdown"
+  data-dropdown-param-name-value="<%= @param %>"
+  data-dropdown-turbo-frame-value="<%= @turbo_frame %>"
+  class="relative md:w-56"
+>
+  <%# Icon button for small screens %>
+  <% if @icon.present? %>
+    <button
+      type="button"
+      data-action="click->dropdown#toggle"
+      class="
+        flex items-center w-10 h-10 justify-center rounded-full bg-white border shadow
+        md:hidden
+      "
+      aria-label="<%= @label || 'Open dropdown' %>"
+    >
+      <%= inline_svg_tag @icon %>
+    </button>
+  <% end %>
+
+  <%# Full button for md+ screens %>
+  <button
+    type="button"
+    data-action="click->dropdown#toggle"
+    class="
+      hidden md:flex items-center w-full px-4 py-2 border rounded-lg shadow-sm
+      bg-white text-gray-900 justify-between
+    "
+  >
+    <span data-dropdown-target="label"><%= button_label %></span>
+    <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        stroke-width="2"
+        d="M19 9l-7 7-7-7"
+      />
+    </svg>
+  </button>
+
+  <%# Dropdown menu %>
+  <div
+    data-dropdown-target="menu"
+    class="
+      absolute z-10 mt-2 min-w-[12rem] bg-white rounded-xl shadow-lg border divide-y
+      divide-gray-100 transition-all duration-150 opacity-0 pointer-events-none
+    "
+  >
+    <% @options.each_with_index do |option, idx| %>
+      <% display, value = option.is_a?(Array) ? option : [option, option] %>
+      <% item_classes =
+        "block px-6 py-2 text-gray-800 hover:bg-gray-50 transition rounded-none" %>
+      <% item_classes += " rounded-t-xl" if idx.zero? %>
+      <% item_classes += " rounded-b-xl" if idx == @options.size - 1 %>
+      <a
+        href="#"
+        data-action="dropdown#select"
+        data-value="<%= value %>"
+        data-label="<%= display %>"
+        class="<%= item_classes %>"
+      >
+        <%= display %>
+      </a>
+    <% end %>
+  </div>
+</div>
