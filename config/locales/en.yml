@@ -29,3 +29,6 @@
 
 en:
   hello: "Hello world"
+  pagy:
+    prev: "&#x25C0"
+    next: "&#x25B6;"

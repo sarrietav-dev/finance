@@ -81,3 +81,5 @@ end
 gem "view_component", "~> 3.21"
 
 gem "requestjs-rails", "~> 0.0.13"
+
+gem "pagy", "~> 9.3"

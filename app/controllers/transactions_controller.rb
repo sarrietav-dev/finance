@@ -1,4 +1,6 @@
 class TransactionsController < ApplicationController
+  include Pagy::Backend
+
   before_action :set_transaction, only: %i[show edit update destroy]
 
   # GET /transactions or /transactions.json
@@ -24,12 +26,15 @@ class TransactionsController < ApplicationController
       @transactions = @transactions.order(amount: :asc)
     end
 
+    @pagy, @transactions = pagy(@transactions, items: 10, size: 5)
+
     respond_to do |format|
       format.turbo_stream {
         render turbo_stream: turbo_stream.update("transaction_table",
           partial: "transactions/table",
           locals: {
-            transactions: @transactions
+            transactions: @transactions,
+            pagy: @pagy
           })
       }
       format.html
@@ -87,7 +92,7 @@ class TransactionsController < ApplicationController
     end
   end
 
-private
+  private
 
   # Use callbacks to share common setup or constraints between actions.
   def set_transaction
