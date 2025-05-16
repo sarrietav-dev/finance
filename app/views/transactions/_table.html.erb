@@ -21,8 +21,13 @@
             <td>
               <%= l(t.date, format: :short) %>
             </td>
-            <td class="text-right text-red-600 font-semibold">
-              -$<%= t.amount %>
+            <td
+              class="
+                text-right font-semibold <%= t.amount < 0 ? 'text-red-500' : 'text-green-500' %>
+              "
+            >
+              <%= parse_amount(t.amount) %>
+
             </td>
           </tr>
           <tr>
@@ -33,7 +38,7 @@
         <% end %>
       </tbody>
     </table>
-    <%== pagy_nav(pagy)  %>
+    <%== pagy_nav(pagy) %>
   </div>
   <!-- Transactions List (Mobile) -->
   <ul class="md:hidden flex flex-col divide-y divide-gray-100">
@@ -60,8 +65,7 @@
       </li>
     <% end %>
     <!-- Add more list items similarly -->
-
-    <%== pagy_nav(pagy)  %>
+    <%== pagy_nav(pagy) %>
   </ul>
 <% else %>
   <p aria-label="No transactions found" class="text-center my-10">No transactions found.</p>
