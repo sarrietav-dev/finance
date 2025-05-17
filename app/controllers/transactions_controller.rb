@@ -29,6 +29,7 @@ class TransactionsController < ApplicationController
     @pagy, @transactions = pagy(@transactions, items: 10, size: 5)
 
     respond_to do |format|
+      format.html
       format.turbo_stream {
         render turbo_stream: turbo_stream.update("transaction_table",
           partial: "transactions/table",
@@ -37,7 +38,6 @@ class TransactionsController < ApplicationController
             pagy: @pagy
           })
       }
-      format.html
     end
   end
 
