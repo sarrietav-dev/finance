@@ -99,7 +99,7 @@
     .btn--secondary {
         @apply bg-beige-100 text-gray-900;
         @variant hover {
-            @apply bg-white border border-beige-500;
+            @apply bg-transparent outline outline-beige-500;
         }
     }
 
