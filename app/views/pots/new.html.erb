@@ -1,9 +1,91 @@
 <% content_for :title, "New pot" %>
 
-<div class="md:w-2/3 w-full">
-  <h1 class="font-bold text-4xl">New pot</h1>
+<turbo-frame id="pots_modal">
+  <div data-controller="modal" data-action="keyup@document->modal#closeEsc">
+    <div
+      data-modal-target="backdrop"
+      class="fixed inset-0 bg-gray-900 opacity-50 backdrop-enter"
+    ></div>
+    <div
+      data-modal-target="modal"
+      class="
+        bg-white rounded-xl p-8 md:w-2/3 w-full max-h-[90vh] overflow-y-auto space-y-5
+        absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2
+        modal-enter max-w-xl
+      "
+    >
+      <div class="flex justify-between items-center">
+        <h1 class="font-bold text-4xl">Add New Pot</h1>
+        <%= inline_svg_tag "icon-close-modal.svg",
+        data: {
+          action: "click->modal#close",
+        },
+        class: "cursor-pointer" %>
+      </div>
+      <p class=" text-gray-500 text-sm font-normal leading-tight ">
+        Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Phasellus
+        hendrerit. Pellentesque aliquet nibh nec urna. In nisi neque, aliquet.
+      </p>
+      <%= form_with model: @pot do |form| %>
+        <% if @pot.errors.any? %>
+          <div
+            id="error_explanation"
+            class="
+              bg-red-50 text-red-500 px-3 py-2 font-medium rounded-md mt-3
+            "
+          >
+            <h2><%= pluralize(@pot.errors.count, "error") %>
+              prohibited this @pot from being saved:</h2>
 
-  <%= render "form", pot: @pot %>
+            <ul class="list-disc ml-6">
+              <% @pot.errors.each do |error| %>
+                <li><%= error.full_message %></li>
+              <% end %>
+            </ul>
+          </div>
+        <% end %>
 
-  <%= link_to "Back to pots", pots_path, class: "w-full sm:w-auto text-center mt-2 sm:mt-0 sm:ml-2 rounded-md px-3.5 py-2.5 bg-gray-100 hover:bg-gray-50 inline-block font-medium" %>
-</div>
+        <div class="my-5">
+          <%= form.label :name, class: "text-gray-500 text-xs font-bold leading-none" %>
+          <%= form.text_field :name,
+                          placeholder: "e.g. Rainy Days",
+                          class: [
+                            "block rounded-lg text-sm border border-1 border-beige-500 px-3 py-2 mt-2 w-full",
+                            {
+                              "border-gray-400": @pot.errors[:name].none?,
+                              "border-red-400": @pot.errors[:name].any?,
+                            },
+                          ] %>
+        </div>
+
+        <div class="my-5">
+          <%= form.label :target, class: "text-gray-500 text-xs font-bold leading-none" %>
+          <%= form.text_field :target,
+                          class: [
+                            "block rounded-lg text-sm border border-1 border-beige-500 px-3 py-2 mt-2 w-full",
+                            {
+                              "border-gray-400": @pot.errors[:name].none?,
+                              "border-red-400": @pot.errors[:name].any?,
+                            },
+                          ] %>
+        </div>
+
+        <div class="my-5">
+          <%= form.label :theme, class: "text-gray-500 text-xs font-bold leading-none" %>
+          <%= form.text_field :theme,
+                          class: [
+                            "block rounded-lg text-sm border border-1 border-beige-500 px-3 py-2 mt-2 w-full",
+                            {
+                              "border-gray-400": @pot.errors[:name].none?,
+                              "border-red-400": @pot.errors[:name].any?,
+                            },
+                          ] %>
+        </div>
+
+        <%= form.submit class:
+                      "w-full bg-gray-900 text-white rounded-lg text-center py-4 text-sm font-bold leading-tight" %>
+      <% end %>
+    </div>
+
+  </div>
+</turbo-frame>
