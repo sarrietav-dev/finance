@@ -1,5 +1,5 @@
 <article id="<%= dom_id pot %>" class="bg-white rounded-lg px-5 py-7">
-  <div class="flex justify-between items-center">
+  <div class="flex justify-between items-center mb-10">
     <h2 class="text-xl font-bold text-gray-900 flex items-center gap-4">
       <span class="size-4 bg-green rounded-full inline-block"></span>
       <span><%= pot.name %></span>
@@ -14,7 +14,18 @@
       $<%= pot.total %>
     </span>
   </div>
-  <div class="w-full h-2 rounded-full bg-<%= pot.theme %> mt-6 mb-3"></div>
+
+  <div class="relative mt-4 mb-3 h-2 w-full rounded-full bg-beige-100">
+    <div
+      data-controller="progress-bar"
+      data-progress-bar-width-value="<%= (pot.total.to_f / pot.target * 100).round(2) %>"
+      class="
+        absolute top-0 left-0 h-2 rounded-full transition-all duration-1000
+        bg-<%= pot.theme %>
+      "
+      style="width: 0%;"
+    ></div>
+  </div>
   <div class="w-full flex items-baseline justify-between">
     <span class="text-xs text-gray-500 font-bold leading-none">
       <%= pot_percentage(pot.total, pot.target) %>
