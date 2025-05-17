@@ -1,4 +1,79 @@
-<div>
-  <h1 class="font-bold text-4xl">Withdrawals#new</h1>
-  <p>Find me in app/views/withdrawals/new.html.erb</p>
-</div>
+<turbo-frame id="pots_modal">
+  <div data-controller="modal" data-action="keyup@document->modal#closeEsc">
+    <div
+      data-modal-target="backdrop"
+      class="fixed inset-0 bg-gray-900 opacity-50 backdrop-enter"
+    ></div>
+    <div
+      data-modal-target="modal"
+      class="
+        bg-white rounded-xl p-8 md:w-2/3 w-full max-h-[90vh] overflow-y-auto space-y-5
+        absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2
+        modal-enter max-w-xl
+      "
+    >
+      <div class="flex justify-between items-center">
+        <h1 class="font-bold text-4xl">Withdraw from ‘<%= @pot.name %>’</h1>
+        <%= inline_svg_tag "icon-close-modal.svg",
+        data: {
+          action: "click->modal#close",
+        },
+        class: "cursor-pointer" %>
+      </div>
+      <p class=" text-gray-500 text-sm font-normal leading-tight ">
+        Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Phasellus
+        hendrerit. Pellentesque aliquet nibh nec urna. In nisi neque, aliquet.
+      </p>
+
+      <div class="w-full flex items-baseline justify-between">
+        <span class="text-gray-500 text-sm leading-tight">Total saved</span>
+        <span
+          class="text-3xl font-bold leading-10 text-gray-900"
+          id="total-saved-<%= @pot.id %>"
+        >
+          $<%= @pot.total %>
+        </span>
+      </div>
+
+      <div class="relative mt-4 mb-3 h-2 w-full rounded-full bg-beige-100">
+        <div
+          data-controller="progress-bar"
+          data-progress-bar-theme-value="<%= @pot.theme %>"
+          data-progress-bar-total-value="<%= @pot.total %>"
+          data-progress-bar-target-value="<%= @pot.target %>"
+          data-progress-bar-mode-value="withdrawal"
+          data-progress-bar-total-saved-id-value="total-saved-<%= @pot.id %>"
+          data-progress-bar-percentage-id-value="percentage-<%= @pot.id %>"
+          class="
+            absolute top-0 left-0 h-2 rounded-full transition-all duration-300
+          "
+          style="width: <%= (@pot.total.to_f / @pot.target * 100).round(2) %>%; z-index: 2;"
+        ></div>
+      </div>
+
+      <div class="w-full flex items-baseline justify-between">
+        <span
+          class="text-xs text-gray-500 font-bold leading-none"
+          id="percentage-<%= @pot.id %>"
+        >
+          <%= pot_percentage(@pot.total, @pot.target) %>
+          %
+        </span>
+        <span class="text-xs text-gray-500 leading-none">
+          Target of $<%= @pot.target %>
+        </span>
+      </div>
+
+      <%= form_with url: pot_deposits_path do |f| %>
+        <div class="my-5">
+          <%= f.label :amount, "Amount to Withdraw" %>
+          <%= f.number_field :amount, min: 0 %>
+        </div>
+
+        <button type="submit" class="btn btn--primary w-full">
+          Confirm Withdrawal
+        </button>
+      <% end %>
+    </div>
+  </div>
+</turbo-frame>
