@@ -1,5 +1,8 @@
 Rails.application.routes.draw do
-  resources :pots
+  resources :pots do
+    resources :deposits, only: [:new, :create]
+    resources :withdrawals, only: [:new, :create]
+  end
   resource :session
   resources :passwords, param: :token
   resources :transactions
