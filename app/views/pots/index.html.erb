@@ -25,10 +25,15 @@
       <ul id="pots">
         <% @pots.each do |p| %>
           <article class="bg-white rounded-lg px-5 py-7">
-            <h2 class="text-xl font-bold text-gray-900 flex items-center gap-4">
-              <span class="size-4 bg-green rounded-full inline-block"></span>
-              <span><%= p.name %></span>
-            </h2>
+            <div class="flex justify-between items-center">
+              <h2 class="text-xl font-bold text-gray-900 flex items-center gap-4">
+                <span class="size-4 bg-green rounded-full inline-block"></span>
+                <span><%= p.name %></span>
+              </h2>
+              <button>
+                  <%= inline_svg_tag "icon-ellipsis.svg" %>
+              </button>
+            </div>
             <div class="w-full flex items-baseline justify-between">
               <span class="text-gray-500 text-sm leading-tight">Total saved</span>
               <span class="text-3xl font-bold leading-10 text-gray-900">
