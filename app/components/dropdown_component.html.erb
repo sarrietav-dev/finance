@@ -2,7 +2,7 @@
   data-controller="dropdown"
   data-dropdown-param-name-value="<%= @param %>"
   data-dropdown-turbo-frame-value="<%= @turbo_frame %>"
-  class="relative md:w-56"
+  class="relative <%= @class %>"
 >
   <%# Icon button for small screens %>
   <% if @icon.present? %>
@@ -10,8 +10,8 @@
       type="button"
       data-action="click->dropdown#toggle"
       class="
-        flex items-center w-10 h-10 justify-center rounded-full bg-white border shadow
-        md:hidden
+        flex items-center w-10 h-10 justify-center rounded-full bg-white border
+        border-beige-500 shadow md:hidden
       "
       aria-label="<%= @label || 'Open dropdown' %>"
     >
@@ -24,8 +24,8 @@
     type="button"
     data-action="click->dropdown#toggle"
     class="
-      hidden md:flex items-center w-full px-4 py-2 border rounded-lg shadow-sm
-      bg-white text-gray-900 justify-between
+      hidden md:flex items-center w-full px-4 py-2 border border-beige-500 rounded-lg
+      shadow-sm bg-white text-gray-900 justify-between
     "
   >
     <span data-dropdown-target="label"><%= button_label %></span>

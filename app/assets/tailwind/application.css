@@ -84,25 +84,60 @@
     opacity: 0;
 }
 
-.pagy {
-    @apply flex w-full gap-2 items-center justify-center;
-    a:not(.gap) {
-        @apply block rounded-lg px-4 py-2 bg-transparent text-gray-900;
-        &:hover {
-            @apply bg-gray-300;
-        }
-        &:not([href]) {
-            /* disabled links */
-            @apply text-gray-300 bg-gray-100 cursor-default;
-        }
-        &.current {
-            @apply text-white bg-gray-900;
+@layer components {
+    .btn {
+        @apply rounded-lg text-center p-4 text-sm font-bold leading-tight transition cursor-pointer;
+    }
+
+    .btn--primary {
+        @apply bg-gray-900 text-white;
+        @variant hover {
+            @apply bg-gray-500;
         }
     }
+
+    .btn--secondary {
+        @apply bg-beige-100 text-gray-900;
+        @variant hover {
+            @apply bg-white border border-beige-500;
+        }
+    }
+
+    .btn--destroy {
+        @apply bg-red text-white;
+        @variant hover {
+            @apply bg-red/20;
+        }
+    }
+
     label {
-        @apply inline-block whitespace-nowrap bg-gray-200 rounded-lg px-3 py-0.5;
-        input {
-            @apply bg-gray-100 border-none rounded-md;
+        @apply text-gray-500 text-xs font-bold leading-none;
+    }
+
+    input:not([type="checkbox"]) {
+        @apply block rounded-lg text-sm border border-beige-500 px-3 py-2 mt-2 w-full;
+    }
+
+    .pagy {
+        @apply flex w-full gap-2 items-center justify-center;
+        a:not(.gap) {
+            @apply block rounded-lg px-4 py-2 bg-transparent text-gray-900;
+            &:hover {
+                @apply bg-gray-300;
+            }
+            &:not([href]) {
+                /* disabled links */
+                @apply text-gray-300 bg-gray-100 cursor-default;
+            }
+            &.current {
+                @apply text-white bg-gray-900;
+            }
+        }
+        label {
+            @apply inline-block whitespace-nowrap bg-gray-200 rounded-lg px-3 py-0.5;
+            input {
+                @apply bg-gray-100 border-none rounded-md;
+            }
         }
     }
 }

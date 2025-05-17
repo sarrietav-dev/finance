@@ -25,9 +25,14 @@ class PotsController < ApplicationController
 
     respond_to do |format|
       if @pot.save
-        format.html { redirect_to @pot, notice: "Pot was successfully created." }
+        format.html { redirect_to pots_path, notice: "Pot was successfully created." }
         format.json { render :show, status: :created, location: @pot }
       else
+        format.turbo_stream {
+          render turbo_stream: turbo_stream.update("new_pot",
+            partial: "pots/form"),
+            status: :unprocessable_entity
+        }
         format.html { render :new, status: :unprocessable_entity }
         format.json { render json: @pot.errors, status: :unprocessable_entity }
       end
@@ -66,6 +71,6 @@ private
 
   # Only allow a list of trusted parameters through.
   def pot_params
-    params.expect(pot: [:name, :target, :total, :theme])
+    params.expect(pot: [:name, :target, :theme])
   end
 end

@@ -3,7 +3,7 @@ class CreatePots < ActiveRecord::Migration[8.0]
     create_table :pots do |t|
       t.string :name
       t.decimal :target
-      t.decimal :total
+      t.decimal :total, default: 0
       t.string :theme
 
       t.timestamps

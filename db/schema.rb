@@ -14,7 +14,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_05_03_215759) do
   create_table "pots", force: :cascade do |t|
     t.string "name"
     t.decimal "target"
-    t.decimal "total"
+    t.decimal "total", default: "0.0"
     t.string "theme"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -35,7 +35,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_05_03_215759) do
     t.string "category"
     t.datetime "date"
     t.decimal "amount"
-    t.boolean "recurring"
+    t.boolean "recurring", default: false, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

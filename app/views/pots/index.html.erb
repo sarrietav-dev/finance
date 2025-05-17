@@ -12,13 +12,12 @@
 
   <div class="flex justify-between items-center">
     <h1 class="font-bold text-4xl">Pots</h1>
-    <%= link_to "New pot",
+    <%= link_to "+ Add New Pot",
     new_pot_path,
     data: {
       turbo_frame: "pots_modal",
     },
-    class:
-      "rounded-md px-3.5 py-2.5 bg-blue-600 hover:bg-blue-500 text-white block font-medium" %>
+    class: "btn btn--primary" %>
   </div>
 
   <div>
@@ -39,7 +38,7 @@
             <div class="w-full h-2 rounded-full bg-<%= p.theme %> mt-6 mb-3"></div>
             <div class="w-full flex items-baseline justify-between">
               <span class="text-xs text-gray-500 font-bold leading-none">
-                <%= p.total / p.target * 100 %>
+                <%= pot_percentage(p.total, p.target) %>
                 %
               </span>
               <span class="text-xs text-gray-500 leading-none">

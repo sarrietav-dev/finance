@@ -1,13 +1,14 @@
 # frozen_string_literal: true
 
 class DropdownComponent < ViewComponent::Base
-  def initialize(options:, param:, turbo_frame:, label: nil, icon: nil, selected: nil)
+  def initialize(options:, param:, turbo_frame: nil, label: nil, icon: nil, selected: nil, class_list: nil)
     @options = options
     @selected = selected
     @param = param
     @turbo_frame = turbo_frame
     @label = label
     @icon = icon
+    @class = class_list
   end
 
   def button_label
