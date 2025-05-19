@@ -8,6 +8,14 @@ export default class extends Controller {
       this.modalTarget.classList.add("modal-enter-active");
       this.backdropTarget.classList.add("backdrop-enter-active");
     });
+
+    // Listen for the custom event to close the modal
+    this.closeListener = () => this.close();
+    document.addEventListener("modal:close", this.closeListener);
+  }
+
+  disconnect() {
+    document.removeEventListener("modal:close", this.closeListener);
   }
 
   close() {
