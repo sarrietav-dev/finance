@@ -6,6 +6,7 @@
   data-dropdown-hidden-class="hidden"
   data-dropdown-open-class="open"
   data-dropdown-selected-class="font-bold"
+  data-dropdown-flip-class="rotate-180"
   data-dropdown-dropdowns-outlet=".dropdown"
 >
   <button
@@ -23,11 +24,17 @@
       </div>
     <% end %>
 
-    <div class="<%= 'hidden' if @icon %> md:flex">
+    <div class="<%= 'hidden' if @icon %> md:flex items-center justify-between grow">
       <span data-dropdown-target="label">
         <%= @label %>
       </span>
-      <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <svg
+        data-dropdown-target="chevron"
+        class="w-4 h-4 ml-2 transition"
+        fill="none"
+        stroke="currentColor"
+        viewBox="0 0 24 24"
+      >
         <path
           stroke-linecap="round"
           stroke-linejoin="round"

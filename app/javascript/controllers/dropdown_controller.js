@@ -1,8 +1,8 @@
 import { Controller } from "@hotwired/stimulus";
 
 export default class extends Controller {
-  static targets = ["menu", "hiddenInput", "label"];
-  static classes = ["hidden", "open", "selected"];
+  static targets = ["menu", "hiddenInput", "label", "chevron"];
+  static classes = ["hidden", "open", "selected", "flip"];
   static outlets = ["dropdowns"];
   static values = {
     name: String,
@@ -76,6 +76,9 @@ export default class extends Controller {
     this.menuTarget.classList.add(this.openClass);
     document.addEventListener("mousedown", this._closeOnClickOutside);
 
+    // Flip the chevron if needed
+    this.chevronTarget.classList.add(this.flipClass);
+
     // Lock body scroll on mobile
     document.body.classList.add("overflow-hidden");
   }
@@ -86,6 +89,9 @@ export default class extends Controller {
       this.menuTarget.classList.add(this.hiddenClass);
     }, 200);
     document.removeEventListener("mousedown", this._closeOnClickOutside);
+
+    // Remove flip class from chevron
+    this.chevronTarget.classList.remove(this.flipClass);
 
     // Unlock body scroll
     document.body.classList.remove("overflow-hidden");
