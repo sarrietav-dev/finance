@@ -12,27 +12,37 @@
     type="button"
     data-action="click->dropdown#toggle"
     class="
-      md:flex items-center w-full px-4 py-2 border border-beige-500 rounded-lg
-      shadow-sm bg-white text-gray-900 justify-between
+      md:flex items-center w-full border border-beige-500
+      <%= @icon ? 'rounded-full p-2 md:rounded-lg' : 'rounded-lg px-4 py-2' %> shadow-sm bg-white text-gray-900
+      justify-between
     "
   >
-    <span data-dropdown-target="label">
-      <%= @label %>
-    </span>
-    <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-      <path
-        stroke-linecap="round"
-        stroke-linejoin="round"
-        stroke-width="2"
-        d="M19 9l-7 7-7-7"
-      />
-    </svg>
+    <% if @icon %>
+      <div class="flex md:hidden">
+        <%= inline_svg_tag @icon %>
+      </div>
+    <% end %>
+
+    <div class="<%= 'hidden' if @icon %> md:flex">
+      <span data-dropdown-target="label">
+        <%= @label %>
+      </span>
+      <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          d="M19 9l-7 7-7-7"
+        />
+      </svg>
+    </div>
   </button>
   <div
     data-dropdown-target="menu"
     class="
-      hidden dropdown-animate absolute z-10 mt-2 min-w-[12rem] bg-white rounded-xl
-      shadow-lg border divide-y divide-gray-100
+      hidden dropdown-animate absolute z-10 top-full mt-2 w-auto min-w-[12rem]
+      max-w-[90vw] md:min-w-full bg-white rounded-xl shadow-lg border divide-y
+      divide-gray-100
     "
   >
     <% @options.each_with_index do |option, idx| %>
@@ -47,6 +57,7 @@
         class="
           block w-full text-left px-5 py-3 text-gray-800 hover:bg-gray-50 transition
           rounded-none<%= rounded_class %><%= value == @selected ? ' font-bold' : '' %>
+          whitespace-normal break-words
         "
       >
         <%= label %>

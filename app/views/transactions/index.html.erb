@@ -35,12 +35,13 @@
             class="w-full border rounded-md p-2"
           />
         </form>
-        <%= form_with url: "/transactions", method: :get, data: { turbo_stream: true, turbo: true }, html: { class: "flex justify-end gap-4" } do |form| %>
+        <%= form_with url: "/transactions", method: :get, data: { turbo_stream: true, turbo: true }, html: { class: "flex justify-end items-center gap-4 h-full" } do |form| %>
           <%= render DropdownComponent.new(
             name: "sort",
             label: "Sort by",
             options: [%w[Latest desc], %w[Oldest asc]],
             selected: params[:sort],
+            icon: "icon-sort-mobile.svg",
             autosubmit: true,
           ) %>
 
@@ -57,6 +58,7 @@
               ["Personal Care", "personal_care"],
             ],
             selected: params[:category],
+            icon: "icon-filter-mobile.svg",
             autosubmit: true,
           ) %>
 

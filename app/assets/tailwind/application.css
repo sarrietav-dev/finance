@@ -53,6 +53,24 @@
         @apply rounded-lg text-center p-4 text-sm font-bold leading-tight transition cursor-pointer;
     }
 
+    /* Dropdown auto-flip above */
+    .dropdown-menu--top {
+        top: auto !important;
+        bottom: 100%;
+        margin-bottom: 0.5rem;
+        margin-top: 0;
+    }
+
+    /* Dropdown horizontal alignment */
+    .dropdown-menu--align-left {
+        left: 0;
+        right: auto;
+    }
+    .dropdown-menu--align-right {
+        left: auto !important;
+        right: 0;
+    }
+
     .btn--primary {
         @apply bg-gray-900 text-white;
         @variant hover {

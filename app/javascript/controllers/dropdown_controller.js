@@ -58,8 +58,48 @@ export default class extends Controller {
     this.menuTarget.classList.remove(this.hiddenClass);
     // Force reflow for transition
     void this.menuTarget.offsetWidth;
+
+    // Auto-flip vertical logic
+    const button = this.element.querySelector('button');
+    const buttonRect = button.getBoundingClientRect();
+    const menu = this.menuTarget;
+    // Temporarily show menu to measure height and width
+    menu.style.visibility = 'hidden';
+    menu.style.display = 'block';
+    const menuHeight = menu.offsetHeight || 200; // fallback if not rendered
+    const menuWidth = menu.offsetWidth || 200;
+    menu.style.removeProperty('display');
+    menu.style.removeProperty('visibility');
+
+    const spaceBelow = window.innerHeight - buttonRect.bottom;
+    const spaceAbove = buttonRect.top;
+
+    if (spaceBelow < menuHeight && spaceAbove > spaceBelow) {
+      this.menuTarget.classList.add("dropdown-menu--top");
+    } else {
+      this.menuTarget.classList.remove("dropdown-menu--top");
+    }
+
+    // Auto-flip horizontal logic
+    const spaceRight = window.innerWidth - buttonRect.left;
+    const spaceLeft = buttonRect.right;
+
+    // Remove both alignment classes first
+    menu.classList.remove("dropdown-menu--align-right", "dropdown-menu--align-left");
+
+    if (spaceRight < menuWidth && spaceLeft > spaceRight) {
+      // Not enough space to the right, align right
+      menu.classList.add("dropdown-menu--align-right");
+    } else {
+      // Default: align left
+      menu.classList.add("dropdown-menu--align-left");
+    }
+
     this.menuTarget.classList.add(this.openClass);
     document.addEventListener("mousedown", this._closeOnClickOutside);
+
+    // Lock body scroll on mobile
+    document.body.classList.add("overflow-hidden");
   }
 
   close() {
@@ -68,6 +108,9 @@ export default class extends Controller {
       this.menuTarget.classList.add(this.hiddenClass);
     }, 200);
     document.removeEventListener("mousedown", this._closeOnClickOutside);
+
+    // Unlock body scroll
+    document.body.classList.remove("overflow-hidden");
   }
 
   _setLabel(text) {
