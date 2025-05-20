@@ -2,35 +2,32 @@ import { Controller } from "@hotwired/stimulus";
 
 export default class extends Controller {
   static targets = ["menu", "hiddenInput", "label"];
+  static classes = ["hidden", "open", "selected"];
+  static outlets = ["dropdowns"];
   static values = {
     name: String,
     autosubmit: Boolean,
   };
-  static classes = ["hidden", "open", "selected"];
 
   connect() {
     this._closeOnClickOutside = this._closeOnClickOutside.bind(this);
   }
 
   toggle() {
-    // Close all other dropdowns
-    document.querySelectorAll("[data-controller='dropdown']").forEach((el) => {
-      if (el !== this.element) {
-        const menu = el.querySelector("[data-dropdown-target='menu']");
-        if (menu) menu.classList.add(this.hiddenClass);
-      }
-    });
+    this.dropdownsOutlets
+      .filter(dropdown => dropdown !== this.element)
+      .forEach(dropdown => dropdown.close());
 
     if (this.menuTarget.classList.contains(this.hiddenClass)) {
-      this._openMenu();
+      this.open();
     } else {
-      this._closeMenu();
+      this.close();
     }
   }
 
   _closeOnClickOutside(event) {
     if (!this.element.contains(event.target)) {
-      this._closeMenu();
+      this.close();
     }
   }
 
@@ -50,14 +47,14 @@ export default class extends Controller {
     selectedButton.classList.add(this.selectedClass);
 
     this._setLabel(selectedButton.textContent);
-    this._closeMenu();
+    this.close();
 
     if (this.autosubmitValue) {
       this._submitForm();
     }
   }
 
-  _openMenu() {
+  open() {
     this.menuTarget.classList.remove(this.hiddenClass);
     // Force reflow for transition
     void this.menuTarget.offsetWidth;
@@ -65,13 +62,14 @@ export default class extends Controller {
     document.addEventListener("mousedown", this._closeOnClickOutside);
   }
 
-  _closeMenu() {
+  close() {
     this.menuTarget.classList.remove(this.openClass);
     setTimeout(() => {
       this.menuTarget.classList.add(this.hiddenClass);
     }, 200);
     document.removeEventListener("mousedown", this._closeOnClickOutside);
   }
+
   _setLabel(text) {
     if (this.hasLabelTarget) {
       this.labelTarget.textContent = text;

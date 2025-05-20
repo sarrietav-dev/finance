@@ -2,10 +2,11 @@
   data-controller="dropdown"
   data-dropdown-name-value="<%= @name %>"
   data-dropdown-autosubmit-value="<%= @autosubmit %>"
-  class="relative <%= @class %>"
+  class="relative dropdown <%= @class %>"
   data-dropdown-hidden-class="hidden"
   data-dropdown-open-class="open"
   data-dropdown-selected-class="font-bold"
+  data-dropdown-dropdowns-outlet=".dropdown"
 >
   <button
     type="button"
