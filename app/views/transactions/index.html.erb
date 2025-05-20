@@ -35,42 +35,32 @@
             class="w-full border rounded-md p-2"
           />
         </form>
-        <div class="flex justify-end gap-4">
+        <%= form_with url: "/transactions", method: :get, data: { turbo_stream: true, turbo: true }, html: { class: "flex justify-end gap-4" } do |form| %>
+          <%= render DropdownComponent.new(
+            name: "sort",
+            label: "Sort by",
+            options: [%w[Latest desc], %w[Oldest asc]],
+            selected: params[:sort],
+            autosubmit: true,
+          ) %>
 
-          <%= form_with url: "/transactions", method: :get, data: { turbo_stream: true, turbo: true } do |form| %>
-            <%= form.select :sort,
-                        options_for_select(
-                          [%w[Latest desc], %w[Oldest asc]],
-                          params[:sort],
-                        ),
-                        {},
-                        {
-                          class:
-                            "flex items-center w-full pl-4 pr-10 py-2 border border-beige-500 rounded-lg shadow-sm bg-white text-gray-900 justify-between",
-                          onchange: "this.form.requestSubmit()",
-                        } %>
+          <%= render DropdownComponent.new(
+            name: "category",
+            label: "Category",
+            options: [
+              ["All Transactions", "all"],
+              %w[Entertainment entertainment],
+              %w[Bills bills],
+              %w[Groceries groceries],
+              ["Dining Out", "dining_out"],
+              %w[Transportation transportation],
+              ["Personal Care", "personal_care"],
+            ],
+            selected: params[:category],
+            autosubmit: true,
+          ) %>
 
-            <%= form.select :category,
-                        options_for_select(
-                          [
-                            ["All Transactions", "all"],
-                            %w[Entertainment entertainment],
-                            %w[Bills bills],
-                            %w[Groceries groceries],
-                            ["Dining Out", "dining_out"],
-                            %w[Transportation transportation],
-                            ["Personal Care", "personal_care"],
-                          ],
-                          params[:category],
-                        ),
-                        {},
-                        {
-                          class:
-                            "flex items-center w-full pl-4 pr-10 py-2 border border-beige-500 rounded-lg shadow-sm bg-white text-gray-900 justify-between",
-                          onchange: "this.form.requestSubmit()",
-                        } %>
-          <% end %>
-        </div>
+        <% end %>
       </div>
 
       <turbo-frame id="transaction_table">
