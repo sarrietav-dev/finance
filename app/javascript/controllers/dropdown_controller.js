@@ -1,81 +1,155 @@
 import { Controller } from "@hotwired/stimulus";
-import { get } from "@rails/request.js";
 
 export default class extends Controller {
-  static targets = ["menu", "label"];
-  static values = { paramName: String, turboFrame: String };
+  static targets = ["menu", "hiddenInput", "label", "chevron"];
+  static classes = ["hidden", "open", "selected", "flip"];
+  static outlets = ["dropdowns"];
+  static values = {
+    name: String,
+    autosubmit: Boolean,
+  };
 
   connect() {
-    document.addEventListener("dropdown:opened", this.closeMenuIfOther);
-    document.addEventListener("click", this.closeOnOutsideClick);
-  }
-  disconnect() {
-    document.removeEventListener("dropdown:opened", this.closeMenuIfOther);
-    document.removeEventListener("click", this.closeOnOutsideClick);
+    this._closeOnClickOutside = this._closeOnClickOutside.bind(this);
   }
 
-  toggle(event) {
-    event.stopPropagation();
-    const isOpening = this.menuTarget.classList.contains("opacity-0");
-    if (isOpening) {
-      document.dispatchEvent(
-        new CustomEvent("dropdown:opened", { detail: { dropdown: this } }),
-      );
-    }
-    this.menuTarget.classList.toggle("opacity-0");
-    this.menuTarget.classList.toggle("pointer-events-none");
-    if (isOpening) setTimeout(() => this.adjustPosition(), 10);
+  toggle() {
+    // Close all other dropdowns
+    this._closeOtherDropdowns();
+
+    // Toggle current menu
+    this.menuTarget.classList.contains(this.hiddenClass)
+      ? this.open()
+      : this.close();
   }
 
-  adjustPosition() {
-    const menu = this.menuTarget;
-    menu.style.right =
-      menu.style.left =
-      menu.style.top =
-      menu.style.bottom =
-        "";
-    menu.style.marginBottom = "";
-
-    const rect = menu.getBoundingClientRect();
-    const padding = 8;
-
-    if (rect.right > window.innerWidth - padding) {
-      menu.style.left = "auto";
-      menu.style.right = "0";
-    }
-    if (rect.bottom > window.innerHeight - padding) {
-      menu.style.top = "auto";
-      menu.style.bottom = "100%";
-      menu.style.marginBottom = "8px";
-    }
+  _closeOtherDropdowns() {
+    this.dropdownsOutlets
+      .filter((dropdown) => dropdown !== this.element)
+      .forEach((dropdown) => dropdown.close());
   }
 
-  closeMenuIfOther = (event) => {
-    if (event.detail.dropdown !== this) {
-      this.menuTarget.classList.add("opacity-0", "pointer-events-none");
-    }
-  };
+  _closeOnClickOutside(event) {
+    if (!this.element.contains(event.target)) this.close();
+  }
 
   select(event) {
-    event.preventDefault();
-    const value = event.currentTarget.dataset.value;
-    const label = event.currentTarget.dataset.label;
-    this.labelTarget.textContent = label;
+    const selectedButton = event.target;
+    const value = selectedButton.dataset.value;
 
-    const url = new URL(window.location.href);
-    url.searchParams.set(this.paramNameValue, value);
+    // Update hidden input with the selected value
+    if (this.hasHiddenInputTarget) {
+      this.hiddenInputTarget.value = value;
+    }
 
-    get(url.toString(), {
-      responseKind: "turbo-stream", // forces Turbo-Frame-style response (partial)
-      headers: { "Turbo-Frame": this.turboFrameValue }, // needed for Turbo compatibility
-    });
+    // Update selected class
+    this._updateSelectedClass(selectedButton);
 
-    this.menuTarget.classList.add("opacity-0", "pointer-events-none");
+    // Update label text
+    this._setLabel(selectedButton.textContent);
+
+    // Close the dropdown
+    this.close();
+
+    // Autosubmit if enabled
+    if (this.autosubmitValue) {
+      this._submitForm();
+    }
   }
 
-  closeOnOutsideClick = (event) => {
-    if (!this.element.contains(event.target)) {
-      this.menuTarget.classList.add("opacity-0", "pointer-events-none");
+  _updateSelectedClass(selectedButton) {
+    this.menuTarget
+      .querySelectorAll("button[data-action='dropdown#select']")
+      .forEach((btn) => btn.classList.remove(this.selectedClass));
+
+    selectedButton.classList.add(this.selectedClass);
+  }
+
+  open() {
+    this.menuTarget.classList.remove(this.hiddenClass);
+    // Force reflow for transition
+    void this.menuTarget.offsetWidth;
+
+    // Auto-flip positioning logic
+    this._adjustMenuPosition();
+
+    this.menuTarget.classList.add(this.openClass);
+    document.addEventListener("mousedown", this._closeOnClickOutside);
+
+    // Flip the chevron if needed
+    this.chevronTarget.classList.add(this.flipClass);
+
+    // Lock body scroll on mobile
+    document.body.classList.add("overflow-hidden");
+  }
+
+  close() {
+    this.menuTarget.classList.remove(this.openClass);
+    setTimeout(() => {
+      this.menuTarget.classList.add(this.hiddenClass);
+    }, 200);
+    document.removeEventListener("mousedown", this._closeOnClickOutside);
+
+    // Remove flip class from chevron
+    this.chevronTarget.classList.remove(this.flipClass);
+
+    // Unlock body scroll
+    document.body.classList.remove("overflow-hidden");
+  }
+
+  _adjustMenuPosition() {
+    const button = this.element.querySelector("button");
+    const buttonRect = button.getBoundingClientRect();
+    const menu = this.menuTarget;
+
+    // Temporarily show menu to measure height and width
+    menu.style.visibility = "hidden";
+    menu.style.display = "block";
+    const menuHeight = menu.offsetHeight || 200;
+    const menuWidth = menu.offsetWidth || 200;
+    menu.style.removeProperty("display");
+    menu.style.removeProperty("visibility");
+
+    this._flipMenuVerticalPosition(buttonRect, menuHeight);
+    this._flipMenuHorizontalPosition(buttonRect, menuWidth);
+  }
+
+  _flipMenuVerticalPosition(buttonRect, menuHeight) {
+    const spaceBelow = window.innerHeight - buttonRect.bottom;
+    const spaceAbove = buttonRect.top;
+
+    if (spaceBelow < menuHeight && spaceAbove > spaceBelow) {
+      this.menuTarget.classList.add("dropdown-menu--top");
+    } else {
+      this.menuTarget.classList.remove("dropdown-menu--top");
     }
-  };
+  }
+
+  _flipMenuHorizontalPosition(buttonRect, menuWidth) {
+    const spaceRight = window.innerWidth - buttonRect.left;
+    const spaceLeft = buttonRect.right;
+
+    // Remove both alignment classes first
+    this.menuTarget.classList.remove(
+      "dropdown-menu--align-right",
+      "dropdown-menu--align-left",
+    );
+
+    if (spaceRight < menuWidth && spaceLeft > spaceRight) {
+      this.menuTarget.classList.add("dropdown-menu--align-right");
+    } else {
+      this.menuTarget.classList.add("dropdown-menu--align-left");
+    }
+  }
+
+  _setLabel(text) {
+    if (this.hasLabelTarget) {
+      this.labelTarget.textContent = text;
+    }
+  }
+
+  _submitForm() {
+    const form = this.element.closest("form");
+    if (form) form.requestSubmit();
+  }
 }

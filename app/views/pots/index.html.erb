@@ -23,8 +23,13 @@
 
   <div>
     <% if @pots.any? %>
-      <ul id="pots">
-        <%= render @pots %>
+      <ul>
+        <turbo-frame
+          id="pots"
+          class="grid grid-cols-1 lg:grid-cols-2 gap-6"
+        >
+          <%= render @pots %>
+        </turbo-frame>
       </ul>
     <% else %>
       <p class="text-center my-10">No pots found.</p>

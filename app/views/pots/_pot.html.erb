@@ -1,50 +1,53 @@
-<article id="<%= dom_id pot %>" class="bg-white rounded-lg px-5 py-7">
-  <div class="flex justify-between items-center mb-10">
-    <h2 class="text-xl font-bold text-gray-900 flex items-center gap-4">
-      <span class="size-4 bg-<%= pot.theme %> rounded-full inline-block"></span>
-      <span><%= pot.name %></span>
-    </h2>
-    <button>
-      <%= inline_svg_tag "icon-ellipsis.svg" %>
-    </button>
-  </div>
-  <div class="w-full flex items-baseline justify-between">
-    <span class="text-gray-500 text-sm leading-tight">Total saved</span>
-    <span class="text-3xl font-bold leading-10 text-gray-900">
-      $<%= pot.total %>
-    </span>
-  </div>
+<%= turbo_frame_tag dom_id pot do %>
+  <article class="bg-white rounded-lg px-5 py-7">
+    <div class="flex justify-between items-center mb-10">
+      <h2 class="text-xl font-bold text-gray-900 flex items-center gap-4">
+        <span class="size-4 bg-<%= pot.theme %> rounded-full inline-block"></span>
+        <span><%= pot.name %></span>
+      </h2>
+      <button>
+        <%= inline_svg_tag "icon-ellipsis.svg" %>
+      </button>
+    </div>
+    <div class="w-full flex items-baseline justify-between">
+      <span class="text-gray-500 text-sm leading-tight">Total saved</span>
+      <span class="text-3xl font-bold leading-10 text-gray-900">
+        $<%= pot.total %>
+      </span>
+    </div>
 
-  <div class="relative mt-4 mb-3 h-2 w-full rounded-full bg-beige-100">
-    <div
-      class="
-        absolute top-0 left-0 h-2 rounded-full transition-all duration-1000
-        bg-<%= pot.theme %>
-      "
-      style="width: <%= (pot.total.to_f / pot.target * 100).round(2) %>%"
-    ></div>
-  </div>
-  <div class="w-full flex items-baseline justify-between">
-    <span class="text-xs text-gray-500 font-bold leading-none">
-      <%= pot_percentage(pot.total, pot.target) %>
-      %
-    </span>
-    <span class="text-xs text-gray-500 leading-none">
-      Target of $<%= pot.target %>
-    </span>
-  </div>
-  <div class="w-full flex items-center justify-center gap-4 mt-10">
-    <%= link_to "+ Add money",
-    new_pot_deposit_path(pot),
-    class: " btn btn--secondary ",
-    data: {
-      turbo_frame: "pots_modal",
-    } %>
-    <%= link_to "Withdraw",
-    new_pot_withdrawal_path(pot),
-    class: " btn btn--secondary ",
-    data: {
-      turbo_frame: "pots_modal",
-    } %>
-  </div>
-</article>
+    <div class="relative mt-4 mb-3 h-2 w-full rounded-full bg-beige-100">
+      <div
+        class="
+          absolute top-0 left-0 h-2 rounded-full transition-all duration-1000
+          bg-<%= pot.theme %>
+        "
+        style="width: <%= (pot.total.to_f / pot.target * 100).round(2) %>%"
+      ></div>
+    </div>
+    <div class="w-full flex items-baseline justify-between">
+      <span class="text-xs text-gray-500 font-bold leading-none">
+        <%= pot_percentage(pot.total, pot.target) %>
+        %
+      </span>
+      <span class="text-xs text-gray-500 leading-none">
+        Target of $<%= pot.target %>
+      </span>
+    </div>
+    <div class="w-full flex items-center justify-center gap-4 mt-10">
+      <%= link_to "+ Add money",
+      new_pot_deposit_path(pot),
+      class: " btn btn--secondary ",
+      data: {
+        turbo_frame: "pots_modal",
+      } %>
+      <%= link_to "Withdraw",
+      new_pot_withdrawal_path(pot),
+      class: " btn btn--secondary ",
+      data: {
+        turbo_frame: "pots_modal",
+      } %>
+    </div>
+  </article>
+
+<% end %>

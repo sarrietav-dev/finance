@@ -1,22 +1,11 @@
-# frozen_string_literal: true
-
+# app/components/dropdown_component.rb
 class DropdownComponent < ViewComponent::Base
-  def initialize(options:, param:, turbo_frame: nil, label: nil, icon: nil, selected: nil, class_list: nil)
+  def initialize(label:, name: nil, options: nil, selected: nil, autosubmit: false, icon: nil)
+    @label = label
+    @name = name
     @options = options
     @selected = selected
-    @param = param
-    @turbo_frame = turbo_frame
-    @label = label
+    @autosubmit = autosubmit
     @icon = icon
-    @class = class_list
-  end
-
-  def button_label
-    selected_option = @options.find { |o| (o.is_a?(Array) ? o[1] : o[0]) == @selected }
-    if selected_option
-      selected_option.is_a?(Array) ? selected_option[0] : selected_option
-    else
-      @label || (@options.first.is_a?(Array) ? @options.first[0] : @options.first)
-    end
   end
 end

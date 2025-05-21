@@ -35,17 +35,19 @@
             class="w-full border rounded-md p-2"
           />
         </form>
-        <div class="flex justify-end gap-4">
+        <%= form_with url: "/transactions", method: :get, data: { turbo_stream: true, turbo: true }, html: { class: "flex justify-end items-center gap-4 h-full" } do |form| %>
           <%= render DropdownComponent.new(
+            name: "sort",
+            label: "Sort by",
             options: [%w[Latest desc], %w[Oldest asc]],
             selected: params[:sort],
-            param: "sort",
-            turbo_frame: "transaction_table",
-            label: "Sort",
             icon: "icon-sort-mobile.svg",
+            autosubmit: true,
           ) %>
 
           <%= render DropdownComponent.new(
+            name: "category",
+            label: "Category",
             options: [
               ["All Transactions", "all"],
               %w[Entertainment entertainment],
@@ -56,17 +58,19 @@
               ["Personal Care", "personal_care"],
             ],
             selected: params[:category],
-            param: "category",
-            turbo_frame: "transaction_table",
-            label: "All Categories",
             icon: "icon-filter-mobile.svg",
+            autosubmit: true,
           ) %>
 
-        </div>
+        <% end %>
       </div>
 
       <turbo-frame id="transaction_table">
-        <%= render partial: "transactions/table", locals: { transactions: @transactions, pagy: @pagy } %>
+        <%= render partial: "transactions/table",
+        locals: {
+          transactions: @transactions,
+          pagy: @pagy,
+        } %>
       </turbo-frame>
     </section>
   </div>

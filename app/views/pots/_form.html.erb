@@ -40,13 +40,25 @@
 
   <div class="my-5">
     <%= form.label :theme %>
-    <%= form.select :theme,
+    <%= render DropdownComponent.new(
+      name: "pot[theme]",
+      label: "Select Theme",
+      options: [
+        %w[Green green],
+        %w[Yellow yellow],
+        %w[Cyan cyan],
+        %w[Navy navy],
+        %w[Purple purple],
+      ],
+      selected: @pot.theme,
+    ) %>
+    <%# form.select :theme,
                 options_for_select(
                   [
                     %w[Green green],
-                    %w[Blue blue],
-                    %w[Red red],
                     %w[Yellow yellow],
+                    %w[Cyan cyan],
+                    %w[Navy navy],
                     %w[Purple purple],
                   ],
                   @pot.theme,

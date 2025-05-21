@@ -25,6 +25,7 @@ class PotsController < ApplicationController
 
     respond_to do |format|
       if @pot.save
+        format.turbo_stream
         format.html { redirect_to pots_path, notice: "Pot was successfully created." }
         format.json { render :show, status: :created, location: @pot }
       else

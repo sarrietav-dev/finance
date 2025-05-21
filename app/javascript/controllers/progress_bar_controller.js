@@ -18,6 +18,12 @@ export default class extends Controller {
       this.amountInput.addEventListener("input", this.updateBar.bind(this));
     }
   }
+  
+  disconnect() {
+    if (this.amountInput) {
+      this.amountInput.removeEventListener("input", this.updateBar.bind(this));
+    }
+  }
 
   getThemeColor() {
     return (
