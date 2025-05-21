@@ -17,7 +17,7 @@ export default class extends Controller {
   disconnect() {
     document.removeEventListener("modal:close", this.closeListener);
   }
-
+  
   close() {
     // Animate out
     this.modalTarget.classList.remove("modal-enter-active");

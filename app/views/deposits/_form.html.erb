@@ -1,0 +1,10 @@
+<%= form_with url: pot_deposits_path do |f| %>
+  <div class="my-5">
+    <%= f.label :amount, "Amount to add" %>
+    <%= f.number_field :amount, min: 0 %>
+  </div>
+
+  <button type="submit" class="btn btn--primary w-full">
+    Confirm Addition
+  </button>
+<% end %>
