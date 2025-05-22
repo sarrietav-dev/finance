@@ -1,4 +1,5 @@
 <%= turbo_stream.append "pots", partial: "pots/pot", locals: { pot: @pot } %>
+<%= turbo_stream.remove "no-pots-message" %>
 
 <turbo-stream action="after" target="pots_modal">
   <template>
