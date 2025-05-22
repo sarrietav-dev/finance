@@ -64,6 +64,8 @@ group :development, :test do
   gem "standard", require: false
 
   gem "erb_lint", require: false
+  
+  gem "erb-formatter", require: false
 end
 
 group :development do
