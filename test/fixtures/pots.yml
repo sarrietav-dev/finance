@@ -4,10 +4,10 @@ one:
   name: MyString
   target: 9.99
   total: 9.99
-  theme: MyString
+  theme: green
 
 two:
   name: MyString
   target: 9.99
   total: 9.99
-  theme: MyString
+  theme: navy
