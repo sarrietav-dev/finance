@@ -1,0 +1,10 @@
+<%= turbo_stream.replace dom_id(@pot), partial: "pots/pot", locals: { pot: @pot } %>
+<%= turbo_stream.remove "no-pots-message" %>
+
+<turbo-stream action="after" target="pots_modal">
+  <template>
+    <script>
+      document.dispatchEvent(new CustomEvent("modal:close"));
+    </script>
+  </template>
+</turbo-stream>

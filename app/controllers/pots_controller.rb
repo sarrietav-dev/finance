@@ -17,6 +17,7 @@ class PotsController < ApplicationController
 
   # GET /pots/1/edit
   def edit
+    @pot = Pot.find(params[:id])
   end
 
   # POST /pots or /pots.json
@@ -44,9 +45,15 @@ class PotsController < ApplicationController
   def update
     respond_to do |format|
       if @pot.update(pot_params)
-        format.html { redirect_to @pot, notice: "Pot was successfully updated." }
+        format.turbo_stream
+        format.html { redirect_to pots_path, notice: "Pot was successfully updated." }
         format.json { render :show, status: :ok, location: @pot }
       else
+        format.turbo_stream {
+          render turbo_stream: turbo_stream.update("edit_pot",
+            partial: "pots/form"),
+            status: :unprocessable_entity
+        }
         format.html { render :edit, status: :unprocessable_entity }
         format.json { render json: @pot.errors, status: :unprocessable_entity }
       end

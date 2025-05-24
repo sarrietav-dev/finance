@@ -5,9 +5,38 @@
         <span class="size-4 bg-<%= pot.theme %> rounded-full inline-block"></span>
         <span><%= pot.name %></span>
       </h2>
-      <button>
-        <%= inline_svg_tag "icon-ellipsis.svg" %>
-      </button>
+      <div data-controller="toggle" class="relative">
+        <button
+          data-action="toggle#toggle"
+          class="
+            cursor-pointer px-2 py-3 rounded-full focus:outline-none focus:ring-2
+            focus:ring-gray-300
+          "
+        >
+          <%= inline_svg_tag "icon-ellipsis.svg" %>
+        </button>
+        <div
+          data-toggle-target="toggleable"
+          class="
+            absolute z-10 top-10 right-0 bg-white rounded-xl shadow-lg border divide-y
+            divide-gray-100
+          "
+        >
+          <%= link_to "Editar",
+          edit_pot_path(pot),
+          data: {
+            turbo_frame: "pots_modal",
+            action: "click->toggle#hide",
+          },
+          class:
+            " block w-full text-left px-5 py-3 text-gray-800 hover:bg-gray-50 transition rounded-none whitespace-normal break-words rounded-t-xl" %>
+
+          <%= link_to "Eliminar",
+          new_pot_deposit_path(pot),
+          class:
+            " block w-full text-left px-5 py-3 text-gray-800 hover:bg-gray-50 transition rounded-none whitespace-normal break-words rounded-b-xl" %>
+        </div>
+      </div>
     </div>
     <div class="w-full flex items-baseline justify-between">
       <span class="text-gray-500 text-sm leading-tight">Total saved</span>
