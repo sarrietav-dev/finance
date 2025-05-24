@@ -8,8 +8,8 @@
       data-modal-target="modal"
       class="
         bg-white rounded-xl p-8 md:w-2/3 w-full max-h-[90vh] overflow-y-auto space-y-5
-        fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2
-        modal-enter max-w-xl
+        fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 modal-enter
+        max-w-xl
       "
     >
       <div class="flex justify-between items-center">
@@ -64,15 +64,8 @@
         </span>
       </div>
 
-      <%= form_with url: pot_deposits_path do |f| %>
-        <div class="my-5">
-          <%= f.label :amount, "Amount to Withdraw" %>
-          <%= f.number_field :amount, min: 0 %>
-        </div>
-
-        <button type="submit" class="btn btn--primary w-full">
-          Confirm Withdrawal
-        </button>
+      <%= turbo_frame_tag "new_withdrawal" do %>
+        <%= render "form" %>
       <% end %>
     </div>
   </div>

@@ -1,0 +1,11 @@
+<%= turbo_stream.replace dom_id @pot do %>
+  <%= render partial: "pots/pot", locals: { pot: @pot } %>
+<% end %>
+
+<turbo-stream action="after" target="pots_modal">
+  <template>
+    <script>
+      document.dispatchEvent(new CustomEvent("modal:close"));
+    </script>
+  </template>
+</turbo-stream>
