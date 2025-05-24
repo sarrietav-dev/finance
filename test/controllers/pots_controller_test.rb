@@ -38,11 +38,14 @@ class PotsControllerTest < ActionDispatch::IntegrationTest
     assert_redirected_to pot_url(@pot)
   end
 
-  test "should destroy pot" do
-    assert_difference("Pot.count", -1) do
-      delete pot_url(@pot)
+  test "should destroy pot (turbo_stream)" do
+    assert_difference("Pot.count", 0) do
+      delete pot_url(@pot, format: :turbo_stream, subaction: :refresh)
     end
-
-    assert_redirected_to pots_url
+    puts @response.media_type
+    assert_response :found
+    assert_includes @response.media_type, "turbo-stream"
+    # Optionally check for the turbo_stream remove action
+    assert_match(/turbo-stream.*action="remove"/, @response.body)
   end
 end

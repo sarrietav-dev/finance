@@ -1,5 +1,5 @@
 class PotsController < ApplicationController
-  before_action :set_pot, only: %i[show edit update destroy]
+  before_action :set_pot, only: %i[show edit update destroy delete]
 
   # GET /pots or /pots.json
   def index
@@ -17,7 +17,6 @@ class PotsController < ApplicationController
 
   # GET /pots/1/edit
   def edit
-    @pot = Pot.find(params[:id])
   end
 
   # POST /pots or /pots.json
@@ -61,7 +60,6 @@ class PotsController < ApplicationController
   end
 
   def delete
-    @pot = Pot.find(params[:id])
   end
 
   # DELETE /pots/1 or /pots/1.json
