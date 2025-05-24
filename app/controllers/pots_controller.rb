@@ -60,11 +60,17 @@ class PotsController < ApplicationController
     end
   end
 
+  def delete
+    @pot = Pot.find(params[:id])
+  end
+
   # DELETE /pots/1 or /pots/1.json
   def destroy
     @pot.destroy!
+    @pots_empty = Pot.count.zero?
 
     respond_to do |format|
+      format.turbo_stream
       format.html { redirect_to pots_path, status: :see_other, notice: "Pot was successfully destroyed." }
       format.json { head :no_content }
     end

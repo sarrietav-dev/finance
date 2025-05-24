@@ -1,5 +1,8 @@
 Rails.application.routes.draw do
   resources :pots do
+    member do
+      get "delete", as: :delete
+    end
     resources :deposits, only: [:new, :create]
     resources :withdrawals, only: [:new, :create]
   end

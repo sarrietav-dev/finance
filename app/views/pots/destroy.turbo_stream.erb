@@ -1,0 +1,14 @@
+<%= turbo_stream.remove dom_id(@pot) %>
+<% if @pots_empty %>
+  <%= turbo_stream.replace "no-pots-message" do %>
+    <p id="no-pots-message" class="text-center my-10 md:col-span-2">No pots found.</p>
+  <% end %>
+<% end %>
+
+<turbo-stream action="after" target="pots_modal">
+  <template>
+    <script>
+      document.dispatchEvent(new CustomEvent("modal:close"));
+    </script>
+  </template>
+</turbo-stream>

@@ -32,7 +32,11 @@
             " block w-full text-left px-5 py-3 text-gray-800 hover:bg-gray-50 transition rounded-none whitespace-normal break-words rounded-t-xl" %>
 
           <%= link_to "Eliminar",
-          new_pot_deposit_path(pot),
+          delete_pot_path(pot),
+          data: {
+            turbo_frame: "pots_modal",
+            action: "click->toggle#hide",
+          },
           class:
             " block w-full text-left px-5 py-3 text-gray-800 hover:bg-gray-50 transition rounded-none whitespace-normal break-words rounded-b-xl" %>
         </div>

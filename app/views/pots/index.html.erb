@@ -23,11 +23,15 @@
 
   <div>
     <turbo-frame id="pots" class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-      <% if @pots.any? %>
-        <%= render @pots %>
-      <% else %>
-        <p id="no-pots-message" class="text-center my-10 md:col-span-2">No pots found.</p>
-      <% end %>
+      <%= render @pots %>
+      <p
+        id="no-pots-message"
+        class="
+          text-center my-10 md:col-span-2 <%= 'hidden' if @pots.any? %>
+        "
+      >
+        No pots found.
+      </p>
     </turbo-frame>
   </div>
   <turbo-frame id="pots_modal"></turbo-frame>
