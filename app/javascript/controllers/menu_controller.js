@@ -7,11 +7,11 @@ export default class extends Controller {
 
   connect() {
     const stored = localStorage.getItem("menuCollapsed");
-
     // Normalize to boolean
     this.collapsedValue = stored === "true";
-
-    this.applyMenuState();
+    
+    // The initial state is already applied by inline script,
+    // so we just need to sync our internal state
   }
 
   toggle() {

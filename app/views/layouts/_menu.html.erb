@@ -7,6 +7,33 @@
   "
   data-menu-target="sidebar"
 >
+  <!-- Inline script to immediately apply collapsed state before any transitions -->
+  <script>
+    (function() {
+      const nav = document.currentScript.parentElement;
+      const isCollapsed = localStorage.getItem('menuCollapsed') === 'true';
+      
+      if (isCollapsed) {
+        // Temporarily disable transitions
+        nav.style.transition = 'none';
+        const main = document.querySelector('[data-menu-target="main"]');
+        if (main) main.style.transition = 'none';
+        
+        // Apply collapsed classes immediately
+        nav.classList.add('collapsed', 'group/nav', 'lg:!w-28', 'lg:!px-4', 'lg:!pl-0');
+        if (main) main.classList.add('lg:!ml-27');
+        
+        // Force a reflow to ensure styles are applied
+        nav.offsetHeight;
+        
+        // Re-enable transitions after applying classes
+        setTimeout(() => {
+          nav.style.transition = '';
+          if (main) main.style.transition = '';
+        }, 10);
+      }
+    })();
+  </script>
   <ul
     aria-label="Navigation link list"
     class="flex justify-between text-gray-300 lg:h-full lg:flex-col"
