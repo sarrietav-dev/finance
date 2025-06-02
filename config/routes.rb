@@ -9,6 +9,7 @@ Rails.application.routes.draw do
   resource :session
   resources :passwords, param: :token
   resources :transactions
+  get :bills, to: "bills#index"
 
   root "transactions#index"
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
@@ -25,5 +26,4 @@ Rails.application.routes.draw do
 
   get :overview, to: "dashboard#overview"
   get :budgets, to: "budgets#index"
-  get :bills, to: "bills#index"
 end

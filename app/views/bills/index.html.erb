@@ -1,0 +1,102 @@
+<div class="px-4 py-6 md:px-10 md:py-8">
+  <div class="mx-auto space-y-10">
+
+    <h1 class="text-gray-900 text-3xl font-bold leading-10">Recurring Bills</h1>
+
+    <% if notice.present? %>
+      <p
+        class="
+          py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-md inline-block
+        "
+        id="notice"
+      >
+        <%= notice %>
+      </p>
+    <% end %>
+
+    <div class="flex flex-col lg:flex-row gap-6">
+
+      <div class="flex flex-col gap-4 md:flex-row md:gap-6 lg:flex-col md:grow lg:grow-0">
+
+        <div class=" bg-gray-900 rounded-2xl px-5 py-6 flex items-center gap-5 md:grow lg:p-6 lg:flex-col md:items-start ">
+          <div class="flex items-center gap-2 mb-2">
+            <span class=" inline-flex items-center justify-center rounded-full ">
+              <%= inline_svg_tag "icon-recurring-bills.svg" %>
+            </span>
+          </div>
+          <div class="flex flex-col justify-center gap-3">
+            <span class="text-white text-sm font-medium leading-tight">Total bills</span>
+            <span class="text-3xl font-bold text-white">$
+              <%= "%.2f" % @recurring_bills.sum { |b| b.amount.abs } %>
+            </span>
+          </div>
+        </div>
+
+        <div class="bg-white rounded-2xl shadow p-5 md:grow">
+          <div class="text-gray-900 font-bold">Summary</div>
+          <div class="flex flex-col gap-2 divide-y divide-stone-500/20 *:py-3">
+            <div class="flex justify-between lg:gap-32 items-center text-gray-900">
+              <span class="text-gray-500 text-xs">Paid Bills</span>
+              <span class="font-bold text-xs text-gray-900"><%= @bills_summary[:paid][:count] %>
+                ($<%= "%.2f" % @bills_summary[:paid][:sum] %>)</span>
+            </div>
+            <div class="flex justify-between lg:gap-32 items-center text-gray-900">
+              <span class="text-gray-500 text-xs">Total Upcoming</span>
+              <span class="font-bold text-xs text-gray-900"><%= @bills_summary[:upcoming][:count] %>
+                ($<%= "%.2f" % @bills_summary[:upcoming][:sum] %>)</span>
+            </div>
+            <div class="flex justify-between lg:gap-32 items-center text-red-600">
+              <span class="text-xs">Due Soon</span>
+              <span class="font-bold text-xs"><%= @bills_summary[:due_soon][:count] %>
+                ($<%= "%.2f" % @bills_summary[:due_soon][:sum] %>)</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <section class="bg-white rounded-2xl shadow-md p-4 md:p-8 grow">
+        <!-- Filter/Search Section -->
+        <div class="flex items-center justify-between gap-4 mb-6 ">
+          <form
+            method="get"
+            action="/bills"
+            data-turbo-frame="bill_table"
+            data-turbo-stream="true"
+            class="grow md:max-w-sm"
+          >
+            <label class="sr-only" for="search">Search bills</label>
+            <input
+              type="search"
+              name="search"
+              id="search"
+              value="<%= params[:search] %>"
+              placeholder="Search bills..."
+              class="w-full border rounded-md p-2"
+            />
+          </form>
+          <%= form_with url: "/bills", method: :get, data: { turbo_stream: true, turbo: true }, html: { class: "flex justify-end items-center gap-4 h-full" } do |form| %>
+            <%= render DropdownComponent.new(
+              name: "sort",
+              label: "Sort by",
+              options: [
+                %w[Latest desc],
+                %w[Oldest asc],
+                %w[A-Z az],
+                %w[Z-A za],
+                %w[Highest\ Amount amount_desc],
+                %w[Lowest\ Amount amount_asc],
+              ],
+              selected: params[:sort],
+              icon: "icon-sort-mobile.svg",
+              autosubmit: true,
+            ) %>
+          <% end %>
+        </div>
+
+        <turbo-frame id="bill_table">
+          <%= render partial: "bills/table", locals: { recurring_bills: @recurring_bills } %>
+        </turbo-frame>
+      </section>
+    </div>
+  </div>
+</div>

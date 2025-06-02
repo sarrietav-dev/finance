@@ -1,0 +1,65 @@
+<% if recurring_bills.any? %>
+  <div class="hidden md:block">
+    <table class="w-full text-left border-separate border-spacing-y-3">
+      <thead class="text-sm text-neutral-500">
+        <tr>
+          <th>Bill title</th>
+          <th>Due date</th>
+          <th class="text-right">Amount</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% recurring_bills.each do |t| %>
+          <% status = recurring_status(t, @reference_date, @paid_vendors_this_month) %>
+          <tr>
+            <td class="font-semibold">
+              <%= t.name %>
+            </td>
+            <td>
+              <%= monthly_due_label(t.date) %>
+              <%= status_icon(status) %>
+            </td>
+            <td
+              class="
+                text-right font-semibold <%= status == :due_soon  ? 'text-red-500' : 'text-green-500' %>
+              "
+            >
+              <%= t.amount.abs %>
+            </td>
+          </tr>
+          <tr>
+            <td colspan="4">
+              <hr class="border-0 border-t border-gray-100 m-0 my-3">
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+  <ul class="md:hidden flex flex-col divide-y divide-gray-100">
+
+    <% recurring_bills.each do |t| %>
+      <% status = recurring_status(t, @reference_date, @paid_vendors_this_month) %>
+      <li class="p-4 flex justify-between items-center">
+        <div>
+          <p class="font-semibold">
+            <%= t.name %>
+          </p>
+          <p class="text-sm text-neutral-500">
+            <%= monthly_due_label(t.date) %>
+            <%= status_icon(status) %>
+          </p>
+        </div>
+        <div
+          class="
+            text-right font-semibold <%= status == :due_soon  ? 'text-red-500' : 'text-green-500' %>
+          "
+        >
+          <%= t.amount.abs %>
+        </div>
+      </li>
+    <% end %>
+  </ul>
+<% else %>
+  <p aria-label="No bills found" class="text-center my-10">No bills found.</p>
+<% end %>
