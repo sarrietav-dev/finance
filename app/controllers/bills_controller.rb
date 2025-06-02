@@ -5,8 +5,8 @@ class BillsController < ApplicationController
     @recurring_bills = Transaction.latest_recurring_by_vendor
 
     # Get all recurring transactions for the current month
-    start_of_month = Date.today.beginning_of_month
-    end_of_month = Date.today.end_of_month
+    start_of_month = Time.zone.today.beginning_of_month
+    end_of_month = Time.zone.today.end_of_month
     recurring_this_month = Transaction.recurring.where(date: start_of_month..end_of_month)
 
     # Vendors with a recurring bill paid this month
