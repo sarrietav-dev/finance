@@ -5,9 +5,9 @@ module TransactionsHelper
 
   def parse_amount(amount)
     if amount.negative?
-      "-$#{'%.2f' % amount.abs}"
+      "-$#{"%.2f" % amount.abs}"
     else
-      "$#{'%.2f' % amount}"
+      "$#{"%.2f" % amount}"
     end
   end
 end

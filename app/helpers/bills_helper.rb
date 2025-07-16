@@ -10,7 +10,7 @@ module BillsHelper
     due_day = bill.date.day
     due_date = begin
       Date.new(reference_date.year, reference_date.month, due_day)
-    rescue StandardError
+    rescue
       nil
     end
     return :invalid_due_date unless due_date
@@ -54,13 +54,13 @@ module BillsHelper
     when :due_soon
       '<span class="inline-flex items-center justify-center rounded-full bg-red-500 text-white w-4 h-4"><svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg></span>'.html_safe
     else
-      ''.html_safe
+      "".html_safe
     end
   end
 
   # Returns the Tailwind class for the amount color based on status
   def amount_class(status)
-    status == :due_soon ? 'text-red-600' : 'text-gray-900'
+    (status == :due_soon) ? "text-red-600" : "text-gray-900"
   end
 
   # Returns the formatted due date label (Monthly - 1st, etc.)
@@ -73,11 +73,11 @@ module BillsHelper
   def status_text_class(status)
     case status
     when :paid
-      'text-green-600'
+      "text-green-600"
     when :due_soon
-      'text-red-600'
+      "text-red-600"
     else
-      'text-gray-500'
+      "text-gray-500"
     end
   end
 end

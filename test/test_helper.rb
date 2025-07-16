@@ -1,12 +1,12 @@
 # frozen_string_literal: true
 
-ENV['RAILS_ENV'] ||= 'test'
-require_relative '../config/environment'
-require 'rails/test_help'
+ENV["RAILS_ENV"] ||= "test"
+require_relative "../config/environment"
+require "rails/test_help"
 
 module SignInHelper
   def sign_in_as(user)
-    post session_url, params: { email_address: user.email_address, password: 'password' }
+    post session_url, params: {email_address: user.email_address, password: "password"}
   end
 end
 

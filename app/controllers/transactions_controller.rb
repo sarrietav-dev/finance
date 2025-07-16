@@ -15,7 +15,8 @@ class TransactionsController < ApplicationController
   end
 
   # GET /transactions/1 or /transactions/1.json
-  def show; end
+  def show
+  end
 
   # GET /transactions/new
   def new
@@ -23,7 +24,8 @@ class TransactionsController < ApplicationController
   end
 
   # GET /transactions/1/edit
-  def edit; end
+  def edit
+  end
 
   # POST /transactions or /transactions.json
   def create
@@ -31,7 +33,7 @@ class TransactionsController < ApplicationController
 
     respond_to do |format|
       if @transaction.save
-        format.html { redirect_to @transaction, notice: t('transactions.created') }
+        format.html { redirect_to @transaction, notice: t("transactions.created") }
         format.json { render :show, status: :created, location: @transaction }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -44,7 +46,7 @@ class TransactionsController < ApplicationController
   def update
     respond_to do |format|
       if @transaction.update(transaction_params)
-        format.html { redirect_to @transaction, notice: t('transactions.updated') }
+        format.html { redirect_to @transaction, notice: t("transactions.updated") }
         format.json { render :show, status: :ok, location: @transaction }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -59,13 +61,13 @@ class TransactionsController < ApplicationController
 
     respond_to do |format|
       format.html do
-        redirect_to transactions_path, status: :see_other, notice: t('transactions.destroyed')
+        redirect_to transactions_path, status: :see_other, notice: t("transactions.destroyed")
       end
       format.json { head :no_content }
     end
   end
 
-private
+  private
 
   # Use callbacks to share common setup or constraints between actions.
   def set_transaction
@@ -80,12 +82,12 @@ private
   end
 
   def render_turbo_stream_table
-    render turbo_stream: turbo_stream.update('transaction_table',
-                                             partial: 'transactions/table',
-                                             locals: {
-                                               transactions: @transactions,
-                                               pagy: @pagy
-                                             })
+    render turbo_stream: turbo_stream.update("transaction_table",
+      partial: "transactions/table",
+      locals: {
+        transactions: @transactions,
+        pagy: @pagy
+      })
   end
 
   def filtered_transactions
@@ -96,7 +98,7 @@ private
   end
 
   def filter_by_category(transactions)
-    return transactions unless params[:category].present? && params[:category] != 'all'
+    return transactions unless params[:category].present? && params[:category] != "all"
 
     transactions.where(category: params[:category])
   end
@@ -104,7 +106,7 @@ private
   def filter_by_search(transactions)
     return transactions if params[:search].blank?
 
-    transactions.where('name LIKE ?', "%#{params[:search]}%")
+    transactions.where("name LIKE ?", "%#{params[:search]}%")
   end
 
   # Only allow a list of trusted parameters through.
