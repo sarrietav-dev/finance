@@ -1,44 +1,17 @@
 # frozen_string_literal: true
 
+# Controller for managing Transaction records, including listing, creating, updating, and deleting transactions.
 class TransactionsController < ApplicationController
   include Pagy::Backend
+  include TransactionsSorting
 
   before_action :set_transaction, only: %i[show edit update destroy]
 
   # GET /transactions or /transactions.json
   def index
-    @transactions = Transaction.all
-
-    if params[:category].present? && params[:category] != 'all'
-      @transactions = @transactions.where(category: params[:category])
-    end
-
-    @transactions = @transactions.where('name LIKE ?', "%#{params[:search]}%") if params[:search].present?
-
-    case params[:sort]
-    when 'desc'
-      @transactions = @transactions.order(created_at: :desc)
-    when 'asc'
-      @transactions = @transactions.order(created_at: :asc)
-    when 'amount_desc'
-      @transactions = @transactions.order(amount: :desc)
-    when 'amount_asc'
-      @transactions = @transactions.order(amount: :asc)
-    end
-
+    @transactions = filtered_transactions
     @pagy, @transactions = pagy(@transactions, items: 10, size: 5)
-
-    respond_to do |format|
-      format.html
-      format.turbo_stream do
-        render turbo_stream: turbo_stream.update('transaction_table',
-                                                 partial: 'transactions/table',
-                                                 locals: {
-                                                   transactions: @transactions,
-                                                   pagy: @pagy
-                                                 })
-      end
-    end
+    respond_to_format
   end
 
   # GET /transactions/1 or /transactions/1.json
@@ -58,7 +31,7 @@ class TransactionsController < ApplicationController
 
     respond_to do |format|
       if @transaction.save
-        format.html { redirect_to @transaction, notice: 'Transaction was successfully created.' }
+        format.html { redirect_to @transaction, notice: t('transactions.created') }
         format.json { render :show, status: :created, location: @transaction }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -71,7 +44,7 @@ class TransactionsController < ApplicationController
   def update
     respond_to do |format|
       if @transaction.update(transaction_params)
-        format.html { redirect_to @transaction, notice: 'Transaction was successfully updated.' }
+        format.html { redirect_to @transaction, notice: t('transactions.updated') }
         format.json { render :show, status: :ok, location: @transaction }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -86,7 +59,7 @@ class TransactionsController < ApplicationController
 
     respond_to do |format|
       format.html do
-        redirect_to transactions_path, status: :see_other, notice: 'Transaction was successfully destroyed.'
+        redirect_to transactions_path, status: :see_other, notice: t('transactions.destroyed')
       end
       format.json { head :no_content }
     end
@@ -97,6 +70,41 @@ private
   # Use callbacks to share common setup or constraints between actions.
   def set_transaction
     @transaction = Transaction.find(params.expect(:id))
+  end
+
+  def respond_to_format
+    respond_to do |format|
+      format.html
+      format.turbo_stream { render_turbo_stream_table }
+    end
+  end
+
+  def render_turbo_stream_table
+    render turbo_stream: turbo_stream.update('transaction_table',
+                                             partial: 'transactions/table',
+                                             locals: {
+                                               transactions: @transactions,
+                                               pagy: @pagy
+                                             })
+  end
+
+  def filtered_transactions
+    transactions = Transaction.all
+    transactions = filter_by_category(transactions)
+    transactions = filter_by_search(transactions)
+    sort_transactions(transactions)
+  end
+
+  def filter_by_category(transactions)
+    return transactions unless params[:category].present? && params[:category] != 'all'
+
+    transactions.where(category: params[:category])
+  end
+
+  def filter_by_search(transactions)
+    return transactions if params[:search].blank?
+
+    transactions.where('name LIKE ?', "%#{params[:search]}%")
   end
 
   # Only allow a list of trusted parameters through.

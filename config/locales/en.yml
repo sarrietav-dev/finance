@@ -32,3 +32,7 @@ en:
   pagy:
     prev: "&#x25C0"
     next: "&#x25B6;"
+  transactions:
+    created: "Transaction was successfully created."
+    updated: "Transaction was successfully updated."
+    destroyed: "Transaction was successfully destroyed."
