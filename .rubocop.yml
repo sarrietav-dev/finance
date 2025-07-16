@@ -1,0 +1,15 @@
+plugins:
+  - rubocop-rails
+  - rubocop-capybara
+
+inherit_gem:
+  rubocop-rails: config/default.yml
+
+AllCops:
+  NewCops: enable
+  # Disable StandardRB's own rules since we're using the plugins
+  DisabledByDefault: false
+
+# Override any conflicting rules here
+Layout/AccessModifierIndentation:
+  EnforcedStyle: outdent

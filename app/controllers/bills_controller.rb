@@ -15,31 +15,26 @@ class BillsController < ApplicationController
     @paid_vendors_this_month = recurring_this_month.pluck(:name).uniq
 
     # Filtering (search by name)
-    if params[:search].present?
-      @recurring_bills = @recurring_bills.where("name ILIKE ?",
-        "%#{params[:search]}%")
-    end
+    @recurring_bills = @recurring_bills.where('name ILIKE ?', "%#{params[:search]}%") if params[:search].present?
 
     # Sorting
     case params[:sort]
-    when "desc" # Latest (earliest in the month)
-      @recurring_bills = @recurring_bills.order("EXTRACT(DAY FROM date) ASC")
-    when "asc" # Oldest
-      @recurring_bills = @recurring_bills.order("EXTRACT(DAY FROM date) DESC")
-    when "az" # A to Z
+    when 'desc' # Latest (earliest in the month)
+      @recurring_bills = @recurring_bills.order('EXTRACT(DAY FROM date) ASC')
+    when 'asc' # Oldest
+      @recurring_bills = @recurring_bills.order('EXTRACT(DAY FROM date) DESC')
+    when 'az' # A to Z
       @recurring_bills = @recurring_bills.order(name: :asc)
-    when "za" # Z to A
+    when 'za' # Z to A
       @recurring_bills = @recurring_bills.order(name: :desc)
-    when "amount_desc" # Highest
+    when 'amount_desc' # Highest
       @recurring_bills = @recurring_bills.order(amount: :desc)
-    when "amount_asc" # Lowest
+    when 'amount_asc' # Lowest
       @recurring_bills = @recurring_bills.order(amount: :asc)
     end
 
     # For summary card
-    @bills_summary = {paid: {count: 0, sum: 0},
-                      upcoming: {count: 0, sum: 0},
-                      due_soon: {count: 0, sum: 0}}
+    @bills_summary = { paid: { count: 0, sum: 0 }, upcoming: { count: 0, sum: 0 }, due_soon: { count: 0, sum: 0 } }
     reference_date = Transaction.order(date: :asc).pick(:date)
     @recurring_bills.each do |bill|
       status = recurring_status(bill, reference_date, @paid_vendors_this_month)
@@ -64,11 +59,11 @@ class BillsController < ApplicationController
     respond_to do |format|
       format.html
       format.turbo_stream do
-        render turbo_stream: turbo_stream.update("bill_table",
-          partial: "bills/table",
-          locals: {
-            recurring_bills: @recurring_bills
-          })
+        render turbo_stream: turbo_stream.update('bill_table',
+                                                 partial: 'bills/table',
+                                                 locals: {
+                                                   recurring_bills: @recurring_bills
+                                                 })
       end
     end
   end
