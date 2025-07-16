@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class PotsController < ApplicationController
   before_action :set_pot, only: %i[show edit update destroy delete]
 
@@ -7,8 +9,7 @@ class PotsController < ApplicationController
   end
 
   # GET /pots/1 or /pots/1.json
-  def show
-  end
+  def show; end
 
   # GET /pots/new
   def new
@@ -16,8 +17,7 @@ class PotsController < ApplicationController
   end
 
   # GET /pots/1/edit
-  def edit
-  end
+  def edit; end
 
   # POST /pots or /pots.json
   def create
@@ -26,14 +26,14 @@ class PotsController < ApplicationController
     respond_to do |format|
       if @pot.save
         format.turbo_stream
-        format.html { redirect_to pots_path, notice: "Pot was successfully created." }
+        format.html { redirect_to pots_path, notice: 'Pot was successfully created.' }
         format.json { render :show, status: :created, location: @pot }
       else
-        format.turbo_stream {
-          render turbo_stream: turbo_stream.update("new_pot",
-                                                   partial: "pots/form"),
+        format.turbo_stream do
+          render turbo_stream: turbo_stream.update('new_pot',
+                                                   partial: 'pots/form'),
                  status: :unprocessable_entity
-        }
+        end
         format.html { render :new, status: :unprocessable_entity }
         format.json { render json: @pot.errors, status: :unprocessable_entity }
       end
@@ -45,31 +45,30 @@ class PotsController < ApplicationController
     respond_to do |format|
       if @pot.update(pot_params)
         format.turbo_stream
-        format.html { redirect_to pots_path, notice: "Pot was successfully updated." }
+        format.html { redirect_to pots_path, notice: 'Pot was successfully updated.' }
         format.json { render :show, status: :ok, location: @pot }
       else
-        format.turbo_stream {
-          render turbo_stream: turbo_stream.update("edit_pot",
-                                                   partial: "pots/form"),
+        format.turbo_stream do
+          render turbo_stream: turbo_stream.update('edit_pot',
+                                                   partial: 'pots/form'),
                  status: :unprocessable_entity
-        }
+        end
         format.html { render :edit, status: :unprocessable_entity }
         format.json { render json: @pot.errors, status: :unprocessable_entity }
       end
     end
   end
 
-  def delete
-  end
+  def delete; end
 
   # DELETE /pots/1 or /pots/1.json
   def destroy
     @pot.destroy!
-    @pots_empty = Pot.count.zero?
+    @pots_empty = Pot.none?
 
     respond_to do |format|
       format.turbo_stream
-      format.html { redirect_to pots_path, status: :see_other, notice: "Pot was successfully destroyed." }
+      format.html { redirect_to pots_path, status: :see_other, notice: 'Pot was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
@@ -83,6 +82,6 @@ private
 
   # Only allow a list of trusted parameters through.
   def pot_params
-    params.expect(pot: [:name, :target, :theme])
+    params.expect(pot: %i[name target theme])
   end
 end

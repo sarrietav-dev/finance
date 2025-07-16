@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class DepositsController < ApplicationController
   def new
     @pot = Pot.find(params[:pot_id])

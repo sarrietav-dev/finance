@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class TransactionsController < ApplicationController
   include Pagy::Backend
 
@@ -40,8 +42,7 @@ class TransactionsController < ApplicationController
   end
 
   # GET /transactions/1 or /transactions/1.json
-  def show
-  end
+  def show; end
 
   # GET /transactions/new
   def new
@@ -49,8 +50,7 @@ class TransactionsController < ApplicationController
   end
 
   # GET /transactions/1/edit
-  def edit
-  end
+  def edit; end
 
   # POST /transactions or /transactions.json
   def create

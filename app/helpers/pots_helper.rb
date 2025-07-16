@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module PotsHelper
   def pot_percentage(total, target)
     return 0 if total.zero?

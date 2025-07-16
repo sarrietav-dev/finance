@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'test_helper'
 
 class PotsControllerTest < ActionDispatch::IntegrationTest
@@ -39,7 +41,7 @@ class PotsControllerTest < ActionDispatch::IntegrationTest
     end
     assert_response :success
     assert_includes @response.media_type, 'turbo-stream'
-    assert_match 'No pots found', @response.body if Pot.count.zero?
+    assert_match 'No pots found', @response.body if Pot.none?
   end
 
   test "should show 'No pots found' when last pot destroyed" do

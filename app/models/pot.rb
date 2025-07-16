@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Pot < ApplicationRecord
   validates :name, presence: true
   validates :target, numericality: { greater_than: 0 }

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class BudgetsController < ApplicationController
   before_action :set_budget, only: %i[show edit update destroy]
 

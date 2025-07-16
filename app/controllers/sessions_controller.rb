@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class SessionsController < ApplicationController
   allow_unauthenticated_access only: %i[new create]
   rate_limit to: 10, within: 3.minutes, only: :create, with: lambda {
@@ -5,8 +7,7 @@ class SessionsController < ApplicationController
   }
   layout 'guess'
 
-  def new
-  end
+  def new; end
 
   def create
     if (user = User.authenticate_by(params.permit(:email_address, :password)))

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class BillsController < ApplicationController
   include BillsHelper
   def index

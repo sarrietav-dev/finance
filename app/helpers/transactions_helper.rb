@@ -1,11 +1,13 @@
+# frozen_string_literal: true
+
 module TransactionsHelper
   include Pagy::Frontend
 
   def parse_amount(amount)
-    if amount < 0
-      "-$#{"%.2f" % amount.abs}"
+    if amount.negative?
+      "-$#{'%.2f' % amount.abs}"
     else
-      "$#{"%.2f" % amount}"
+      "$#{'%.2f' % amount}"
     end
   end
 end

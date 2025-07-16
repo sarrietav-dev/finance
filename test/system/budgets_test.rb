@@ -1,45 +1,47 @@
-require "application_system_test_case"
+# frozen_string_literal: true
+
+require 'application_system_test_case'
 
 class BudgetsTest < ApplicationSystemTestCase
   setup do
     @budget = budgets(:one)
   end
 
-  test "visiting the index" do
+  test 'visiting the index' do
     visit budgets_url
-    assert_selector "h1", text: "Budgets"
+    assert_selector 'h1', text: 'Budgets'
   end
 
-  test "should create budget" do
+  test 'should create budget' do
     visit budgets_url
-    click_on "New budget"
+    click_on 'New budget'
 
-    fill_in "Category", with: @budget.category
-    fill_in "Maximum", with: @budget.maximum
-    fill_in "Theme", with: @budget.theme
-    click_on "Create Budget"
+    fill_in 'Category', with: @budget.category
+    fill_in 'Maximum', with: @budget.maximum
+    fill_in 'Theme', with: @budget.theme
+    click_on 'Create Budget'
 
-    assert_text "Budget was successfully created"
-    click_on "Back"
+    assert_text 'Budget was successfully created'
+    click_on 'Back'
   end
 
-  test "should update Budget" do
+  test 'should update Budget' do
     visit budget_url(@budget)
-    click_on "Edit this budget", match: :first
+    click_on 'Edit this budget', match: :first
 
-    fill_in "Category", with: @budget.category
-    fill_in "Maximum", with: @budget.maximum
-    fill_in "Theme", with: @budget.theme
-    click_on "Update Budget"
+    fill_in 'Category', with: @budget.category
+    fill_in 'Maximum', with: @budget.maximum
+    fill_in 'Theme', with: @budget.theme
+    click_on 'Update Budget'
 
-    assert_text "Budget was successfully updated"
-    click_on "Back"
+    assert_text 'Budget was successfully updated'
+    click_on 'Back'
   end
 
-  test "should destroy Budget" do
+  test 'should destroy Budget' do
     visit budget_url(@budget)
-    accept_confirm { click_on "Destroy this budget", match: :first }
+    accept_confirm { click_on 'Destroy this budget', match: :first }
 
-    assert_text "Budget was successfully destroyed"
+    assert_text 'Budget was successfully destroyed'
   end
 end
