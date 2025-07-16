@@ -1,26 +1,27 @@
-plugins:
+inherit_mode:
+  merge:
+    - Exclude
+
+require:
   - standard
+
+plugins:
+  - rubocop-performance
   - rubocop-rails
-  - rubocop-capybara
+  - standard-custom
+  - standard-performance
 
 inherit_gem:
-  rubocop-rails: config/default.yml
   standard: config/base.yml
+  standard-performance: config/base.yml
+  standard-custom: config/base.yml
+  standard-rails: config/base.yml
+
+inherit_from:
+  - .rubocop_todo.yml
+  - .rubocop_strict.yml
 
 AllCops:
   NewCops: enable
-  Exclude:
-    - node_modules/**/*
-    - public/**/*
-    - vendor/**/*
-
-Rails:
-  Enabled: true # enable rubocop-rails cops
-RSpec:
-  Enabled: true # enable rubocop-rspec cops
-RSpec/DescribeClass:
-  Enabled: false # ignore missing comments on classes
-Bundler/DuplicatedGem:
-  Enabled: false # ignore duplicated gem errors because we will have duplicated gems when dual booting
-Layout/AccessModifierIndentation:
-  EnforcedStyle: outdent
+  SuggestExtensions: false
+  TargetRubyVersion: 3.2

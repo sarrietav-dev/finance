@@ -7,13 +7,13 @@ private
 
   def sort_scope(transactions, sort_param)
     case sort_param
-    when 'desc'
+    when "desc"
       order_by_created_at(transactions, :desc)
-    when 'asc'
+    when "asc"
       order_by_created_at(transactions, :asc)
-    when 'amount_desc'
+    when "amount_desc"
       order_by_amount(transactions, :desc)
-    when 'amount_asc'
+    when "amount_asc"
       order_by_amount(transactions, :asc)
     else
       transactions

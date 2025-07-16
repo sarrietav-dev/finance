@@ -14,9 +14,9 @@ class WithdrawalsController < ApplicationController
         format.turbo_stream
       else
         format.turbo_stream do
-          render turbo_stream: turbo_stream.update('new_withdrawal',
-                                                   partial: 'withdrawals/form'),
-                 status: :unprocessable_entity
+          render turbo_stream: turbo_stream.update("new_withdrawal",
+            partial: "withdrawals/form"),
+            status: :unprocessable_entity
         end
       end
     end
