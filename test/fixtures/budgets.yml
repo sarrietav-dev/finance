@@ -1,0 +1,11 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  category: MyString
+  maximum: 9.99
+  theme: MyString
+
+two:
+  category: MyString
+  maximum: 9.99
+  theme: MyString
