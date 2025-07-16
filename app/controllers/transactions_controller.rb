@@ -7,22 +7,20 @@ class TransactionsController < ApplicationController
   def index
     @transactions = Transaction.all
 
-    if params[:category].present? && params[:category] != "all"
+    if params[:category].present? && params[:category] != 'all'
       @transactions = @transactions.where(category: params[:category])
     end
 
-    if params[:search].present?
-      @transactions = @transactions.where("name LIKE ?", "%#{params[:search]}%")
-    end
+    @transactions = @transactions.where('name LIKE ?', "%#{params[:search]}%") if params[:search].present?
 
     case params[:sort]
-    when "desc"
+    when 'desc'
       @transactions = @transactions.order(created_at: :desc)
-    when "asc"
+    when 'asc'
       @transactions = @transactions.order(created_at: :asc)
-    when "amount_desc"
+    when 'amount_desc'
       @transactions = @transactions.order(amount: :desc)
-    when "amount_asc"
+    when 'amount_asc'
       @transactions = @transactions.order(amount: :asc)
     end
 
@@ -30,14 +28,14 @@ class TransactionsController < ApplicationController
 
     respond_to do |format|
       format.html
-      format.turbo_stream {
-        render turbo_stream: turbo_stream.update("transaction_table",
-          partial: "transactions/table",
-          locals: {
-            transactions: @transactions,
-            pagy: @pagy
-          })
-      }
+      format.turbo_stream do
+        render turbo_stream: turbo_stream.update('transaction_table',
+                                                 partial: 'transactions/table',
+                                                 locals: {
+                                                   transactions: @transactions,
+                                                   pagy: @pagy
+                                                 })
+      end
     end
   end
 
@@ -60,7 +58,7 @@ class TransactionsController < ApplicationController
 
     respond_to do |format|
       if @transaction.save
-        format.html { redirect_to @transaction, notice: "Transaction was successfully created." }
+        format.html { redirect_to @transaction, notice: 'Transaction was successfully created.' }
         format.json { render :show, status: :created, location: @transaction }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -73,7 +71,7 @@ class TransactionsController < ApplicationController
   def update
     respond_to do |format|
       if @transaction.update(transaction_params)
-        format.html { redirect_to @transaction, notice: "Transaction was successfully updated." }
+        format.html { redirect_to @transaction, notice: 'Transaction was successfully updated.' }
         format.json { render :show, status: :ok, location: @transaction }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -87,7 +85,9 @@ class TransactionsController < ApplicationController
     @transaction.destroy!
 
     respond_to do |format|
-      format.html { redirect_to transactions_path, status: :see_other, notice: "Transaction was successfully destroyed." }
+      format.html do
+        redirect_to transactions_path, status: :see_other, notice: 'Transaction was successfully destroyed.'
+      end
       format.json { head :no_content }
     end
   end
@@ -101,6 +101,6 @@ private
 
   # Only allow a list of trusted parameters through.
   def transaction_params
-    params.expect(transaction: [:avatar, :name, :category, :date, :amount, :recurring])
+    params.expect(transaction: %i[avatar name category date amount recurring])
   end
 end

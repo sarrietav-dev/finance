@@ -31,8 +31,8 @@ class PotsController < ApplicationController
       else
         format.turbo_stream {
           render turbo_stream: turbo_stream.update("new_pot",
-            partial: "pots/form"),
-            status: :unprocessable_entity
+                                                   partial: "pots/form"),
+                 status: :unprocessable_entity
         }
         format.html { render :new, status: :unprocessable_entity }
         format.json { render json: @pot.errors, status: :unprocessable_entity }
@@ -50,8 +50,8 @@ class PotsController < ApplicationController
       else
         format.turbo_stream {
           render turbo_stream: turbo_stream.update("edit_pot",
-            partial: "pots/form"),
-            status: :unprocessable_entity
+                                                   partial: "pots/form"),
+                 status: :unprocessable_entity
         }
         format.html { render :edit, status: :unprocessable_entity }
         format.json { render json: @pot.errors, status: :unprocessable_entity }

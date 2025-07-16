@@ -7,8 +7,8 @@ module Authentication
   end
 
   class_methods do
-    def allow_unauthenticated_access(**options)
-      skip_before_action :require_authentication, **options
+    def allow_unauthenticated_access(**)
+      skip_before_action(:require_authentication, **)
     end
   end
 
@@ -42,7 +42,7 @@ private
   def start_new_session_for(user)
     user.sessions.create!(user_agent: request.user_agent, ip_address: request.remote_ip).tap do |session|
       Current.session = session
-      cookies.signed.permanent[:session_id] = {value: session.id, httponly: true, same_site: :lax}
+      cookies.signed.permanent[:session_id] = { value: session.id, httponly: true, same_site: :lax }
     end
   end
 
