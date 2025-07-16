@@ -1,7 +1,11 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
-  resources :budgets
+  resources :budgets do
+    member do
+      get "delete", as: :delete
+    end
+  end
   resources :pots do
     member do
       get "delete", as: :delete

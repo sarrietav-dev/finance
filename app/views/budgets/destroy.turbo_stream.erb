@@ -1,0 +1,14 @@
+<%= turbo_stream.remove dom_id(@budget) %>
+<% if @budgets_empty %>
+  <%= turbo_stream.replace "no-budgets-message" do %>
+    <p id="no-budgets-message" class="text-center my-10 md:col-span-2">No budgets found.</p>
+  <% end %>
+<% end %>
+
+<turbo-stream action="after" target="budgets_modal">
+  <template>
+    <script>
+      document.dispatchEvent(new CustomEvent("modal:close"));
+    </script>
+  </template>
+</turbo-stream>

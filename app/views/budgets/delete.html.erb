@@ -1,4 +1,4 @@
-<% content_for :title, "Editing budget" %>
+<% content_for :title, "Deleting budget" %>
 
 <turbo-frame id="budgets_modal">
   <div data-controller="modal" data-action="keyup@document->modal#closeEsc">
@@ -15,7 +15,7 @@
       "
     >
       <div class="flex justify-between items-center">
-        <h1 class="font-bold text-4xl">Edit Budget</h1>
+        <h1 class="font-bold text-4xl">Delete '<%= @budget.category %>'?</h1>
         <%= inline_svg_tag "icon-close-modal.svg",
         data: {
           action: "click->modal#close",
@@ -23,13 +23,22 @@
         class: "cursor-pointer" %>
       </div>
       <p class=" text-gray-500 text-sm font-normal leading-tight ">
-        Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Phasellus
-        hendrerit. Pellentesque aliquet nibh nec urna. In nisi neque, aliquet.
+        Are you sure you want to delete this budget? This action cannot be
+        reversed, and all the data inside it will be removed forever.
       </p>
 
-      <turbo-frame id="edit_budget">
-        <%= render "form", budget: @budget %>
-      </turbo-frame>
+      <div class="">
+        <%= button_to "Yes, Confirm Deletion",
+        budget_path(@budget),
+        method: :delete,
+        class: "btn btn--destroy w-full" %>
+        <button
+          data-action="modal#close"
+          class="mt-4 text-gray-500 text-sm cursor-pointer font-normal w-full"
+        >
+          No, Go Back
+        </button>
+      </div>
     </div>
 
   </div>

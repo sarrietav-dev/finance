@@ -1,0 +1,12 @@
+<%= turbo_stream.append "budgets", partial: "budgets/budget", locals: { budget: @budget } %>
+<%= turbo_stream.replace "no-budgets-message" do %>
+  <p id="no-budgets-message" class="text-center my-10 md:col-span-2 hidden">No budgets found.</p>
+<% end %>
+
+<turbo-stream action="after" target="budgets_modal">
+  <template>
+    <script>
+      document.dispatchEvent(new CustomEvent("modal:close"));
+    </script>
+  </template>
+</turbo-stream>

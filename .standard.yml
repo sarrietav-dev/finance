@@ -1,0 +1,11 @@
+fix: true
+parallel: true
+format: progress
+ruby_version: 3.4
+default_ignores: false
+
+ignore:
+  - "vendor/**/*"
+
+require:
+  - standard-rails 

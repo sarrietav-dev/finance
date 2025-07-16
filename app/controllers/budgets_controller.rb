@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class BudgetsController < ApplicationController
-  before_action :set_budget, only: %i[show edit update destroy]
+  before_action :set_budget, only: %i[show edit update destroy delete]
 
   # GET /budgets or /budgets.json
   def index
@@ -27,11 +27,17 @@ class BudgetsController < ApplicationController
 
     respond_to do |format|
       if @budget.save
-        format.html { redirect_to @budget, notice: "Budget was successfully created." }
+        format.turbo_stream
+        format.html { redirect_to budgets_path, notice: "Budget was successfully created." }
         format.json { render :show, status: :created, location: @budget }
       else
+        format.turbo_stream do
+          render turbo_stream: turbo_stream.update("new_budget",
+            partial: "budgets/form"),
+            status: :unprocessable_entity
+        end
         format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @budget.errors, status: :unprocessable_entity }
+        format.json { render json: @pot.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -40,13 +46,22 @@ class BudgetsController < ApplicationController
   def update
     respond_to do |format|
       if @budget.update(budget_params)
-        format.html { redirect_to @budget, notice: "Budget was successfully updated." }
+        format.turbo_stream
+        format.html { redirect_to budgets_path, notice: "Budget was successfully updated." }
         format.json { render :show, status: :ok, location: @budget }
       else
+        format.turbo_stream do
+          render turbo_stream: turbo_stream.update("edit_budget",
+            partial: "budgets/form"),
+            status: :unprocessable_entity
+        end
         format.html { render :edit, status: :unprocessable_entity }
         format.json { render json: @budget.errors, status: :unprocessable_entity }
       end
     end
+  end
+
+  def delete
   end
 
   # DELETE /budgets/1 or /budgets/1.json
@@ -54,6 +69,7 @@ class BudgetsController < ApplicationController
     @budget.destroy!
 
     respond_to do |format|
+      format.turbo_stream
       format.html { redirect_to budgets_path, status: :see_other, notice: "Budget was successfully destroyed." }
       format.json { head :no_content }
     end
