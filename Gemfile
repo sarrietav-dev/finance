@@ -53,18 +53,12 @@ group :development, :test do
 
   gem "rubocop", require: false
 
-  gem "standard-rails", "~> 1.3", require: false
-
-  gem "standard-custom", require: false
-
-  gem "standard-performance", require: false
-
   gem "rubocop-capybara", require: false
 
-  gem "standard", require: false
+  gem "rubocop-rails", require: false
 
   gem "erb_lint", require: false
-  
+
   gem "erb-formatter", require: false
 end
 

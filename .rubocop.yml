@@ -1,20 +1,39 @@
-require:
-  - standard
-
 plugins:
-  - standard-custom
-  - standard-performance
-  - standard-rails
-  - rubocop-capybara
+  - rubocop-rails
 
 inherit_gem:
-  standard: config/base.yml
-  standard-custom: config/base.yml
-  standard-performance: config/base.yml
-  standard-rails: config/base.yml
+  rubocop-rails: config/default.yml
 
 AllCops:
   NewCops: enable
+  # Disable StandardRB's own rules since we're using the plugins
+  DisabledByDefault: false
 
+# Override any conflicting rules here
 Layout/AccessModifierIndentation:
   EnforcedStyle: outdent
+
+# Disable StandardRB's own rules that conflict with plugins
+Style/RedundantAssignment:
+  Enabled: false
+
+Style/RedundantCondition:
+  Enabled: false
+
+Style/RedundantConditional:
+  Enabled: false
+
+Style/RedundantRegexpEscape:
+  Enabled: false
+
+Style/RedundantSelfAssignment:
+  Enabled: false
+
+Style/RedundantSort:
+  Enabled: false
+
+Style/RedundantSortBy:
+  Enabled: false
+
+Style/RedundantStringEscape:
+  Enabled: false
