@@ -1,15 +1,26 @@
 plugins:
+  - standard
   - rubocop-rails
   - rubocop-capybara
 
 inherit_gem:
   rubocop-rails: config/default.yml
+  standard: config/base.yml
 
 AllCops:
   NewCops: enable
-  # Disable StandardRB's own rules since we're using the plugins
-  DisabledByDefault: false
+  Exclude:
+    - node_modules/**/*
+    - public/**/*
+    - vendor/**/*
 
-# Override any conflicting rules here
+Rails:
+  Enabled: true # enable rubocop-rails cops
+RSpec:
+  Enabled: true # enable rubocop-rspec cops
+RSpec/DescribeClass:
+  Enabled: false # ignore missing comments on classes
+Bundler/DuplicatedGem:
+  Enabled: false # ignore duplicated gem errors because we will have duplicated gems when dual booting
 Layout/AccessModifierIndentation:
   EnforcedStyle: outdent
