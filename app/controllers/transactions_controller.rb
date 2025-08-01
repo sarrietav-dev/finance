@@ -94,7 +94,7 @@ private
     transactions = Transaction.all
     transactions = filter_by_category(transactions)
     transactions = filter_by_search(transactions)
-    sort_transactions(transactions)
+    sort_scope(transactions, params[:sort])
   end
 
   def filter_by_category(transactions)
