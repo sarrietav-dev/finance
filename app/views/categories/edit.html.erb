@@ -1,0 +1,11 @@
+<% content_for :title, "Edit Category" %>
+
+<div class="px-4 py-6 md:px-10 md:py-8">
+  <div class="max-w-4xl mx-auto space-y-10">
+    <h1 class="text-gray-900 text-3xl font-bold leading-10">Edit Category</h1>
+
+    <div class="bg-white rounded-2xl shadow-md p-4 md:p-8">
+      <%= render "form", category: @category %>
+    </div>
+  </div>
+</div>

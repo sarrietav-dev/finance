@@ -3,7 +3,7 @@
     <div class="flex justify-between items-center mb-10">
       <h2 class="text-xl font-bold text-gray-900 flex items-center gap-4">
         <span class="size-4 bg-<%= budget.theme %> rounded-full inline-block"></span>
-        <span><%= budget.category %></span>
+        <span><%= budget.category&.name %></span>
       </h2>
       <div data-controller="toggle" class="relative">
         <button

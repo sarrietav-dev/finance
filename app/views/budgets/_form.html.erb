@@ -1,7 +1,11 @@
 <%= form_with(model: budget, class: "contents") do |form| %>
   <% if budget.errors.any? %>
-    <div id="error_explanation" class="bg-red-50 text-red-500 px-3 py-2 font-medium rounded-md mt-3">
-      <h2><%= pluralize(budget.errors.count, "error") %> prohibited this budget from being saved:</h2>
+    <div
+      id="error_explanation"
+      class="bg-red-50 text-red-500 px-3 py-2 font-medium rounded-md mt-3"
+    >
+      <h2><%= pluralize(budget.errors.count, "error") %>
+        prohibited this budget from being saved:</h2>
 
       <ul class="list-disc ml-6">
         <% budget.errors.each do |error| %>
@@ -12,16 +16,38 @@
   <% end %>
 
   <div class="my-5">
-    <%= form.label :category %>
-    <%= form.text_field :category, class: ["block shadow-sm rounded-md border px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": budget.errors[:category].none?, "border-red-400 focus:outline-red-600": budget.errors[:category].any?}] %>
+    <%= form.label :category_id %>
+    <%= form.collection_select :category_id,
+                           @categories,
+                           :id,
+                           :name,
+                           { prompt: "Select a category" },
+                           class: [
+                             "block shadow-sm rounded-md border px-3 py-2 mt-2 w-full",
+                             {
+                               "border-gray-400 focus:outline-blue-600":
+                                 budget.errors[:category_id].none?,
+                               "border-red-400 focus:outline-red-600":
+                                 budget.errors[:category_id].any?,
+                             },
+                           ] %>
   </div>
 
   <div class="my-5">
     <%= form.label :maximum %>
-    <%= form.text_field :maximum, class: ["block shadow-sm rounded-md border px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": budget.errors[:maximum].none?, "border-red-400 focus:outline-red-600": budget.errors[:maximum].any?}] %>
+    <%= form.text_field :maximum,
+                    class: [
+                      "block shadow-sm rounded-md border px-3 py-2 mt-2 w-full",
+                      {
+                        "border-gray-400 focus:outline-blue-600":
+                          budget.errors[:maximum].none?,
+                        "border-red-400 focus:outline-red-600":
+                          budget.errors[:maximum].any?,
+                      },
+                    ] %>
   </div>
 
-<div class="my-5">
+  <div class="my-5">
     <%= form.label :theme %>
     <%= render DropdownComponent.new(
       name: "budget[theme]",

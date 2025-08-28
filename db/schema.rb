@@ -10,11 +10,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_07_16_043056) do
+ActiveRecord::Schema[8.0].define(version: 2025_08_28_032420) do
   create_table "budgets", force: :cascade do |t|
     t.string "category"
     t.decimal "maximum"
     t.string "theme"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "category_id"
+    t.index ["category_id"], name: "index_budgets_on_category_id"
+  end
+
+  create_table "categories", force: :cascade do |t|
+    t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -46,6 +54,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_16_043056) do
     t.boolean "recurring", default: false, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "category_id"
+    t.index ["category_id"], name: "index_transactions_on_category_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -56,5 +66,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_16_043056) do
     t.index ["email_address"], name: "index_users_on_email_address", unique: true
   end
 
+  add_foreign_key "budgets", "categories"
   add_foreign_key "sessions", "users"
+  add_foreign_key "transactions", "categories"
 end

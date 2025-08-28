@@ -15,10 +15,12 @@ class BudgetsController < ApplicationController
   # GET /budgets/new
   def new
     @budget = Budget.new
+    @categories = Category.all
   end
 
   # GET /budgets/1/edit
   def edit
+    @categories = Category.all
   end
 
   # POST /budgets or /budgets.json
@@ -84,6 +86,6 @@ private
 
   # Only allow a list of trusted parameters through.
   def budget_params
-    params.expect(budget: %i[category maximum theme])
+    params.require(:budget).permit(:maximum, :theme, :category_id)
   end
 end

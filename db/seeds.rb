@@ -10,4 +10,11 @@
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
 
-User.create! email_address: "user@example.com", password: "password", password_confirmation: "password"
+User.find_or_create_by!(email_address: "user@example.com") do |user|
+  user.password = "password"
+  user.password_confirmation = "password"
+end
+
+["Entertainment", "Bills", "Groceries", "Dining Out", "Transportation", "Personal Care"].each do |category_name|
+  Category.find_or_create_by!(name: category_name)
+end

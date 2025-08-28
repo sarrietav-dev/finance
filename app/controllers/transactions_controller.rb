@@ -9,6 +9,7 @@ class TransactionsController < ApplicationController
 
   # GET /transactions or /transactions.json
   def index
+    @categories = Category.all
     @transactions = filtered_transactions
     @pagy, @transactions = pagy(@transactions, items: 10, size: 5)
     respond_to_format
@@ -21,10 +22,12 @@ class TransactionsController < ApplicationController
   # GET /transactions/new
   def new
     @transaction = Transaction.new
+    @categories = Category.all
   end
 
   # GET /transactions/1/edit
   def edit
+    @categories = Category.all
   end
 
   # POST /transactions or /transactions.json
@@ -100,7 +103,7 @@ private
   def filter_by_category(transactions)
     return transactions unless params[:category].present? && params[:category] != "all"
 
-    transactions.where(category: params[:category])
+    transactions.where(category_id: params[:category])
   end
 
   def filter_by_search(transactions)
@@ -111,6 +114,6 @@ private
 
   # Only allow a list of trusted parameters through.
   def transaction_params
-    params.expect(transaction: %i[avatar name category date amount recurring])
+    params.require(:transaction).permit(:name, :amount, :date, :recurring, :category_id)
   end
 end

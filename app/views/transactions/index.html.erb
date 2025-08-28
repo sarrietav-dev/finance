@@ -48,15 +48,8 @@
           <%= render DropdownComponent.new(
             name: "category",
             label: "Category",
-            options: [
-              ["All Transactions", "all"],
-              %w[Entertainment entertainment],
-              %w[Bills bills],
-              %w[Groceries groceries],
-              ["Dining Out", "dining_out"],
-              %w[Transportation transportation],
-              ["Personal Care", "personal_care"],
-            ],
+            options:
+              [["All Transactions", "all"]] + @categories.map { |c| [c.name, c.id] },
             selected: params[:category],
             icon: "icon-filter-mobile.svg",
             autosubmit: true,
