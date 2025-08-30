@@ -5,6 +5,7 @@ require "test_helper"
 class TransactionsControllerTest < ActionDispatch::IntegrationTest
   setup do
     @transaction = transactions(:one)
+    sign_in_as users(:one)
   end
 
   test "should get index" do
@@ -20,7 +21,7 @@ class TransactionsControllerTest < ActionDispatch::IntegrationTest
   test "should create transaction" do
     assert_difference("Transaction.count") do
       post transactions_url,
-        params: {transaction: {amount: @transaction.amount, avatar: @transaction.avatar, category: @transaction.category,
+        params: {transaction: {amount: @transaction.amount, avatar: @transaction.avatar, category_id: @transaction.category_id,
                                date: @transaction.date, name: @transaction.name, recurring: @transaction.recurring}}
     end
 
@@ -39,7 +40,7 @@ class TransactionsControllerTest < ActionDispatch::IntegrationTest
 
   test "should update transaction" do
     patch transaction_url(@transaction),
-      params: {transaction: {amount: @transaction.amount, avatar: @transaction.avatar, category: @transaction.category,
+      params: {transaction: {amount: @transaction.amount, avatar: @transaction.avatar, category_id: @transaction.category_id,
                              date: @transaction.date, name: @transaction.name, recurring: @transaction.recurring}}
     assert_redirected_to transaction_url(@transaction)
   end

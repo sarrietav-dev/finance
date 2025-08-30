@@ -5,6 +5,7 @@ require "test_helper"
 class BudgetsControllerTest < ActionDispatch::IntegrationTest
   setup do
     @budget = budgets(:one)
+    sign_in_as users(:one)
   end
 
   test "should get index" do
@@ -20,10 +21,10 @@ class BudgetsControllerTest < ActionDispatch::IntegrationTest
   test "should create budget" do
     assert_difference("Budget.count") do
       post budgets_url,
-        params: {budget: {category: @budget.category, maximum: @budget.maximum, theme: @budget.theme}}
+        params: {budget: {category_id: @budget.category_id, maximum: @budget.maximum, theme: @budget.theme}}
     end
 
-    assert_redirected_to budget_url(Budget.last)
+    assert_redirected_to budgets_path
   end
 
   test "should show budget" do
@@ -38,8 +39,8 @@ class BudgetsControllerTest < ActionDispatch::IntegrationTest
 
   test "should update budget" do
     patch budget_url(@budget),
-      params: {budget: {category: @budget.category, maximum: @budget.maximum, theme: @budget.theme}}
-    assert_redirected_to budget_url(@budget)
+      params: {budget: {category_id: @budget.category_id, maximum: @budget.maximum, theme: @budget.theme}}
+    assert_redirected_to budgets_path
   end
 
   test "should destroy budget" do
@@ -47,6 +48,6 @@ class BudgetsControllerTest < ActionDispatch::IntegrationTest
       delete budget_url(@budget)
     end
 
-    assert_redirected_to budgets_url
+    assert_redirected_to budgets_path
   end
 end
