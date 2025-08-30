@@ -73,7 +73,12 @@
       <div class="flex justify-between items-baseline mb-4">
         <h3 class="color-gray-900 font-bold">Latest Spending</h3>
         <div class="flex justify-between items-baseline gap-3">
-          <span class="color-gray-500 text-sm hover:underline cursor-pointer">See all</span>
+          <%= link_to "See all",
+          transactions_path(category: budget.category),
+          class: "color-gray-500 text-sm hover:underline cursor-pointer",
+          data: {
+            "turbo-frame": "_top",
+          } %>
           <span>
             <%= inline_svg_tag "icon-caret-right.svg", class: "inline-block size-3" %>
           </span>
