@@ -1,6 +1,6 @@
 <%= turbo_frame_tag dom_id budget do %>
-  <article class="bg-white rounded-lg px-5 py-7">
-    <div class="flex justify-between items-center mb-10">
+  <article class="bg-white rounded-lg px-5 py-7 space-y-5">
+    <div class="flex justify-between items-center">
       <h2 class="text-xl font-bold text-gray-900 flex items-center gap-4">
         <span class="size-4 bg-<%= budget.theme %> rounded-full inline-block"></span>
         <span><%= budget.category&.name %></span>
@@ -42,6 +42,58 @@
         </div>
       </div>
     </div>
+    <div class="space-y-4">
+      <p class="text-gray-500 text-sm">
+        Maximum of $<%= budget.maximum %>
+      </p>
+      <div class="rounded p-1 bg-beige-100 w-full">
+        <span
+          style="width: <%= budget.spent_percentage %>%"
+          class="bg-<%= budget.theme %> rounded h-6 block"
+        ></span>
+      </div>
+      <div class="flex justify-between">
+        <div class="flex gap-4 grow">
+          <div class="h-full rounded-lg w-1 bg-<%= budget.theme %> "></div>
+          <div class="flex flex-col items-start">
+            <span class="color-gray-500 text-xs">Spent</span>
+            <span class="color-gray-900 text-sm font-bold">$<%= budget.category.transactions.sum :amount %></span>
+          </div>
+        </div>
+        <div class="flex gap-4 grow">
+          <div class="h-full rounded-lg w-1 bg-beige-100"></div>
+          <div class="flex flex-col items-start ">
+            <span class="color-gray-500 text-xs">Free</span>
+            <span class="color-gray-900 text-sm font-bold">$<%= budget.maximum - budget.category.transactions.sum(:amount) %></span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="bg-beige-100 rounded-xl p-4 pb-0 space-y-5">
+      <div class="flex justify-between items-baseline mb-4">
+        <h3 class="color-gray-900 font-bold">Latest Spending</h3>
+        <div class="flex justify-between items-baseline gap-3">
+          <span class="color-gray-500 text-sm hover:underline cursor-pointer">See all</span>
+          <span>
+            <%= inline_svg_tag "icon-caret-right.svg", class: "inline-block size-3" %>
+          </span>
+        </div>
+      </div>
+      <ul class="divide-y divide-gray-500/20">
+        <% budget.category.transactions.each do |item| %>
+          <li class="flex justify-between items-center py-3">
+            <strong class="text-gray-900 font-bold text-xs"><%= item.name %></strong>
+            <div class="flex flex-col items-end">
+              <span class="text-gray-900 font-bold text-xs">
+                $<%= item.amount %>
+              </span>
+              <small class="text-gray-500 text-xs">
+                <%= item.date.strftime("%d %b %Y") %>
+              </small>
+            </div>
+          </li>
+        <% end %>
+      </ul>
+    </div>
   </article>
-
 <% end %>

@@ -5,7 +5,7 @@ class BudgetsController < ApplicationController
 
   # GET /budgets or /budgets.json
   def index
-    @budgets = Budget.all
+    @budgets = Budget.includes(category: [:transactions]).all
   end
 
   # GET /budgets/1 or /budgets/1.json

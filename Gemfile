@@ -68,6 +68,7 @@ group :development, :test do
   gem "erb_lint", require: false
 
   gem "erb-formatter", require: false
+  gem "hotwire-spark"
 end
 
 group :development do
