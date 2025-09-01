@@ -39,7 +39,7 @@
       icon: "icon-nav-overview.svg",
       label: "Overview",
       href: overview_path,
-      active: current_page?(overview_path),
+      active: current_page?(overview_path) || current_page?(root_path),
     } %>
     <%= render partial: "layouts/nav_item",
     locals: {
