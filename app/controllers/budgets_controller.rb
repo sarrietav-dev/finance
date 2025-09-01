@@ -5,11 +5,7 @@ class BudgetsController < ApplicationController
 
   # GET /budgets or /budgets.json
   def index
-    @budgets = Budget.includes(category: :transactions).all
-
-    @transaction_sums = @budgets.each_with_object({}) do |budget, sums|
-      sums[budget.category_id] = budget.category.transactions.sum(&:amount)
-    end
+    set_budgets
 
     @donut_data = @budgets.map do |budget|
       [budget.category.name, @transaction_sums[budget.category_id].to_f.abs]
@@ -38,6 +34,7 @@ class BudgetsController < ApplicationController
 
     respond_to do |format|
       if @budget.save
+        set_budgets
         format.turbo_stream
         format.html { redirect_to budgets_path, notice: "Budget was successfully created." }
         format.json { render :show, status: :created, location: @budget }
@@ -57,6 +54,7 @@ class BudgetsController < ApplicationController
   def update
     respond_to do |format|
       if @budget.update(budget_params)
+        set_budgets
         format.turbo_stream
         format.html { redirect_to budgets_path, notice: "Budget was successfully updated." }
         format.json { render :show, status: :ok, location: @budget }
@@ -96,5 +94,12 @@ private
   # Only allow a list of trusted parameters through.
   def budget_params
     params.require(:budget).permit(:maximum, :theme, :category_id)
+  end
+
+  def set_budgets
+    @budgets = Budget.includes(category: :transactions).all
+    @transaction_sums = @budgets.each_with_object({}) do |budget, sums|
+      sums[budget.category_id] = budget.category.transactions.sum(&:amount)
+    end
   end
 end

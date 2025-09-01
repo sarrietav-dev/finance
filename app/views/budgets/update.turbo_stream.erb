@@ -1,0 +1,9 @@
+<%= turbo_stream.replace dom_id(@budget), partial: "budgets/budget", locals: { budget: @budget } %>
+
+<turbo-stream action="after" target="budgets_modal">
+  <template>
+    <script>
+      document.dispatchEvent(new CustomEvent("modal:close"));
+    </script>
+  </template>
+</turbo-stream>
