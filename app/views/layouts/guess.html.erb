@@ -25,7 +25,7 @@
   <body class="font-sans antialiased bg-beige-100">
     <div
       class="
-        mx-auto flex max-w-[2000px] flex-col lg:h-screen lg:w-screen lg:flex-row lg:p-6
+        mx-auto flex min-h-screen w-full max-w-[2000px] flex-col lg:h-screen lg:flex-row lg:p-4 xl:p-6
       "
     >
       <div
@@ -39,13 +39,13 @@
         class:
           "absolute inset-0 hidden h-full w-full object-cover lg:block lg:rounded-xl" %>
 
-        <div class="absolute bottom-10 left-5 hidden space-y-6 p-4 lg:block">
-          <p class="text-2xl leading-8 font-bold text-white">
+        <div class="absolute bottom-10 left-5 hidden space-y-4 p-4 lg:block xl:space-y-6">
+          <p class="text-xl leading-7 font-bold text-white lg:text-2xl xl:text-3xl">
             Keep track of your money
             <br>
             and save for your future
           </p>
-          <p class="text-sm leading-tight font-normal text-white">
+          <p class="text-xs leading-tight font-normal text-white lg:text-sm xl:text-base">
             Personal finance app puts you in control of your spending. Track
             transactions, set budgets, and add to savings pots easily.
           </p>
@@ -53,14 +53,15 @@
       </div>
       <div
         class="
-          flex w-full flex-col items-center justify-center self-center px-4 pt-6 sm:pt-0
-          lg:max-h-150
+          flex w-full flex-1 flex-col items-center justify-center px-4 py-6
+          sm:px-6 sm:py-8 lg:max-h-screen lg:px-8 lg:py-10
         "
       >
         <main
           class="
-            mt-6 h-full w-full overflow-hidden rounded-xl bg-white p-8 shadow-md sm:max-w-md
-            lg:m-0
+            w-full max-w-sm rounded-xl bg-white p-6 shadow-md
+            sm:max-w-md sm:p-8
+            lg:m-0 lg:max-w-lg lg:p-8
           "
         >
           <%= yield %>
