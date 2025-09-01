@@ -34,7 +34,7 @@
       <%= render partial: "layouts/menu" %>
       <!-- Main Content -->
       <main
-        class="mb-16 transition-all duration-300 lg:mb-0 lg:ml-75 lg:grow"
+        class="mb-16 transition-all duration-300 lg:mb-0 lg:ml-75 lg:grow <%= 'lg:!ml-27' if cookies[:menu_collapsed] == 'true' %>"
         data-menu-target="main"
       >
         <%= yield %>
