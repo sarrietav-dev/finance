@@ -18,9 +18,9 @@ class Budget < ApplicationRecord
     return 0 if maximum.nil? || maximum <= 0 || category.nil?
 
     spent = if category.transactions.loaded?
-      category.transactions.joins(:user).where(users: {id: user_id}).sum(&:amount)
+      category.transactions.for_current_user.sum(&:amount)
     else
-      category.transactions.joins(:user).where(users: {id: user_id}).sum(:amount)
+      category.transactions.for_current_user.sum(:amount)
     end
 
     # Handle negative amounts (expenses) and calculate percentage
@@ -34,9 +34,9 @@ class Budget < ApplicationRecord
     return 0 if category.nil?
 
     if category.transactions.loaded?
-      category.transactions.joins(:user).where(users: {id: user_id}).sum(&:amount)
+      category.transactions.for_current_user.sum(&:amount)
     else
-      category.transactions.joins(:user).where(users: {id: user_id}).sum(:amount)
+      category.transactions.for_current_user.sum(:amount)
     end
   end
 

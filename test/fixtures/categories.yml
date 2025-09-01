@@ -2,6 +2,8 @@
 
 one:
   name: Groceries
+  user: one
 
 two:
   name: Rent
+  user: one

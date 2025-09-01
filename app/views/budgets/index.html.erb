@@ -44,6 +44,7 @@
           >
             <p class="text-3xl font-bold text-gray-900"><%= number_to_currency(
                 Category
+                  .for_current_user
                   .where(id: @budgets.pluck(:category_id))
                   .joins(:transactions)
                   .sum(:amount),
@@ -68,7 +69,7 @@
                   <%= budget.category.name %>
                 </p>
                 <p class="text-gray-900 font-bold mr-2">
-                  <%= number_to_currency(budget.category.transactions.sum :amount) %>
+                  <%= number_to_currency(budget.category.transactions.for_current_user.sum :amount) %>
                 </p>
                 <p class="text-gray-500 text-xs">
                   of

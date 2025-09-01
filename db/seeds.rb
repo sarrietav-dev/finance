@@ -15,6 +15,6 @@ User.find_or_create_by!(email_address: "user@example.com") do |user|
   user.password_confirmation = "password"
 end
 
-["Entertainment", "Bills", "Groceries", "Dining Out", "Transportation", "Personal Care"].each do |category_name|
-  Category.find_or_create_by!(name: category_name)
+["Entertainment", "Bills", "Groceries", "Dining Out", "Transportation", "Personal Care", "Education", "Lifestyle", "Shopping", "General"].each do |category_name|
+  Category.find_or_create_by!(name: category_name, user: User.first)
 end

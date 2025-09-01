@@ -43,7 +43,7 @@ class CategoriesControllerTest < ActionDispatch::IntegrationTest
 
   test "should destroy category" do
     # Create a category that is not associated with any budget or transaction
-    category_to_destroy = Category.create!(name: "To be destroyed")
+    category_to_destroy = Category.create!(name: "To be destroyed", user: users(:one))
     assert_difference("Category.count", -1) do
       delete category_url(category_to_destroy)
     end

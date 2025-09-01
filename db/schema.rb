@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_09_01_193701) do
+ActiveRecord::Schema[8.0].define(version: 2025_09_01_213557) do
   create_table "budgets", force: :cascade do |t|
     t.string "category"
     t.decimal "maximum"
@@ -27,7 +27,9 @@ ActiveRecord::Schema[8.0].define(version: 2025_09_01_193701) do
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "user_id", null: false
     t.index ["name"], name: "index_categories_on_name", unique: true
+    t.index ["user_id"], name: "index_categories_on_user_id"
   end
 
   create_table "pots", force: :cascade do |t|
@@ -75,6 +77,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_09_01_193701) do
 
   add_foreign_key "budgets", "categories"
   add_foreign_key "budgets", "users"
+  add_foreign_key "categories", "users"
   add_foreign_key "pots", "users"
   add_foreign_key "sessions", "users"
   add_foreign_key "transactions", "categories"

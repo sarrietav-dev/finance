@@ -96,10 +96,10 @@
         </div>
       </div>
       <ul class="divide-y divide-gray-500/20">
-        <% if budget.category.transactions.empty? %>
+        <% if budget.category.transactions.for_current_user.empty? %>
           <li class="text-gray-500 text-sm text-center py-3">No transactions yet</li>
         <% else %>
-          <% budget.category.transactions.sort_by(&:date).reverse.first(3).each do |item| %>
+          <% budget.category.transactions.for_current_user.sort_by(&:date).reverse.first(3).each do |item| %>
             <li class="flex justify-between items-center py-3">
               <strong class="text-gray-900 font-bold text-xs"><%= item.name %></strong>
               <div class="flex flex-col items-end">

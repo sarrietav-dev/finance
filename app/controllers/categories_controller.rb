@@ -2,7 +2,7 @@ class CategoriesController < ApplicationController
   before_action :set_category, only: %i[show edit update destroy]
 
   def index
-    @categories = Category.all
+    @categories = Category.for_current_user
   end
 
   def show
@@ -17,6 +17,7 @@ class CategoriesController < ApplicationController
 
   def create
     @category = Category.new(category_params)
+    @category.user = Current.user
 
     if @category.save
       redirect_to categories_url, notice: "Category was successfully created."
@@ -41,7 +42,7 @@ class CategoriesController < ApplicationController
 private
 
   def set_category
-    @category = Category.find(params[:id])
+    @category = Category.for_current_user.find(params[:id])
   end
 
   def category_params
