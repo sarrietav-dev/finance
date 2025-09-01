@@ -20,76 +20,88 @@
     ><%= notice %></p>
   <% end %>
 
-  <div class="flex flex-col lg:flex-row gap-10">
-    <article
-      class="
-        bg-white rounded-lg px-5 py-7 pb-0 gap-8 flex flex-col md:flex-row
-        md:justify-between md:p-8 lg:flex-col lg:self-start
-      "
-    >
-      <div class="relative">
-        <%= pie_chart @donut_data,
-        donut: true,
-        legend: false,
-        prefix: "$",
-        colors: @donut_colors,
-        library: {
-          cutout: "70%",
-        } %>
-        <div
-          class="
-            absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-center
-          "
-        >
-          <p class="text-3xl font-bold text-gray-900"><%= number_to_currency(
-              Category
-                .where(id: @budgets.pluck(:category_id))
-                .joins(:transactions)
-                .sum(:amount),
-            ) %></p>
-          <p class="text-sm text-gray-500">of
-            <%= number_to_currency(@budgets.sum(:maximum)) %>
-            limit</p>
-        </div>
-      </div>
-      <div class="grow">
-        <h2 class="text-gray-900 font-bold text-xl">
-          Spending Summary
-        </h2>
-        <ul class="flex flex-col divide-y divide-gray-500/20">
-          <% @budgets.each do |budget| %>
-            <li class="py-4 flex items-center">
-              <div
-                class="h-5 rounded-lg w-1 mr-4"
-                style="background-color: <%= theme_css_color(budget.theme) %>"
-              ></div>
-              <p class="text-gray-500 text-sm grow">
-                <%= budget.category.name %>
-              </p>
-              <p class="text-gray-900 font-bold mr-2">
-                <%= number_to_currency(budget.category.transactions.sum :amount) %>
-              </p>
-              <p class="text-gray-500 text-xs">
-                of
-                <%= number_to_currency(budget.maximum) %>
-              </p>
-            </li>
-          <% end %>
-        </ul>
-      </div>
-    </article>
-
-    <turbo-frame id="budgets" class="grid grid-cols-1 lg:grid-cols-1 gap-6 grow">
-      <%= render @budgets %>
-      <p
-        id="no-budgets-message"
+  <% if @budgets.any? %>
+    <div class="flex flex-col lg:flex-row gap-10">
+      <article
         class="
-          text-center my-10 md:col-span-2 <%= 'hidden' if @budgets.any? %>
+          bg-white rounded-lg px-5 py-7 pb-0 gap-8 flex flex-col md:flex-row
+          md:justify-between md:p-8 lg:flex-col lg:self-start
         "
       >
-        No budgets found.
-      </p>
-    </turbo-frame>
-  </div>
+        <div class="relative">
+          <%= pie_chart @donut_data,
+          donut: true,
+          legend: false,
+          prefix: "$",
+          colors: @donut_colors,
+          library: {
+            cutout: "70%",
+          } %>
+          <div
+            class="
+              absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-center
+            "
+          >
+            <p class="text-3xl font-bold text-gray-900"><%= number_to_currency(
+                Category
+                  .where(id: @budgets.pluck(:category_id))
+                  .joins(:transactions)
+                  .sum(:amount),
+              ) %></p>
+            <p class="text-sm text-gray-500">of
+              <%= number_to_currency(@budgets.sum(:maximum)) %>
+              limit</p>
+          </div>
+        </div>
+        <div class="grow">
+          <h2 class="text-gray-900 font-bold text-xl">
+            Spending Summary
+          </h2>
+          <ul class="flex flex-col divide-y divide-gray-500/20">
+            <% @budgets.each do |budget| %>
+              <li class="py-4 flex items-center">
+                <div
+                  class="h-5 rounded-lg w-1 mr-4"
+                  style="background-color: <%= theme_css_color(budget.theme) %>"
+                ></div>
+                <p class="text-gray-500 text-sm grow">
+                  <%= budget.category.name %>
+                </p>
+                <p class="text-gray-900 font-bold mr-2">
+                  <%= number_to_currency(budget.category.transactions.sum :amount) %>
+                </p>
+                <p class="text-gray-500 text-xs">
+                  of
+                  <%= number_to_currency(budget.maximum) %>
+                </p>
+              </li>
+            <% end %>
+          </ul>
+        </div>
+      </article>
+
+      <turbo-frame id="budgets" class="grid grid-cols-1 lg:grid-cols-1 gap-6 grow">
+        <%= render @budgets %>
+      </turbo-frame>
+    </div>
+  <% else %>
+    <div class="flex justify-center items-center min-h-[400px]">
+      <div class="bg-white rounded-lg px-8 py-12 text-center max-w-md">
+        <div class="mx-auto w-16 h-16 mb-6 flex items-center justify-center bg-beige-100 rounded-full">
+          <%= inline_svg_tag "icon-nav-budgets.svg", class: "w-8 h-8 text-gray-400" %>
+        </div>
+        <h3 class="text-xl font-bold text-gray-900 mb-2">No budgets yet</h3>
+        <p class="text-gray-500 mb-6">
+          Create your first budget to start tracking your spending and stay on top of your finances.
+        </p>
+        <%= link_to "+ Create Your First Budget",
+          new_budget_path,
+          data: {
+            turbo_frame: "budgets_modal",
+          },
+          class: "btn btn--primary inline-block" %>
+      </div>
+    </div>
+  <% end %>
   <turbo-frame id="budgets_modal"></turbo-frame>
 </div>

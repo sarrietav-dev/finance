@@ -1,7 +1,23 @@
 <%= turbo_stream.remove dom_id(@budget) %>
 <% if @budgets_empty %>
-  <%= turbo_stream.replace "no-budgets-message" do %>
-    <p id="no-budgets-message" class="text-center my-10 md:col-span-2">No budgets found.</p>
+  <%= turbo_stream.replace "budgets" do %>
+    <div class="flex justify-center items-center min-h-[400px]">
+      <div class="bg-white rounded-lg px-8 py-12 text-center max-w-md">
+        <div class="mx-auto w-16 h-16 mb-6 flex items-center justify-center bg-beige-100 rounded-full">
+          <%= inline_svg_tag "icon-nav-budgets.svg", class: "w-8 h-8 text-gray-400" %>
+        </div>
+        <h3 class="text-xl font-bold text-gray-900 mb-2">No budgets yet</h3>
+        <p class="text-gray-500 mb-6">
+          Create your first budget to start tracking your spending and stay on top of your finances.
+        </p>
+        <%= link_to "+ Create Your First Budget",
+          new_budget_path,
+          data: {
+            turbo_frame: "budgets_modal",
+          },
+          class: "btn btn--primary inline-block" %>
+      </div>
+    </div>
   <% end %>
 <% end %>
 
