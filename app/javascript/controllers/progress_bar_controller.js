@@ -3,6 +3,7 @@ import { Controller } from "@hotwired/stimulus";
 export default class extends Controller {
   static values = {
     theme: String,
+    themeColor: String,
     total: Number,
     target: Number,
     mode: String, // "deposit" or "withdrawal"
@@ -26,11 +27,7 @@ export default class extends Controller {
   }
 
   getThemeColor() {
-    return (
-      getComputedStyle(document.documentElement).getPropertyValue(
-        `--color-${this.themeValue}`,
-      ) || this.themeValue
-    );
+    return this.themeColorValue || this.themeValue;
   }
 
   updateBar() {

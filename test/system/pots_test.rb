@@ -18,8 +18,7 @@ class PotsTest < ApplicationSystemTestCase
 
     fill_in "Name", with: @pot.name
     fill_in "Target", with: @pot.target
-    fill_in "Theme", with: @pot.theme
-    fill_in "Total", with: @pot.total
+    select @pot.theme.capitalize, from: "Theme"
     click_on "Create Pot"
 
     assert_text "Pot was successfully created"
@@ -32,8 +31,7 @@ class PotsTest < ApplicationSystemTestCase
 
     fill_in "Name", with: @pot.name
     fill_in "Target", with: @pot.target
-    fill_in "Theme", with: @pot.theme
-    fill_in "Total", with: @pot.total
+    select @pot.theme.capitalize, from: "Theme"
     click_on "Update Pot"
 
     assert_text "Pot was successfully updated"

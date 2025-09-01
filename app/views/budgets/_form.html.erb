@@ -49,12 +49,19 @@
 
   <div class="my-5">
     <%= form.label :theme %>
-    <%= render DropdownComponent.new(
-      name: "budget[theme]",
-      label: "Select Theme",
-      options: color_options,
-      selected: @budget.theme,
-    ) %>
+    <%= form.select :theme,
+                    color_options,
+                    { prompt: "Select a theme" },
+                    class: [
+                      "block shadow-sm rounded-md border px-3 py-2 mt-2 w-full",
+                      "bg-white text-gray-900",
+                      {
+                        "border-gray-400 focus:outline-blue-600":
+                          budget.errors[:theme].none?,
+                        "border-red-400 focus:outline-red-600":
+                          budget.errors[:theme].any?,
+                      },
+                    ] %>
   </div>
 
   <%= form.submit class: "btn btn--primary w-full" %>

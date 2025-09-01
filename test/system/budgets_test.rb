@@ -16,9 +16,9 @@ class BudgetsTest < ApplicationSystemTestCase
     visit budgets_url
     click_on "New budget"
 
-    fill_in "Category", with: @budget.category
+    select @budget.category.name, from: "Category"
     fill_in "Maximum", with: @budget.maximum
-    fill_in "Theme", with: @budget.theme
+    select @budget.theme.capitalize, from: "Theme"
     click_on "Create Budget"
 
     assert_text "Budget was successfully created"
@@ -29,9 +29,9 @@ class BudgetsTest < ApplicationSystemTestCase
     visit budget_url(@budget)
     click_on "Edit this budget", match: :first
 
-    fill_in "Category", with: @budget.category
+    select @budget.category.name, from: "Category"
     fill_in "Maximum", with: @budget.maximum
-    fill_in "Theme", with: @budget.theme
+    select @budget.theme.capitalize, from: "Theme"
     click_on "Update Budget"
 
     assert_text "Budget was successfully updated"

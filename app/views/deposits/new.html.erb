@@ -39,6 +39,7 @@
         <div
           data-controller="progress-bar"
           data-progress-bar-theme-value="<%= @pot.theme %>"
+          data-progress-bar-theme-color-value="<%= theme_css_color(@pot.theme) %>"
           data-progress-bar-total-value="<%= @pot.total %>"
           data-progress-bar-target-value="<%= @pot.target %>"
           data-progress-bar-mode-value="deposit"

@@ -60,7 +60,7 @@
         <% @pots.each do |pot| %>
           <div class="p-4 bg-beige-100 rounded-lg">
             <div class="flex items-center mb-2">
-              <div class="w-4 h-4 rounded-full mr-3 bg-<%= pot.theme %>"></div>
+              <div class="w-4 h-4 rounded-full mr-3" style="background-color: <%= theme_css_color(pot.theme) %>"></div>
               <p class="text-gray-900 text-sm font-medium"><%= pot.name.split(' ').first %></p>
             </div>
             <p class="text-gray-900 text-lg font-bold"><%= number_to_currency(pot.total) %></p>
@@ -152,7 +152,7 @@
           <div class="flex items-center">
               <div
                 class="h-5 rounded-lg w-1 mr-4"
-                style="background-color: <%= budget.theme %>"
+                style="background-color: <%= theme_css_color(budget.theme) %>"
               ></div>
             <div>
               <p class="text-gray-500 text-xs"><%= budget.category&.name || "Unknown" %></p>

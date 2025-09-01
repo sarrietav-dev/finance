@@ -3,11 +3,11 @@
 one:
   category: one
   maximum: 500.00
-  theme: blue
+  theme: green
   user: one
 
 two:
   category: two
   maximum: 1500.00
-  theme: red
+  theme: purple
   user: one

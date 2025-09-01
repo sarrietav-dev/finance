@@ -4,14 +4,21 @@ require "test_helper"
 
 class PotTest < ActiveSupport::TestCase
   setup do
-    # sign_in_as users(:one)
+    @user = users(:one)
+    @session = Session.new(user: @user)
+    Current.session = @session
+  end
+
+  teardown do
+    Current.session = nil
   end
 
   test "valid pot" do
     pot = Pot.new(
       name: "Test Pot",
       target: 100,
-      theme: "green"
+      theme: "green",
+      user: @user
     )
 
     assert pot.valid?
@@ -24,7 +31,8 @@ class PotTest < ActiveSupport::TestCase
   test "invalid without name" do
     pot = Pot.new(
       target: 100,
-      theme: "green"
+      theme: "green",
+      user: @user
     )
 
     assert_not pot.valid?
@@ -36,7 +44,8 @@ class PotTest < ActiveSupport::TestCase
     pot = Pot.new(
       name: "Test Pot",
       target: -100,
-      theme: "green"
+      theme: "green",
+      user: @user
     )
 
     assert_not pot.valid?
@@ -49,7 +58,8 @@ class PotTest < ActiveSupport::TestCase
       name: "Test Pot",
       target: 100,
       total: -50,
-      theme: "green"
+      theme: "green",
+      user: @user
     )
 
     assert_not pot.valid?
@@ -61,7 +71,7 @@ class PotTest < ActiveSupport::TestCase
     pot = Pot.new(
       name: "Test Pot",
       target: 100,
-      theme: nil
+      user: @user
     )
 
     assert_not pot.valid?
@@ -73,7 +83,8 @@ class PotTest < ActiveSupport::TestCase
     pot = Pot.new(
       name: "Test Pot",
       target: 100,
-      theme: "invalid_theme"
+      theme: "invalid_theme",
+      user: @user
     )
 
     assert_not pot.valid?
