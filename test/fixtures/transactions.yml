@@ -6,6 +6,7 @@ one:
   date: 2025-04-11 22:39:23
   amount: 75.50
   recurring: false
+  user: one
 
 two:
   name: "Landlord"
@@ -13,3 +14,4 @@ two:
   date: 2025-04-12 10:00:00
   amount: 1500.00
   recurring: true
+  user: one

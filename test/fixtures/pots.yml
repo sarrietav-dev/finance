@@ -5,9 +5,11 @@ one:
   target: 9.99
   total: 9.99
   theme: green
+  user: one
 
 two:
   name: MyString
   target: 9.99
   total: 9.99
   theme: navy
+  user: one

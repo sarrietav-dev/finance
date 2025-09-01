@@ -46,7 +46,7 @@ class PotsControllerTest < ActionDispatch::IntegrationTest
 
   test "should show 'No pots found' when last pot destroyed" do
     Pot.delete_all
-    last_pot = Pot.create!(name: "Last Pot", target: 50, theme: "green")
+    last_pot = Pot.create!(name: "Last Pot", target: 50, theme: "green", user: users(:one))
     delete pot_url(last_pot, format: :turbo_stream)
     assert_equal 0, Pot.count
     assert_match "No pots found", @response.body

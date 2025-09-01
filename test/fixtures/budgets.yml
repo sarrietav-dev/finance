@@ -4,8 +4,10 @@ one:
   category: one
   maximum: 500.00
   theme: blue
+  user: one
 
 two:
   category: two
   maximum: 1500.00
   theme: red
+  user: one

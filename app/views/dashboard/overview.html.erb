@@ -1,0 +1,199 @@
+<% content_for :title, "Overview" %>
+
+<div class="w-full px-4 py-6 space-y-6 bg-beige-100 min-h-screen">
+  <div class="flex justify-between items-center">
+    <h1 class="font-bold text-3xl text-gray-900">Overview</h1>
+  </div>
+
+  <% if notice.present? %>
+    <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-md inline-block" id="notice">
+      <%= notice %>
+    </p>
+  <% end %>
+
+  <!-- Current Balance Card -->
+  <div class="bg-gray-900 rounded-xl p-5">
+    <p class="text-white text-sm mb-3">Current Balance</p>
+    <p class="text-white text-3xl font-bold"><%= number_to_currency(@current_balance) %></p>
+  </div>
+
+  <!-- Income and Expenses Cards -->
+  <div class="grid grid-cols-2 gap-3">
+    <div class="bg-white rounded-xl p-5">
+      <p class="text-gray-500 text-xs mb-2">Income</p>
+      <p class="text-gray-900 text-lg font-bold"><%= number_to_currency(@income) %></p>
+    </div>
+    
+    <div class="bg-white rounded-xl p-5">
+      <p class="text-gray-500 text-xs mb-2">Expenses</p>
+      <p class="text-gray-900 text-lg font-bold"><%= number_to_currency(@expenses) %></p>
+    </div>
+  </div>
+
+  <!-- Pots Section -->
+  <div class="bg-white rounded-xl p-5">
+    <div class="flex justify-between items-center mb-5">
+      <div class="flex items-center">
+        <%= inline_svg_tag "icon-nav-pots.svg", class: "w-5 h-5 mr-2" %>
+        <h2 class="text-gray-900 text-xl font-bold">Pots</h2>
+      </div>
+      <%= link_to pots_path, class: "text-gray-500 text-sm flex items-center hover:text-gray-700" do %>
+        See Details
+        <%= inline_svg_tag "icon-caret-right.svg", class: "w-3 h-3 ml-1" %>
+      <% end %>
+    </div>
+    
+    <div class="mb-6">
+      <div class="flex items-center mb-4">
+        <div class="w-12 h-12 bg-beige-100 rounded-lg flex items-center justify-center mr-4">
+          <%= inline_svg_tag "icon-pot.svg", class: "w-6 h-6" %>
+        </div>
+        <div>
+          <p class="text-gray-500 text-sm">Total Saved</p>
+          <p class="text-gray-900 text-3xl font-bold"><%= number_to_currency(@total_saved) %></p>
+        </div>
+      </div>
+    </div>
+
+    <% if @pots.any? %>
+      <div class="grid grid-cols-2 gap-4">
+        <% @pots.each do |pot| %>
+          <div class="p-4 bg-beige-100 rounded-lg">
+            <div class="flex items-center mb-2">
+              <div class="w-4 h-4 rounded-full mr-3 bg-<%= pot.theme %>"></div>
+              <p class="text-gray-900 text-sm font-medium"><%= pot.name.split(' ').first %></p>
+            </div>
+            <p class="text-gray-900 text-lg font-bold"><%= number_to_currency(pot.total) %></p>
+          </div>
+        <% end %>
+      </div>
+    <% else %>
+      <p class="text-gray-500 text-center py-8">No pots created yet.</p>
+    <% end %>
+  </div>
+
+  <!-- Transactions Section -->
+  <div class="bg-white rounded-xl p-5">
+    <div class="flex justify-between items-center mb-5">
+      <div class="flex items-center">
+        <%= inline_svg_tag "icon-nav-transactions.svg", class: "w-5 h-5 mr-2" %>
+        <h2 class="text-gray-900 text-xl font-bold">Transactions</h2>
+      </div>
+      <%= link_to transactions_path, class: "text-gray-500 text-sm flex items-center hover:text-gray-700" do %>
+        View All
+        <%= inline_svg_tag "icon-caret-right.svg", class: "w-3 h-3 ml-1" %>
+      <% end %>
+    </div>
+    
+    <% if @transactions.any? %>
+      <div class="space-y-4">
+        <% @transactions.each do |transaction| %>
+          <div class="flex items-center justify-between">
+            <div class="flex items-center">
+              <div class="w-10 h-10 bg-beige-100 rounded-full flex items-center justify-center mr-4">
+                <span class="text-gray-600 text-sm font-bold">
+                  <%= transaction.name.first.upcase %>
+                </span>
+              </div>
+              <div>
+                <p class="text-gray-900 text-sm font-bold"><%= transaction.name %></p>
+                <p class="text-gray-500 text-xs"><%= transaction.date.strftime("%d %b %Y") %></p>
+              </div>
+            </div>
+            <p class="text-sm font-bold <%= transaction.amount.positive? ? 'text-green' : 'text-red' %>">
+              <%= transaction.amount.positive? ? '+' : '-' %><%= number_to_currency(transaction.amount.abs) %>
+            </p>
+          </div>
+        <% end %>
+      </div>
+    <% else %>
+      <p class="text-gray-500 text-center py-8">No transactions found.</p>
+    <% end %>
+  </div>
+
+  <!-- Budgets Section -->
+  <div class="bg-white rounded-xl p-5">
+    <div class="flex justify-between items-center mb-5">
+      <div class="flex items-center">
+        <%= inline_svg_tag "icon-nav-budgets.svg", class: "w-5 h-5 mr-2" %>
+        <h2 class="text-gray-900 text-xl font-bold">Budgets</h2>
+      </div>
+      <%= link_to budgets_path, class: "text-gray-500 text-sm flex items-center hover:text-gray-700" do %>
+        See Details
+        <%= inline_svg_tag "icon-caret-right.svg", class: "w-3 h-3 ml-1" %>
+      <% end %>
+    </div>
+    
+    <% if @budgets.any? %>
+      <div class="relative mb-6">
+        <% if defined?(pie_chart) %>
+          <%= pie_chart @donut_data,
+          donut: true,
+          legend: false,
+          prefix: "$",
+          colors: @donut_colors,
+          library: {
+            cutout: "70%",
+          },
+          height: "180px" %>
+        <% end %>
+        <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center">
+          <p class="text-gray-900 text-2xl font-bold">
+            <%= number_to_currency(@budgets.sum { |budget| budget.spent_amount.abs }) %>
+          </p>
+          <p class="text-gray-500 text-xs">
+            of <%= number_to_currency(@budgets.sum(&:maximum)) %> limit
+          </p>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-2 gap-4">
+        <% @budgets.each do |budget| %>
+          <div class="flex items-center">
+              <div
+                class="h-5 rounded-lg w-1 mr-4"
+                style="background-color: <%= budget.theme %>"
+              ></div>
+            <div>
+              <p class="text-gray-500 text-xs"><%= budget.category&.name || "Unknown" %></p>
+              <p class="text-gray-900 text-sm font-bold"><%= number_to_currency(budget.spent_amount.abs) %></p>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    <% else %>
+      <p class="text-gray-500 text-center py-8">No budgets set up yet.</p>
+    <% end %>
+  </div>
+
+  <!-- Recurring Bills Section -->
+  <div class="bg-white rounded-xl p-5">
+    <div class="flex justify-between items-center mb-5">
+      <div class="flex items-center">
+        <%= inline_svg_tag "icon-nav-recurring-bills.svg", class: "w-5 h-5 mr-2" %>
+        <h2 class="text-gray-900 text-xl font-bold">Recurring Bills</h2>
+      </div>
+      <%= link_to bills_path, class: "text-gray-500 text-sm flex items-center hover:text-gray-700" do %>
+        See Details
+        <%= inline_svg_tag "icon-caret-right.svg", class: "w-3 h-3 ml-1" %>
+      <% end %>
+    </div>
+    
+    <div class="space-y-3">
+      <div class="flex justify-between items-center p-4 bg-beige-100 rounded-lg border-l-4 border-green">
+        <p class="text-gray-500 text-sm">Paid Bills</p>
+        <p class="text-gray-900 text-sm font-bold"><%= number_to_currency(@total_bills) %></p>
+      </div>
+      
+      <div class="flex justify-between items-center p-4 bg-beige-100 rounded-lg border-l-4 border-orange">
+        <p class="text-gray-500 text-sm">Total Upcoming</p>
+        <p class="text-gray-900 text-sm font-bold"><%= number_to_currency(@upcoming_bills) %></p>
+      </div>
+      
+      <div class="flex justify-between items-center p-4 bg-beige-100 rounded-lg border-l-4 border-cyan">
+        <p class="text-gray-900 text-sm font-bold">Due Soon</p>
+        <p class="text-gray-900 text-sm font-bold"><%= number_to_currency(@due_soon) %></p>
+      </div>
+    </div>
+  </div>
+</div>
