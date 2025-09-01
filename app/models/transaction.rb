@@ -15,7 +15,7 @@ class Transaction < ApplicationRecord
   end
 
   def self.latest_recurring_by_vendor
-    sub = select("DISTINCT name, date, amount")
+    sub = select("DISTINCT name, date, amount, user_id")
       .recurring
       .order(:name, date: :desc)
 
