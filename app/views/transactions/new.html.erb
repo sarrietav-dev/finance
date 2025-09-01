@@ -1,12 +1,35 @@
 <% content_for :title, "New transaction" %>
 
-<div class="md:w-2/3 w-full">
-  <h1 class="font-bold text-4xl">New transaction</h1>
+<turbo-frame id="transactions_modal">
+  <div data-controller="modal" data-action="keyup@document->modal#closeEsc">
+    <div
+      data-modal-target="backdrop"
+      class="fixed inset-0 bg-gray-900 opacity-50 backdrop-enter"
+    ></div>
+    <div
+      data-modal-target="modal"
+      class="
+        bg-white rounded-xl p-8 md:w-2/3 w-full max-h-[90vh] overflow-y-auto space-y-5
+        fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 modal-enter
+        max-w-xl
+      "
+    >
+      <div class="flex justify-between items-center">
+        <h1 class="font-bold text-4xl">Add New Transaction</h1>
+        <%= inline_svg_tag "icon-close-modal.svg",
+        data: {
+          action: "click->modal#close",
+        },
+        class: "cursor-pointer" %>
+      </div>
+      <p class=" text-gray-500 text-sm font-normal leading-tight ">
+        Add a new transaction to track your financial activity. Choose a category to help organize your spending.
+      </p>
 
-  <%= render "form", transaction: @transaction %>
+      <turbo-frame id="new_transaction">
+        <%= render "form", transaction: @transaction %>
+      </turbo-frame>
+    </div>
 
-  <%= link_to "Back to transactions",
-  transactions_path,
-  class:
-    "w-full sm:w-auto text-center mt-2 sm:mt-0 sm:ml-2 rounded-md px-3.5 py-2.5 bg-gray-100 hover:bg-gray-50 inline-block font-medium" %>
-</div>
+  </div>
+</turbo-frame>

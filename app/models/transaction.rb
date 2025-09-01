@@ -8,6 +8,7 @@ class Transaction < ApplicationRecord
   default_scope -> { where(user: Current.user) if Current.user }
 
   scope :recurring, -> { where(recurring: true) }
+  scope :recent, -> { order(created_at: :desc) }
 
   # Class method for scoped queries when default scope might not be available
   def self.for_current_user

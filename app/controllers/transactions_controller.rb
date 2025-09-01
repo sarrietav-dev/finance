@@ -5,7 +5,7 @@ class TransactionsController < ApplicationController
   include Pagy::Backend
   include TransactionsSorting
 
-  before_action :set_transaction, only: %i[show edit update destroy]
+  before_action :set_transaction, only: %i[show edit update destroy delete]
 
   # GET /transactions or /transactions.json
   def index
@@ -30,15 +30,24 @@ class TransactionsController < ApplicationController
     @categories = Category.for_current_user
   end
 
+  def delete
+  end
+
   # POST /transactions or /transactions.json
   def create
     @transaction = Transaction.new(transaction_params)
 
     respond_to do |format|
       if @transaction.save
-        format.html { redirect_to @transaction, notice: t("transactions.created") }
+        format.turbo_stream
+        format.html { redirect_to transactions_path, notice: t("transactions.created") }
         format.json { render :show, status: :created, location: @transaction }
       else
+        format.turbo_stream do
+          render turbo_stream: turbo_stream.update("new_transaction",
+            partial: "transactions/form"),
+            status: :unprocessable_entity
+        end
         format.html { render :new, status: :unprocessable_entity }
         format.json { render json: @transaction.errors, status: :unprocessable_entity }
       end
@@ -49,9 +58,15 @@ class TransactionsController < ApplicationController
   def update
     respond_to do |format|
       if @transaction.update(transaction_params)
-        format.html { redirect_to @transaction, notice: t("transactions.updated") }
+        format.turbo_stream
+        format.html { redirect_to transactions_path, notice: t("transactions.updated") }
         format.json { render :show, status: :ok, location: @transaction }
       else
+        format.turbo_stream do
+          render turbo_stream: turbo_stream.update("edit_transaction",
+            partial: "transactions/form"),
+            status: :unprocessable_entity
+        end
         format.html { render :edit, status: :unprocessable_entity }
         format.json { render json: @transaction.errors, status: :unprocessable_entity }
       end
@@ -63,6 +78,7 @@ class TransactionsController < ApplicationController
     @transaction.destroy!
 
     respond_to do |format|
+      format.turbo_stream
       format.html do
         redirect_to transactions_path, status: :see_other, notice: t("transactions.destroyed")
       end

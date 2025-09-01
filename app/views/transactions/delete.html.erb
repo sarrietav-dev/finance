@@ -1,0 +1,57 @@
+<% content_for :title, "Deleting transaction" %>
+
+<turbo-frame id="transactions_modal">
+  <div data-controller="modal" data-action="keyup@document->modal#closeEsc">
+    <div
+      data-modal-target="backdrop"
+      class="fixed inset-0 bg-gray-900 opacity-50 backdrop-enter"
+    ></div>
+    <div
+      data-modal-target="modal"
+      class="
+        bg-white rounded-xl p-8 md:w-2/3 w-full max-h-[90vh] overflow-y-auto space-y-5
+        fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 modal-enter
+        max-w-xl
+      "
+    >
+      <div class="flex justify-between items-center">
+        <h1 class="font-bold text-4xl">Delete Transaction?</h1>
+        <%= inline_svg_tag "icon-close-modal.svg",
+        data: {
+          action: "click->modal#close",
+        },
+        class: "cursor-pointer" %>
+      </div>
+      <p class=" text-gray-500 text-sm font-normal leading-tight ">
+        Are you sure you want to delete this transaction? This action cannot be
+        reversed, and the transaction will be permanently removed from your records.
+      </p>
+
+      <div class="bg-gray-50 rounded-lg p-4 border">
+        <div class="flex justify-between items-center mb-2">
+          <span class="font-semibold"><%= @transaction.name %></span>
+          <span class="font-semibold <%= @transaction.amount < 0 ? 'text-red-500' : 'text-green-500' %>">
+            <%= parse_amount(@transaction.amount) %>
+          </span>
+        </div>
+        <div class="text-sm text-gray-500">
+          <%= @transaction.category&.name %> • <%= l(@transaction.date, format: :short) %>
+        </div>
+      </div>
+
+      <div class="">
+        <%= button_to "Yes, Confirm Deletion",
+        transaction_path(@transaction),
+        method: :delete,
+        class: "btn btn--destroy w-full" %>
+        <button
+          data-action="modal#close"
+          class="mt-4 text-gray-500 text-sm cursor-pointer font-normal w-full"
+        >
+          No, Go Back
+        </button>
+      </div>
+    </div>
+
+  </div>
+</turbo-frame>

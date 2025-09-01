@@ -16,7 +16,11 @@ Rails.application.routes.draw do
   end
   resource :session
   resources :passwords, param: :token
-  resources :transactions
+  resources :transactions do
+    member do
+      get "delete", as: :delete
+    end
+  end
   get :bills, to: "bills#index"
 
   # Make overview the root route

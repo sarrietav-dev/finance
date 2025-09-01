@@ -1,0 +1,27 @@
+<% if @transaction.destroyed? %>
+  <%= turbo_stream.update "transactions_modal", "" %>
+  <%= turbo_stream.update "transaction_table" do %>
+    <%= render partial: "transactions/table",
+    locals: {
+      transactions: Transaction.for_current_user.recent.limit(10),
+      pagy: Pagy.new(count: Transaction.for_current_user.count, page: 1)
+    } %>
+  <% end %>
+  <%= turbo_stream.update "notice" do %>
+    <p
+      class="
+        py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-md inline-block
+      "
+      id="notice"
+    >
+      <%= t("transactions.destroyed") %>
+    </p>
+  <% end %>
+<% else %>
+  <%= turbo_stream.update "transactions_modal" do %>
+    <div class="bg-red-50 text-red-500 px-3 py-2 font-medium rounded-md mt-3">
+      <h2>Unable to delete transaction</h2>
+      <p>There was an error deleting this transaction. Please try again.</p>
+    </div>
+  <% end %>
+<% end %>

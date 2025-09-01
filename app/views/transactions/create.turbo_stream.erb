@@ -1,0 +1,24 @@
+<% if @transaction.persisted? %>
+  <%= turbo_stream.update "transactions_modal", "" %>
+  <%= turbo_stream.update "transaction_table" do %>
+    <%= render partial: "transactions/table",
+    locals: {
+      transactions: @transactions || Transaction.for_current_user.recent.limit(10),
+      pagy: @pagy || Pagy.new(count: 0, page: 1)
+    } %>
+  <% end %>
+  <%= turbo_stream.update "notice" do %>
+    <p
+      class="
+        py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-md inline-block
+      "
+      id="notice"
+    >
+      <%= t("transactions.created") %>
+    </p>
+  <% end %>
+<% else %>
+  <%= turbo_stream.update "new_transaction" do %>
+    <%= render "form", transaction: @transaction %>
+  <% end %>
+<% end %>
