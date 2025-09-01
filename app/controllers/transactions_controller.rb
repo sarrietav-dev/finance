@@ -9,7 +9,7 @@ class TransactionsController < ApplicationController
 
   # GET /transactions or /transactions.json
   def index
-    @categories = Category.all
+    @categories = Category.for_current_user
     @transactions = filtered_transactions
     @pagy, @transactions = pagy(@transactions, items: 10, size: 5)
     respond_to_format
@@ -22,12 +22,12 @@ class TransactionsController < ApplicationController
   # GET /transactions/new
   def new
     @transaction = Transaction.new
-    @categories = Category.all
+    @categories = Category.for_current_user
   end
 
   # GET /transactions/1/edit
   def edit
-    @categories = Category.all
+    @categories = Category.for_current_user
   end
 
   # POST /transactions or /transactions.json
@@ -94,7 +94,7 @@ private
   end
 
   def filtered_transactions
-    transactions = Transaction.all
+    transactions = Transaction.for_current_user
     transactions = filter_by_category(transactions)
     transactions = filter_by_search(transactions)
     sort_scope(transactions, params[:sort])

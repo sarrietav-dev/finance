@@ -5,7 +5,7 @@ class PotsController < ApplicationController
 
   # GET /pots or /pots.json
   def index
-    @pots = Pot.all
+    @pots = Pot.for_current_user
   end
 
   # GET /pots/1 or /pots/1.json

@@ -20,12 +20,12 @@ class BudgetsController < ApplicationController
   # GET /budgets/new
   def new
     @budget = Budget.new
-    @categories = Category.all
+    @categories = Category.for_current_user
   end
 
   # GET /budgets/1/edit
   def edit
-    @categories = Category.all
+    @categories = Category.for_current_user
   end
 
   # POST /budgets or /budgets.json
@@ -97,9 +97,9 @@ private
   end
 
   def set_budgets
-    @budgets = Budget.includes(category: :transactions).all
+    @budgets = Budget.includes(category: :transactions).for_current_user
     @transaction_sums = @budgets.each_with_object({}) do |budget, sums|
-      sums[budget.category_id] = budget.category.transactions.sum(&:amount)
+      sums[budget.category_id] = budget.category.transactions.for_current_user.sum(&:amount)
     end
   end
 end
