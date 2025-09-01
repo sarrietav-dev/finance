@@ -5,16 +5,16 @@ class BudgetsController < ApplicationController
 
   # GET /budgets or /budgets.json
   def index
-    @budgets = Budget.includes(category: [:transactions]).all
+    @budgets = Budget.includes(category: :transactions).all
 
-    transaction_sums = Transaction.group(:category_id).sum(:amount)
-    category_ids = transaction_sums.keys.compact
-    categories = Category.where(id: category_ids).pluck(:id, :name).to_h
-
-    @donut_data = transaction_sums.each_with_object({}) do |(category_id, amount), hash|
-      label = categories[category_id] || "Unknown"
-      hash[label] = amount.abs
+    @transaction_sums = @budgets.each_with_object({}) do |budget, sums|
+      sums[budget.category_id] = budget.category.transactions.sum(&:amount)
     end
+
+    @donut_data = @budgets.map do |budget|
+      [budget.category.name, @transaction_sums[budget.category_id].to_f.abs]
+    end
+    @donut_colors = @budgets.map(&:theme)
   end
 
   # GET /budgets/1 or /budgets/1.json

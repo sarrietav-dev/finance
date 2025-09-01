@@ -43,13 +43,7 @@
     <%= render DropdownComponent.new(
       name: "pot[theme]",
       label: "Select Theme",
-      options: [
-        %w[Green green],
-        %w[Yellow yellow],
-        %w[Cyan cyan],
-        %w[Navy navy],
-        %w[Purple purple],
-      ],
+      options: color_options,
       selected: @pot.theme,
     ) %>
   </div>

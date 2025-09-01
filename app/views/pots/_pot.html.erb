@@ -2,7 +2,10 @@
   <article class="bg-white rounded-lg px-5 py-7">
     <div class="flex justify-between items-center mb-10">
       <h2 class="text-xl font-bold text-gray-900 flex items-center gap-4">
-        <span class="size-4 bg-<%= pot.theme %> rounded-full inline-block"></span>
+        <span
+          class="size-4 rounded-full inline-block"
+          style="background-color: <%= pot.theme %>"
+        ></span>
         <span><%= pot.name %></span>
       </h2>
       <div data-controller="toggle" class="relative">
@@ -53,9 +56,8 @@
       <div
         class="
           absolute top-0 left-0 h-2 rounded-full transition-all duration-1000
-          bg-<%= pot.theme %>
         "
-        style="width: <%= (pot.total.to_f / pot.target * 100).round(2) %>%"
+        style="background-color: <%= pot.theme %>; width: <%= (pot.total.to_f / pot.target * 100).round(2) %>%"
       ></div>
     </div>
     <div class="w-full flex items-baseline justify-between">

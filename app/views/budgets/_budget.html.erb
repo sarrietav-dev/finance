@@ -1,8 +1,15 @@
 <%= turbo_frame_tag dom_id budget do %>
+  <% spent_amount = @transaction_sums[budget.category_id].to_f %>
+  <% spent_percentage =
+    budget.maximum.to_f > 0 ? (spent_amount / budget.maximum.to_f) * 100 : 0 %>
+
   <article class="bg-white rounded-lg px-5 py-7 space-y-5">
     <div class="flex justify-between items-center">
       <h2 class="text-xl font-bold text-gray-900 flex items-center gap-4">
-        <span class="size-4 bg-<%= budget.theme %> rounded-full inline-block"></span>
+        <span
+          class="size-4 rounded-full inline-block"
+          style="background-color: <%= budget.theme %>"
+        ></span>
         <span><%= budget.category&.name %></span>
       </h2>
       <div data-controller="toggle" class="relative">
@@ -44,27 +51,31 @@
     </div>
     <div class="space-y-4">
       <p class="text-gray-500 text-sm">
-        Maximum of $<%= budget.maximum %>
+        Maximum of
+        <%= number_to_currency(budget.maximum) %>
       </p>
       <div class="rounded p-1 bg-beige-100 w-full">
         <span
-          style="width: <%= budget.spent_percentage %>%"
-          class="bg-<%= budget.theme %> rounded h-6 block"
+          class="rounded h-6 block"
+          style="background-color: <%= budget.theme %>; width: <%= spent_percentage %>%"
         ></span>
       </div>
       <div class="flex justify-between">
         <div class="flex gap-4 grow">
-          <div class="h-full rounded-lg w-1 bg-<%= budget.theme %> "></div>
+          <div
+            class="h-full rounded-lg w-1"
+            style="background-color: <%= budget.theme %>"
+          ></div>
           <div class="flex flex-col items-start">
             <span class="color-gray-500 text-xs">Spent</span>
-            <span class="color-gray-900 text-sm font-bold">$<%= budget.category.transactions.sum :amount %></span>
+            <span class="color-gray-900 text-sm font-bold"><%= number_to_currency(spent_amount) %></span>
           </div>
         </div>
         <div class="flex gap-4 grow">
           <div class="h-full rounded-lg w-1 bg-beige-100"></div>
           <div class="flex flex-col items-start ">
             <span class="color-gray-500 text-xs">Free</span>
-            <span class="color-gray-900 text-sm font-bold">$<%= budget.maximum - budget.category.transactions.sum(:amount) %></span>
+            <span class="color-gray-900 text-sm font-bold"><%= number_to_currency(budget.maximum - spent_amount) %></span>
           </div>
         </div>
       </div>
@@ -85,15 +96,15 @@
         </div>
       </div>
       <ul class="divide-y divide-gray-500/20">
-        <% if budget.category.transactions.size < 1 %>
+        <% if budget.category.transactions.empty? %>
           <li class="text-gray-500 text-sm text-center py-3">No transactions yet</li>
         <% else %>
-          <% budget.category.transactions.each do |item| %>
+          <% budget.category.transactions.sort_by(&:date).reverse.first(3).each do |item| %>
             <li class="flex justify-between items-center py-3">
               <strong class="text-gray-900 font-bold text-xs"><%= item.name %></strong>
               <div class="flex flex-col items-end">
                 <span class="text-gray-900 font-bold text-xs">
-                  $<%= item.amount %>
+                  <%= number_to_currency(item.amount) %>
                 </span>
                 <small class="text-gray-500 text-xs">
                   <%= item.date.strftime("%d %b %Y") %>

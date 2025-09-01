@@ -1,7 +1,6 @@
 <% content_for :title, "Budgets" %>
 
 <div class="w-full px-4 py-6 md:px-10 md:py-8 relative h-full space-y-10">
-
   <div class="flex justify-between items-center">
     <h1 class="font-bold text-4xl">Budgets</h1>
     <%= link_to "+ Add New Budget",
@@ -21,18 +20,66 @@
     ><%= notice %></p>
   <% end %>
 
-  <article class="bg-white rounded-lg px-5 py-7 space-y-5">
-    <%= pie_chart @donut_data,
-    donut: true,
-    legend: false,
-    prefix: "$",
-    library: {
-      cutout: "70%",
-    } %>
-  </article>
+  <div class="flex flex-col lg:flex-row gap-10">
+    <article
+      class="
+        bg-white rounded-lg px-5 py-7 pb-0 gap-8 flex flex-col md:flex-row
+        md:justify-between md:p-8 lg:flex-col lg:self-start
+      "
+    >
+      <div class="relative">
+        <%= pie_chart @donut_data,
+        donut: true,
+        legend: false,
+        prefix: "$",
+        colors: @donut_colors,
+        library: {
+          cutout: "70%",
+        } %>
+        <div
+          class="
+            absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-center
+          "
+        >
+          <p class="text-3xl font-bold text-gray-900"><%= number_to_currency(
+              Category
+                .where(id: @budgets.pluck(:category_id))
+                .joins(:transactions)
+                .sum(:amount),
+            ) %></p>
+          <p class="text-sm text-gray-500">of
+            <%= number_to_currency(@budgets.sum(:maximum)) %>
+            limit</p>
+        </div>
+      </div>
+      <div class="grow">
+        <h2 class="text-gray-900 font-bold text-xl">
+          Spending Summary
+        </h2>
+        <ul class="flex flex-col divide-y divide-gray-500/20">
+          <% @budgets.each do |budget| %>
+            <li class="py-4 flex items-center">
+              <div
+                class="h-5 rounded-lg w-1 mr-4"
+                style="background-color: <%= budget.theme %>"
+              ></div>
+              <p class="text-gray-500 text-sm grow">
+                <%= budget.category.name %>
+              </p>
+              <p class="text-gray-900 font-bold mr-2">
+                <%= number_to_currency(budget.category.transactions.sum :amount) %>
+              </p>
+              <p class="text-gray-500 text-xs">
+                of
+                <%= number_to_currency(budget.maximum) %>
+              </p>
+            </li>
+          <% end %>
+        </ul>
+      </div>
+    </article>
 
-  <div>
-    <turbo-frame id="budgets" class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+    <turbo-frame id="budgets" class="grid grid-cols-1 lg:grid-cols-1 gap-6 grow">
       <%= render @budgets %>
       <p
         id="no-budgets-message"
