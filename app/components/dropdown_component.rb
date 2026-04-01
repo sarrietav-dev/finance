@@ -2,6 +2,7 @@
 
 # app/components/dropdown_component.rb
 class DropdownComponent < ViewComponent::Base
+  include InlineSvg::ActionView::Helpers
   def initialize(label:, name: nil, options: nil, selected: nil, autosubmit: false, icon: nil)
     @label = label
     @name = name
