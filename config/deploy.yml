@@ -87,7 +87,7 @@ builder:
 
 # Use a different ssh user than root
 ssh:
-  user: sebas
+  user: deploy
 
 # Use accessory services (secrets come from .kamal/secrets).
 # accessories:
