@@ -53,7 +53,7 @@
         <% end %>
       </tbody>
     </table>
-    <%== pagy_nav(pagy) %>
+    <%== pagy.series_nav %>
   </div>
   <!-- Transactions List (Mobile) -->
   <ul class="md:hidden flex flex-col divide-y divide-gray-100">
@@ -93,7 +93,7 @@
       </li>
     <% end %>
     <!-- Add more list items similarly -->
-    <%== pagy_nav(pagy) %>
+    <%== pagy.series_nav %>
   </ul>
 <% else %>
   <p aria-label="No transactions found" class="text-center my-10">No transactions found.</p>

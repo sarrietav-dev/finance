@@ -2,7 +2,7 @@
 
 # Controller for managing Transaction records, including listing, creating, updating, and deleting transactions.
 class TransactionsController < ApplicationController
-  include Pagy::Backend
+  include Pagy::Method
   include TransactionsSorting
 
   before_action :set_transaction, only: %i[show edit update destroy delete]
@@ -11,7 +11,7 @@ class TransactionsController < ApplicationController
   def index
     @categories = Category.for_current_user
     @transactions = filtered_transactions
-    @pagy, @transactions = pagy(@transactions, items: 10, size: 5)
+    @pagy, @transactions = pagy(@transactions, limit: 10, slots: 5)
     respond_to_format
   end
 

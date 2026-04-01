@@ -3,7 +3,7 @@
 source "https://rubygems.org"
 
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
-gem "rails", "~> 8.0.2"
+gem "rails", "~> 8.1.0"
 # The modern asset pipeline for Rails [https://github.com/rails/propshaft]
 gem "propshaft"
 # Use sqlite3 as the database for Active Record
@@ -83,10 +83,10 @@ group :test do
   gem "selenium-webdriver"
 end
 
-gem "view_component", "~> 3.21"
+gem "view_component", "~> 4.0"
 
 gem "requestjs-rails", "~> 0.0.13"
 
-gem "pagy", "~> 9.3"
+gem "pagy", "~> 43.0"
 
 gem "chartkick"

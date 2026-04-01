@@ -1,20 +1,17 @@
 # frozen_string_literal: true
 
-# Pagy initializer file (9.3.3)
+# Pagy initializer file (43.x)
 # Customize only what you really need and notice that the core Pagy works also without any of the following lines.
-# Should you just cherry pick part of this file, please maintain the require-order of the extras
 
-# Pagy Variables
+# Pagy Options
 # See https://ddnexus.github.io/pagy/docs/api/pagy#variables
-# You can set any pagy variable as a Pagy::DEFAULT. They can also be overridden per instance by just passing them to
-# Pagy.new|Pagy::Countless.new|Pagy::Calendar::*.new or any of the #pagy* controller methods
-# Here are the few that make more sense as DEFAULTs:
-# Pagy::DEFAULT[:limit]       = 20                    # default
-# Pagy::DEFAULT[:size]        = 7                     # default
-# Pagy::DEFAULT[:ends]        = true                  # default
-# Pagy::DEFAULT[:page_param]  = :page                 # default
-# Pagy::DEFAULT[:count_args]  = []                    # example for non AR ORMs
-# Pagy::DEFAULT[:max_pages]   = 3000                  # example
+# You can set any pagy option as a Pagy::OPTIONS entry. They can also be overridden per instance.
+# Here are the few that make more sense as OPTIONS:
+# Pagy::OPTIONS[:limit]      = 20                    # default
+# Pagy::OPTIONS[:slots]      = 7                     # default (was :size)
+# Pagy::OPTIONS[:compact]    = false                 # default (was :ends)
+# Pagy::OPTIONS[:page_key]   = 'page'                # default (was :page_param, now string)
+# Pagy::OPTIONS[:max_pages]  = 3000                  # example
 
 # Extras
 # See https://ddnexus.github.io/pagy/categories/extra
@@ -172,7 +169,7 @@
 
 # With the asset pipeline
 # Sprockets need to look into the pagy javascripts dir, so add it to the assets paths
-# Rails.application.config.assets.paths << Pagy.root.join('javascripts')
+# Rails.application.config.assets.paths << Pagy::ROOT.join('javascripts')
 
 # I18n
 
@@ -205,4 +202,3 @@ Pagy::I18n.load({locale: "en", filepath: "config/locales/en.yml"})
 # require 'pagy/extras/i18n'
 
 # When you are done setting your own default freeze it, so it will not get changed accidentally
-Pagy::DEFAULT.freeze
