@@ -194,7 +194,7 @@
 # load the "en" built-in locale, a custom "es" locale,
 # and a totally custom locale complete with a custom :pluralize proc:
 # (the first passed :locale will be used also as the default_locale)
-Pagy::I18n.load({locale: "en", filepath: "config/locales/en.yml"})
+# Pagy::I18n.load({locale: "en", filepath: "config/locales/en.yml"})
 
 # I18n extra: uses the standard i18n gem which is ~18x slower using ~10x more memory
 # than the default pagy internal i18n (see above)
